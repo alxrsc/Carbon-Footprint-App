@@ -1,0 +1,3 @@
+/Users/alexandrurosca/Desktop/Facultate/Anul 2/POO/Carbon_Footprint_App/cmake-build-debug/CMakeFiles/Carbon_Footprint_App.dir
+/Users/alexandrurosca/Desktop/Facultate/Anul 2/POO/Carbon_Footprint_App/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/alexandrurosca/Desktop/Facultate/Anul 2/POO/Carbon_Footprint_App/cmake-build-debug/CMakeFiles/rebuild_cache.dir
