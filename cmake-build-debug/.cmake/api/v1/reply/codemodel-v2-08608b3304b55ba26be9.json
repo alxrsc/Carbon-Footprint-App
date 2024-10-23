@@ -9,7 +9,7 @@
 					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
-						"string" : "3.29"
+						"string" : "3.16"
 					},
 					"projectIndex" : 0,
 					"source" : ".",
@@ -27,7 +27,7 @@
 					[
 						0
 					],
-					"name" : "Carbon_Footprint_App",
+					"name" : "CarbonFootprintApp",
 					"targetIndexes" : 
 					[
 						0
@@ -38,9 +38,9 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "Carbon_Footprint_App::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Carbon_Footprint_App-Debug-bd47ff771ddfbfa7eed2.json",
-					"name" : "Carbon_Footprint_App",
+					"id" : "CarbonFootprintApp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-CarbonFootprintApp-Debug-e80c491aeea0fa111e9b.json",
+					"name" : "CarbonFootprintApp",
 					"projectIndex" : 0
 				}
 			]

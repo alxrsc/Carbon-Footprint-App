@@ -1,6 +1,13 @@
-#include <iostream>
+#include <QApplication>
+#include <QWidget>
 
-int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+int main(int argc, char *argv[]) {
+    QApplication app(argc, argv);
+
+    QWidget window;
+    window.resize(320, 240);
+    window.setWindowTitle("Carbon Footprint App");
+    window.show();
+
+    return app.exec();
 }
