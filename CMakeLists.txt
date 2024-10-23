@@ -11,7 +11,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     set(QT_DIR $ENV{QT_MACOS_PATH})  # Assuming users set this env variable
     if(NOT QT_DIR)
         message(FATAL_ERROR "Please set QT_MACOS_PATH environment variable to your Qt installation directory")
-        # export QT_MACOS_PATH=/Users/youruser/Qt/6.x.x
+        # Path is: QT_MACOS_PATH=/Users/youruser/Qt/6.x.x
     endif()
 
     set(CMAKE_PREFIX_PATH "${QT_DIR}/lib/cmake/Qt6")
