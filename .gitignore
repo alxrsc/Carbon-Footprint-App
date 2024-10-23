@@ -1,0 +1,42 @@
+# Ignore build directories
+cmake-build-debug/
+cmake-build-release/
+cmake-build-*/  # To cover all build configurations
+
+# Ignore CMake generated files
+CMakeFiles/
+CMakeCache.txt
+Makefile
+*.cmake
+
+# Ignore compiled object files
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+
+# Ignore Qt generated files
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+*.swp
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore CLion and IDE settings
+.idea/
+.idea/workspace.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/*.iml
+cmake-build-debug/.idea/
