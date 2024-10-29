@@ -8,6 +8,6 @@ int main(int argc, char *argv[]) {
     window.resize(320, 240);
     window.setWindowTitle("Carbon Footprint App");
     window.show();
-
+// Maria: a mers.
     return app.exec();
 }
