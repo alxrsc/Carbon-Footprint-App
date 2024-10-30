@@ -10,5 +10,6 @@ int main(int argc, char *argv[]) {
     window.show();
 // Maria: a mers.
 // Petrisor: https://www.youtube.com/watch?v=qf_8dyLdT5s
+// Andu: https://www.instagram.com/daniel.cdi/
     return app.exec();
 }
