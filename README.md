@@ -6,3 +6,15 @@ using a custom download including Qt Design Studio 4.6.1, Qt WebEngine, Qt 6.8.0
 After that make sure to do the necessary setup for the CMake file varying based on OS.
 
 The architecture of the app will use a C++ based backend and a Qt oriented frontend.
+
+FACTORS THAT INFLUENCE THE CARBON FOOTPRINT
+    
+    In order to calculate ones carbon footprint we have to go trough the processes of his life that influence the actual value, mostly by asking the user to provide us information about his lifestyle, prefferably exact values, might handle general cases.
+    
+    We have to take into consideration the following emissions:
+        - household
+        - flights
+        - car
+        - motorbike
+        - bus & rail
+        - other (hotels, clothers food and drink, pharmaceuticals)
