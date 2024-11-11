@@ -52,7 +52,7 @@ build cmake_object_order_depends_target_CarbonFootprintApp: phony || .
 build CMakeFiles/CarbonFootprintApp.dir/main.cpp.o: CXX_COMPILER__CarbonFootprintApp_unscanned_Debug /Users/alexandrurosca/Desktop/Facultate/Anul$ 2/POO/Carbon_Footprint_App/main.cpp || cmake_object_order_depends_target_CarbonFootprintApp
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/CarbonFootprintApp.dir/main.cpp.o.d
-  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk -fcolor-diagnostics
+  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk
   INCLUDES = -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/lib/QtCore.framework/Headers -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers
   OBJECT_DIR = CMakeFiles/CarbonFootprintApp.dir
   OBJECT_FILE_DIR = CMakeFiles/CarbonFootprintApp.dir
