@@ -44,6 +44,8 @@ add_executable(CarbonFootprintApp
         SelectLanguagePage.h
         MainController.cpp
         MainController.h
+        FootprintMethodPage.cpp
+        FootprintMethodPage.h
 )
 
 # Link Qt libraries
