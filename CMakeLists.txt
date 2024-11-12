@@ -23,7 +23,7 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     set(QT_DIR $ENV{QT_WINDOWS_PATH})  # Assuming users set this env variable
     if(NOT QT_DIR)
         message(FATAL_ERROR "Please set QT_WINDOWS_PATH environment variable to your Qt installation directory")
-        #Windows:
+        # Windows:
         #   Open the System Properties -> Environment Variables.
         #   Add a new environment variable QT_WINDOWS_PATH with the path to your Qt installation, e.g., C:\Qt\6.x.x.
     endif()
@@ -35,9 +35,21 @@ endif()
 # Find Qt modules
 find_package(Qt6 REQUIRED COMPONENTS Widgets Core Gui)
 
-add_executable(CarbonFootprintApp main.cpp)
+# Source files from the source directory, not build directory
+add_executable(CarbonFootprintApp
+        main.cpp
+        MainPage.cpp
+        MainPage.h
+        SelectLanguagePage.cpp
+        SelectLanguagePage.h
+        MainController.cpp
+        MainController.h
+)
+
+# Link Qt libraries
 target_link_libraries(CarbonFootprintApp Qt6::Widgets Qt6::Core Qt6::Gui)
 
-# Setup for Qt UI files, resources, etc.
-qt6_wrap_ui(UI_HEADERS mainwindow.ui)
-qt6_add_resources(RESOURCES resources.qrc)
+# Enable automatic MOC (Meta-Object Compiler) processing for Q_OBJECT classes
+set_target_properties(CarbonFootprintApp PROPERTIES
+        AUTOMOC ON
+)
