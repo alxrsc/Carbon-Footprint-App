@@ -5,9 +5,11 @@
 #ifndef MAINPAGE_H
 #define MAINPAGE_H
 
+#include <QApplication>
 #include <QWidget>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 
 class MainPage : public QWidget {
 Q_OBJECT
