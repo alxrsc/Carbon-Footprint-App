@@ -47,6 +47,7 @@ FootprintMethodPage::FootprintMethodPage(QWidget *parent) : QWidget(parent) {
     // Connect buttons to their respective slots
     connect(peopleButton, &QPushButton::clicked, this, &FootprintMethodPage::showPeopleInputForm);
     connect(submitButton, &QPushButton::clicked, this, &FootprintMethodPage::submitPeopleCount);
+    connect(householdButton, &QPushButton::clicked, this, &FootprintMethodPage::onHouseholdButtonClicked);  // Connect household button click to slot
 }
 
 void FootprintMethodPage::initializeTranslations() {
@@ -122,4 +123,8 @@ void FootprintMethodPage::submitPeopleCount() {
         inputField->clear();
 //        inputField->setPlaceholderText(translations[selectedLanguage]["enterValidNumber"]);
     }
+}
+
+void FootprintMethodPage::onHouseholdButtonClicked() {
+    emit householdButtonClicked();  // Emit the signal when household button is clicked
 }

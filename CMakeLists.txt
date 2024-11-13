@@ -46,6 +46,8 @@ add_executable(CarbonFootprintApp
         MainController.h
         FootprintMethodPage.cpp
         FootprintMethodPage.h
+        HouseholdFootprintPage.cpp
+        HouseholdFootprintPage.h
 )
 
 # Link Qt libraries
