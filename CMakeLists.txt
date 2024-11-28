@@ -38,16 +38,16 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets Core Gui)
 # Source files from the source directory, not build directory
 add_executable(CarbonFootprintApp
         main.cpp
-        MainPage.cpp
-        MainPage.h
-        SelectLanguagePage.cpp
-        SelectLanguagePage.h
-        MainController.cpp
-        MainController.h
-        FootprintMethodPage.cpp
-        FootprintMethodPage.h
-        HouseholdFootprintPage.cpp
-        HouseholdFootprintPage.h
+        classes/MainPage.cpp
+        classes/MainPage.h
+        classes/SelectLanguagePage.cpp
+        classes/SelectLanguagePage.h
+        classes/MainController.cpp
+        classes/MainController.h
+        classes/FootprintMethodPage.cpp
+        classes/FootprintMethodPage.h
+        classes/HouseholdFootprintPage.cpp
+        classes/HouseholdFootprintPage.h
 )
 
 # Link Qt libraries
