@@ -42,50 +42,17 @@ FootprintMethodPage::FootprintMethodPage(QWidget *parent) : QWidget(parent) {
     setStyleSheet("background-color: lightblue;");
     showMaximized();
 
-    initializeTranslations();
+    peopleButton->setText("Calculate for a Specific Number of People");
+    householdButton->setText("Calculate for an Entire Household");
+    backButton->setText("Back");
+    promptLabel->setText("Enter the number of people:");
+    submitButton->setText("Submit");
+    inputField->setPlaceholderText("Please enter a valid number");
 
     // Connect buttons to their respective slots
     connect(peopleButton, &QPushButton::clicked, this, &FootprintMethodPage::showPeopleInputForm);
     connect(submitButton, &QPushButton::clicked, this, &FootprintMethodPage::submitPeopleCount);
     connect(householdButton, &QPushButton::clicked, this, &FootprintMethodPage::onHouseholdButtonClicked);  // Connect household button click to slot
-}
-
-void FootprintMethodPage::initializeTranslations() {
-    // English translations
-    translations["English"]["peopleButton"] = "Calculate for a Specific Number of People";
-    translations["English"]["householdButton"] = "Calculate for an Entire Household";
-    translations["English"]["backButton"] = "Back";
-    translations["English"]["promptLabel"] = "Enter the number of people:";
-    translations["English"]["submitButton"] = "Submit";
-    translations["English"]["enterValidNumber"] = "Please enter a valid number";
-
-    // Romanian translations
-    translations["Romanian"]["peopleButton"] = "Calculați pentru un număr specific de persoane";
-    translations["Romanian"]["householdButton"] = "Calculați pentru întreaga gospodărie";
-    translations["Romanian"]["backButton"] = "Înapoi";
-    translations["Romanian"]["promptLabel"] = "Introduceți numărul de persoane:";
-    translations["Romanian"]["submitButton"] = "Trimite";
-    translations["Romanian"]["enterValidNumber"] = "Vă rugăm să introduceți un număr valid";
-
-    // Spanish translations
-    translations["Spanish"]["peopleButton"] = "Calcular para un número específico de personas";
-    translations["Spanish"]["householdButton"] = "Calcular para todo el hogar";
-    translations["Spanish"]["backButton"] = "Regresar";
-    translations["Spanish"]["promptLabel"] = "Ingrese el número de personas:";
-    translations["Spanish"]["submitButton"] = "Enviar";
-    translations["Spanish"]["enterValidNumber"] = "Por favor, introduzca un número válido";
-}
-
-void FootprintMethodPage::updateLanguage(const QString &language) {
-    // Set button texts based on the selected language
-    if (translations.contains(language)) {
-        peopleButton->setText(translations[language]["peopleButton"]);
-        householdButton->setText(translations[language]["householdButton"]);
-        backButton->setText(translations[language]["backButton"]);
-        promptLabel->setText(translations[language]["promptLabel"]);
-        submitButton->setText(translations[language]["submitButton"]);
-        inputField->setPlaceholderText(translations[language]["enterValidNumber"]);
-    }
 }
 
 void FootprintMethodPage::showPeopleInputForm() {

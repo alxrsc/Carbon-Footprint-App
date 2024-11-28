@@ -2,15 +2,10 @@
 
 MainController::MainController() {
     // Connect main page button to show language selection page
-    QObject::connect(mainPage.helloButton, &QPushButton::clicked, this, &MainController::showLanguagePage);
-
-    // Connect language selection buttons
-    QObject::connect(languagePage.englishButton, &QPushButton::clicked, this, &MainController::setLanguageEnglish);
-    QObject::connect(languagePage.romanianButton, &QPushButton::clicked, this, &MainController::setLanguageRomanian);
-    QObject::connect(languagePage.spanishButton, &QPushButton::clicked, this, &MainController::setLanguageSpanish);
+    QObject::connect(mainPage.helloButton, &QPushButton::clicked, this, &MainController::showMethodPage);
 
     // Connect back button on methodPage to go back to language selection
-    QObject::connect(methodPage.getBackButton(), &QPushButton::clicked, this, &MainController::backToSelectLanguagePage);
+    QObject::connect(methodPage.getBackButton(), &QPushButton::clicked, this, &MainController::backToMainPage);
 
     // Connect the householdButton on methodPage to show HouseholdFootprintPage
     QObject::connect(methodPage.getHouseholdButton(), &QPushButton::clicked, this, &MainController::showHouseholdFootprintPage);
@@ -20,26 +15,15 @@ MainController::MainController() {
 }
 
 void MainController::showMainPage() {
-    languagePage.hide();
     methodPage.hide();
     householdFootprintPage.hide(); // Hide household page when going back to main
     mainPage.show();
 }
 
-void MainController::showLanguagePage() {
-    mainPage.hide();
-    methodPage.hide();
-    householdFootprintPage.hide(); // Hide household page if returning to language page
-    languagePage.show();
-}
-
-void MainController::backToSelectLanguagePage() {
-    methodPage.hide();
-    mainPage.show();
-}
-
 void MainController::showMethodPage() {
-    languagePage.hide();
+    // Hide the main page and show the method page
+    mainPage.hide();
+    householdFootprintPage.hide();
     methodPage.show();
 }
 
@@ -49,21 +33,9 @@ void MainController::showHouseholdFootprintPage() {
     householdFootprintPage.show();
 }
 
-// Slot functions to set language
-void MainController::setLanguageEnglish() {
-    selectedLanguage = "English";
-    methodPage.updateLanguage(selectedLanguage);
-    showMethodPage();
-}
-
-void MainController::setLanguageRomanian() {
-    selectedLanguage = "Romanian";
-    methodPage.updateLanguage(selectedLanguage);
-    showMethodPage();
-}
-
-void MainController::setLanguageSpanish() {
-    selectedLanguage = "Spanish";
-    methodPage.updateLanguage(selectedLanguage);
-    showMethodPage();
+void MainController::backToMainPage() {
+    // Hide the method page and show the main page
+    methodPage.hide();
+    householdFootprintPage.hide();
+    mainPage.show();
 }

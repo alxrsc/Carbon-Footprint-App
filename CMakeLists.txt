@@ -40,8 +40,6 @@ add_executable(CarbonFootprintApp
         main.cpp
         classes/MainPage.cpp
         classes/MainPage.h
-        classes/SelectLanguagePage.cpp
-        classes/SelectLanguagePage.h
         classes/MainController.cpp
         classes/MainController.h
         classes/FootprintMethodPage.cpp

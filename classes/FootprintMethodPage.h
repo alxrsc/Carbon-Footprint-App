@@ -15,7 +15,6 @@ public:
     explicit FootprintMethodPage(QWidget *parent = nullptr);
     virtual ~FootprintMethodPage() = default;
 
-    void updateLanguage(const QString &language);
 
     // Public getter methods for accessing private buttons
     QPushButton* getBackButton() const { return backButton; }
