@@ -1,1 +1,3 @@
-set(__QT_DEPLOY_TARGET_CarbonFootprintApp_FILE /Users/alexandrurosca/Desktop/Facultate/Anul 2/POO/Carbon_Footprint_App/cmake-build-debug/CarbonFootprintApp)
+set(__QT_DEPLOY_TARGET_CarbonFootprintApp_FILE C:/Users/leupe/Documents/GitHub/Carbon-Footprint-App/cmake-build-debug/CarbonFootprintApp.exe)
+set(__QT_DEPLOY_TARGET_CarbonFootprintApp_TYPE EXECUTABLE)
+set(__QT_DEPLOY_TARGET_CarbonFootprintApp_RUNTIME_DLLS C:/Qt/6.8.0/mingw_64/bin/Qt6Widgets.dll;C:/Qt/6.8.0/mingw_64/bin/Qt6Gui.dll;C:/Qt/6.8.0/mingw_64/bin/Qt6Core.dll)
