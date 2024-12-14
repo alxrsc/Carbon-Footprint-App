@@ -9,7 +9,6 @@
 #include <QLineEdit>
 #include <QComboBox>
 #include <QVBoxLayout>
-#include <QHBoxLayout>
 
 HouseholdFootprintPage::HouseholdFootprintPage(QWidget *parent) : QWidget(parent) {
     setupUi();
@@ -27,26 +26,13 @@ void HouseholdFootprintPage::setupUi() {
 
     // Form layout for energy consumption inputs
     formLayout = new QFormLayout;
+    formLayout->addRow("Please state your contry:", new QLineEdit(this));
     formLayout->addRow("Electricity (kWh):", new QLineEdit(this));
-    formLayout->addRow("Natural Gas (kWh):", new QLineEdit(this));
-    formLayout->addRow("Heating Oil (litres):", new QLineEdit(this));
+    formLayout->addRow("Petrol (litres):", new QLineEdit(this));
     formLayout->addRow("Coal (metric tons):", new QLineEdit(this));
+    formLayout->addRow("Diesel (litres):", new QLineEdit(this));
     formLayout->addRow("LPG (litres):", new QLineEdit(this));
-    formLayout->addRow("Propane (litres):", new QLineEdit(this));
-    formLayout->addRow("Wooden Pellets (metric tons):", new QLineEdit(this));
-
-    // Number of people in the household
-    peopleLabel = new QLabel("How many people are in your household?", this);
-    peopleComboBox = new QComboBox(this);
-    peopleComboBox->addItems({"1", "2", "3", "4", "5", "6+"});
-
-    // Calculate Button
-    calculateButton = new QPushButton("Calculate Household Footprint", this);
-
-    // Offset and Results Section
-    resultsLabel = new QLabel("Total Household Footprint = 0.01 metric tons of CO2e", this);
-    resultsLabel->setAlignment(Qt::AlignCenter);
-    offsetButton = new QPushButton("Offset Now", this);
+    formLayout->addRow("Natural Gas (metric tons):", new QLineEdit(this));
 
     // Navigation Buttons
     backButton = new QPushButton("< Welcome", this);
@@ -56,19 +42,18 @@ void HouseholdFootprintPage::setupUi() {
     mainLayout->addWidget(headerLabel);
     mainLayout->addWidget(instructionLabel);
     mainLayout->addLayout(formLayout);
-    mainLayout->addWidget(peopleLabel);
-    mainLayout->addWidget(peopleComboBox);
-    mainLayout->addWidget(calculateButton);
-    mainLayout->addWidget(resultsLabel);
-    mainLayout->addWidget(offsetButton);
 
     // Bottom navigation layout
     QHBoxLayout *navLayout = new QHBoxLayout;
     navLayout->addWidget(backButton);
     navLayout->addWidget(nextButton);
+    navLayout->setAlignment(Qt::AlignCenter);
     mainLayout->addLayout(navLayout);
 
+    showMaximized();
     setLayout(mainLayout);
+
+    // connect the buttons to their respective slots
 }
 
 void HouseholdFootprintPage::applyStyles() {
@@ -88,11 +73,7 @@ void HouseholdFootprintPage::applyStyles() {
     }
 
     // Button styles
-    calculateButton->setStyleSheet("color: lightgreen; background-color: gray; padding: 10px; border-radius: 5px;");
-    offsetButton->setStyleSheet("color: lightgreen; background-color: gray; padding: 10px; border-radius: 5px;");
     backButton->setStyleSheet("color: green; background-color: lightgray; padding: 10px; border-radius: 5px;");
     nextButton->setStyleSheet("color: green; background-color: lightgray; padding: 10px; border-radius: 5px;");
 
-    // Results label style
-    resultsLabel->setStyleSheet("font-weight: bold; color: green; font-size: 18px;");
 }
