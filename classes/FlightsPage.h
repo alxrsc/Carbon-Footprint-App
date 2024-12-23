@@ -6,15 +6,15 @@
 #include <QVBoxLayout>
 #include <QScrollArea>
 #include <QLabel>
-#include "FlightEntryWidget.h"
+#include "../Utils/FlightEntryWidget.h"
 
 class FlightsPage : public QWidget {
 Q_OBJECT
 
 public:
     explicit FlightsPage(QWidget *parent = nullptr);
-    QPushButton* getBackButton() const { return backButton; }
-    QPushButton* getAddFlightButton() const { return addFlightButton; }
+    QPushButton *getBackButton() const { return backButton; }
+//    QPushButton *getAddFlightButton() const { return addFlightButton; }
 
 private:
     QVBoxLayout *mainLayout;
