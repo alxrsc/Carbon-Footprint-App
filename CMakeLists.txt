@@ -48,7 +48,8 @@ add_executable(CarbonFootprintApp
         classes/HouseholdFootprintPage.h
         classes/FlightsPage.cpp
         classes/FlightsPage.h
-        classes/FlightEntryWidget.cpp
+        Utils/FlightEntryWidget.cpp
+        classes/VehiclePage.h
 )
 
 # Link Qt libraries

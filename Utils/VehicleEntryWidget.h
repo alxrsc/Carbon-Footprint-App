@@ -1,0 +1,14 @@
+//
+// Created by Alexandru Roșca on 23.12.2024.
+//
+
+#ifndef CARBONFOOTPRINTAPP_VEHICLEENTRYWIDGET_H
+#define CARBONFOOTPRINTAPP_VEHICLEENTRYWIDGET_H
+
+
+class VehicleEntryWidget {
+
+};
+
+
+#endif //CARBONFOOTPRINTAPP_VEHICLEENTRYWIDGET_H
