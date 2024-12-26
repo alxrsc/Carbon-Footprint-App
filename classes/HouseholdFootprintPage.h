@@ -20,9 +20,9 @@ public:
     explicit HouseholdFootprintPage(QWidget *parent = nullptr);
     // Public getter methods for accessing private buttons
     QPushButton* getBackButton() const { return backButton; }
-    QPushButton* getNextButton() const { return nextButton; }
+    QPushButton* getFlightsButton() const { return flightsButton; }
 private:
-    void setupUi();
+    void setupUI();
     void applyStyles();
 
     // UI elements
@@ -30,7 +30,7 @@ private:
     QLabel *instructionLabel;
     QFormLayout *formLayout;
     QPushButton *backButton;
-    QPushButton *nextButton;
+    QPushButton *flightsButton;
 
 
 };

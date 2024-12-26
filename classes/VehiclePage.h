@@ -1,15 +1,14 @@
-//
-// Created by Alexandru Roșca on 23.12.2024.
-//
-
-#ifndef CARBONFOOTPRINTAPP_VEHICLEPAGE_H
-#define CARBONFOOTPRINTAPP_VEHICLEPAGE_H
+#ifndef VEHICLEPAGE_H
+#define VEHICLEPAGE_H
 
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QScrollArea>
 #include <QPushButton>
 #include <QList>
+#include <QStringList>
+#include <QMap>
+#include <QLabel>
 #include "../Utils/VehicleEntryWidget.h"
 
 class VehiclePage : public QWidget {
@@ -25,14 +24,14 @@ private:
     QScrollArea *scrollArea;
     QPushButton *addVehicleButton;
     QList<VehicleEntryWidget *> vehicleEntries;
+    QStringList makeList;
+    QMap<QString, QStringList> modelMap;
     QPushButton *backButton;
 
-    void setupUI();
+    void setupUi();
     void addVehicleEntry();
     void removeVehicleEntry(VehicleEntryWidget *entry);
-
-
+    void loadMakesAndModelsFromCsv(const QString &filePath);
 };
 
-
-#endif //CARBONFOOTPRINTAPP_VEHICLEPAGE_H
+#endif // VEHICLEPAGE_H

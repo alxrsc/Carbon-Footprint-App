@@ -9,52 +9,44 @@
 #include <QLineEdit>
 #include <QComboBox>
 #include <QVBoxLayout>
+#include "CommonStyles.h"
 
 HouseholdFootprintPage::HouseholdFootprintPage(QWidget *parent) : QWidget(parent) {
-    setupUi();
-    applyStyles();
+    setupUI();
 }
 
-void HouseholdFootprintPage::setupUi() {
+void HouseholdFootprintPage::setupUI() {
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
-    // Header and Instructions
-    headerLabel = new QLabel("Household Carbon Footprint Calculator", this);
-    instructionLabel = new QLabel("Enter your consumption of each type of energy, and press Calculate", this);
-    headerLabel->setAlignment(Qt::AlignCenter);
-    instructionLabel->setAlignment(Qt::AlignCenter);
+    QLabel *headerLabel = new QLabel("Household Carbon Footprint Calculator", this);
+    headerLabel->setStyleSheet(HEADER_STYLE);
 
-    // Form layout for energy consumption inputs
-    formLayout = new QFormLayout;
-    formLayout->addRow("Please state your contry:", new QLineEdit(this));
-    formLayout->addRow("Electricity (kWh):", new QLineEdit(this));
-    formLayout->addRow("Petrol (litres):", new QLineEdit(this));
-    formLayout->addRow("Coal (metric tons):", new QLineEdit(this));
-    formLayout->addRow("Diesel (litres):", new QLineEdit(this));
-    formLayout->addRow("LPG (litres):", new QLineEdit(this));
-    formLayout->addRow("Natural Gas (metric tons):", new QLineEdit(this));
+    QFormLayout *formLayout = new QFormLayout();
+    for (const QString &field : {"Electricity (kWh):", "Petrol (litres):", "Natural Gas (metric tons):"}) {
+        QLineEdit *input = new QLineEdit(this);
+        input->setStyleSheet(INPUT_STYLE);
+        formLayout->addRow(field, input);
+    }
 
-    // Navigation Buttons
-    backButton = new QPushButton("< Welcome", this);
-    nextButton = new QPushButton("Flights >", this);
+    backButton = new QPushButton("Back", this);
+    flightsButton = new QPushButton("Next: Flights", this);
 
-    // Arrange layout
-    mainLayout->addWidget(headerLabel);
-    mainLayout->addWidget(instructionLabel);
-    mainLayout->addLayout(formLayout);
+    backButton->setStyleSheet(BUTTON_STYLE);
+    flightsButton->setStyleSheet(BUTTON_STYLE);
 
-    // Bottom navigation layout
     QHBoxLayout *navLayout = new QHBoxLayout;
     navLayout->addWidget(backButton);
-    navLayout->addWidget(nextButton);
-    navLayout->setAlignment(Qt::AlignCenter);
+    navLayout->addWidget(flightsButton);
+
+    mainLayout->addWidget(headerLabel);
+    mainLayout->addLayout(formLayout);
     mainLayout->addLayout(navLayout);
 
-    showMaximized();
     setLayout(mainLayout);
-
-    // connect the buttons to their respective slots
+    setStyleSheet(GLOBAL_BACKGROUND_STYLE);
+    showMaximized();
 }
+
 
 void HouseholdFootprintPage::applyStyles() {
     // Overall page style
@@ -74,6 +66,6 @@ void HouseholdFootprintPage::applyStyles() {
 
     // Button styles
     backButton->setStyleSheet("color: green; background-color: lightgray; padding: 10px; border-radius: 5px;");
-    nextButton->setStyleSheet("color: green; background-color: lightgray; padding: 10px; border-radius: 5px;");
+    flightsButton->setStyleSheet("color: green; background-color: lightgray; padding: 10px; border-radius: 5px;");
 
 }
