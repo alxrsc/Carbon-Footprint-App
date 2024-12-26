@@ -14,6 +14,8 @@
 class MainPage : public QWidget {
 Q_OBJECT
 
+    void setupUI();
+
 public:
     QPushButton *helloButton;
 

@@ -5,46 +5,39 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QLineEdit>
-#include <QVBoxLayout>
-#include <QMap>
+#include <QFormLayout>
 
 class FootprintMethodPage : public QWidget {
 Q_OBJECT
 
 public:
     explicit FootprintMethodPage(QWidget *parent = nullptr);
-    virtual ~FootprintMethodPage() = default;
 
-
-    // Public getter methods for accessing private buttons
     QPushButton* getBackButton() const { return backButton; }
     QPushButton* getHouseholdButton() const { return householdButton; }
-    QPushButton* getPeopleButton() const { return peopleButton; }
 
 signals:
-    void peopleCountEntered(int count);  // Signal to send the number of people entered
-    void householdButtonClicked();       // Signal to emit when household button is clicked
-
-private slots:
-    void showPeopleInputForm();                // Slot to display input form
-    void submitPeopleCount();                  // Slot to handle submission of the people count
-    void onHouseholdButtonClicked();           // Slot to handle household button click
+    void peopleCountEntered(int count);
+    void householdButtonClicked();
 
 private:
-    void initializeTranslations();             // Initialize translations for each button text
+    void setupUI();
+    void connectUI();
 
-    // Main buttons
     QPushButton *peopleButton;
     QPushButton *householdButton;
     QPushButton *backButton;
-
-    // Input form elements
-    QLabel *promptLabel;
-    QLineEdit *inputField;
     QPushButton *submitButton;
 
-    // Translation mapping
-    QMap<QString, QMap<QString, QString>> translations;
+    QLabel *promptLabel;
+    QLineEdit *inputField;
+
+    QFormLayout *formLayout;    // Layout for form inputs
+    QWidget *formContainer;     // Container for form layout
+
+    void showPeopleInputForm();
+    void submitPeopleCount();
+    void onHouseholdButtonClicked();
 };
 
 #endif // FOOTPRINTMETHODPAGE_H

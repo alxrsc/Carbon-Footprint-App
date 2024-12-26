@@ -1,14 +1,33 @@
-//
-// Created by Alexandru Roșca on 23.12.2024.
-//
+#ifndef VEHICLEENTRYWIDGET_H
+#define VEHICLEENTRYWIDGET_H
 
-#ifndef CARBONFOOTPRINTAPP_VEHICLEENTRYWIDGET_H
-#define CARBONFOOTPRINTAPP_VEHICLEENTRYWIDGET_H
+#include <QWidget>
+#include <QComboBox>
+#include <QLineEdit>
+#include <QCheckBox>
+#include <QStringList>
+#include <QFormLayout>
+#include <QPushButton>
 
+class VehicleEntryWidget : public QWidget {
+Q_OBJECT
 
-class VehicleEntryWidget {
+public:
+    explicit VehicleEntryWidget(const QStringList &makeList, const QMap<QString, QStringList> &modelMap, QWidget *parent = nullptr);
 
+signals:
+    void removeRequested(VehicleEntryWidget *entry);
+
+private:
+    QComboBox *makeInput;
+    QComboBox *modelInput;
+    QLineEdit *mileageInput;
+    QComboBox *fuelTypeInput;
+    QLineEdit *customCarTypeInput;
+    QPushButton *removeButton;
+
+    void setupUi(const QStringList &makeList, const QMap<QString, QStringList> &modelMap);
+    void toggleCustomInput(bool enabled);
 };
 
-
-#endif //CARBONFOOTPRINTAPP_VEHICLEENTRYWIDGET_H
+#endif // VEHICLEENTRYWIDGET_H

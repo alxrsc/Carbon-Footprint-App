@@ -6,6 +6,7 @@
 #include <QVBoxLayout>
 #include <QScrollArea>
 #include <QLabel>
+#include <QPushButton>
 #include "../Utils/FlightEntryWidget.h"
 
 class FlightsPage : public QWidget {
@@ -14,7 +15,7 @@ Q_OBJECT
 public:
     explicit FlightsPage(QWidget *parent = nullptr);
     QPushButton *getBackButton() const { return backButton; }
-//    QPushButton *getAddFlightButton() const { return addFlightButton; }
+    QPushButton *getVehicleButton() const { return vehicleButton; }
 
 private:
     QVBoxLayout *mainLayout;
@@ -24,6 +25,7 @@ private:
     QList<FlightEntryWidget *> flightEntries;
     QStringList airportList;
     QPushButton *backButton;
+    QPushButton *vehicleButton;
 
     void setupUi();
     void addFlightEntry();
