@@ -76,32 +76,34 @@ void VehiclePage::removeVehicleEntry(VehicleEntryWidget *entry) {
 
 void VehiclePage::loadMakesAndModelsFromCsv(const QString &filePath) {
     QFile file(filePath);
-
-    // Open the CSV file
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::warning(this, "Error", "Could not load vehicle data.");
         return;
     }
 
     QTextStream in(&file);
+    QSet<QString> uniqueModels; // To track unique models for each make.
 
-    // Read each line of the file
     while (!in.atEnd()) {
         QString line = in.readLine();
         QStringList parts = line.split(",");
 
-        // Ensure sufficient data fields exist
+        // Validate and parse line
         if (parts.size() < 4) continue;
+        QString make = parts.at(1).trimmed().remove("\"");  // Remove surrounding quotes
+        QString model = parts.at(3).trimmed().remove("\""); // Remove surrounding quotes
 
-        QString make = parts.at(1);  // Extract Make Name
-        QString model = parts.at(3); // Extract Model Name
-
-        // Add make to the list if not already present
-        if (!makeList.contains(make))
+        // Add make to list if not already present
+        if (!makeList.contains(make)) {
             makeList.append(make);
+        }
 
-        // Add the model to the corresponding make
-        modelMap[make].append(model);
+        // Add unique model for the make
+        QString modelKey = make + "|" + model; // Unique key to track models per make
+        if (!uniqueModels.contains(modelKey)) {
+            modelMap[make].append(model);
+            uniqueModels.insert(modelKey);
+        }
     }
 
     file.close();
