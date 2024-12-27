@@ -9,6 +9,9 @@
 #include <QStringList>
 #include <QMap>
 #include <QLabel>
+#include <QFile>
+#include <QTextStream>
+#include <QMessageBox>
 #include "../Utils/VehicleEntryWidget.h"
 
 class VehiclePage : public QWidget {

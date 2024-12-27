@@ -7,6 +7,9 @@
 #include <QScrollArea>
 #include <QLabel>
 #include <QPushButton>
+#include <QFile>
+#include <QTextStream>
+#include <QDebug>
 #include "../Utils/FlightEntryWidget.h"
 
 class FlightsPage : public QWidget {
