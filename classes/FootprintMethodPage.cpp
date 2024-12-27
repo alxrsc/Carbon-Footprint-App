@@ -84,7 +84,7 @@ void FootprintMethodPage::submitPeopleCount() {
         promptLabel->hide();
         inputField->hide();
         submitButton->hide();
-        formContainer->show();
+
     } else {
         inputField->clear();
         inputField->setPlaceholderText("Please enter a valid number");

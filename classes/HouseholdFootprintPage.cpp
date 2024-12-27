@@ -3,12 +3,6 @@
 //
 
 #include "HouseholdFootprintPage.h"
-#include <QFormLayout>
-#include <QPushButton>
-#include <QLabel>
-#include <QLineEdit>
-#include <QComboBox>
-#include <QVBoxLayout>
 #include "CommonStyles.h"
 
 HouseholdFootprintPage::HouseholdFootprintPage(QWidget *parent) : QWidget(parent) {

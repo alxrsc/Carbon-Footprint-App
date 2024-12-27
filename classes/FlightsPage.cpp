@@ -1,7 +1,4 @@
 #include "FlightsPage.h"
-#include <QFile>
-#include <QTextStream>
-#include <QDebug>
 
 // Common Styles
 const QString GLOBAL_BACKGROUND_STYLE = "background: linear-gradient(to bottom, #e0f7fa, #80deea); font-family: Arial, sans-serif;";

@@ -6,6 +6,12 @@
 #define HOUSEHOLDFOOTPRINTPAGE_H
 
 #include <QWidget>
+#include <QFormLayout>
+#include <QPushButton>
+#include <QLabel>
+#include <QLineEdit>
+#include <QComboBox>
+#include <QVBoxLayout>
 
 class QFormLayout;
 class QPushButton;
