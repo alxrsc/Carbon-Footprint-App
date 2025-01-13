@@ -22,8 +22,8 @@ void HouseholdFootprintPage::setupUI() {
         formLayout->addRow(field, input);
     }
 
-    backButton = new QPushButton("Back", this);
-    flightsButton = new QPushButton("Next: Flights", this);
+    backButton = new QPushButton("< Method", this);
+    flightsButton = new QPushButton("Flights >", this);
 
     backButton->setStyleSheet(BUTTON_STYLE);
     flightsButton->setStyleSheet(BUTTON_STYLE);
@@ -31,6 +31,7 @@ void HouseholdFootprintPage::setupUI() {
     QHBoxLayout *navLayout = new QHBoxLayout;
     navLayout->addWidget(backButton);
     navLayout->addWidget(flightsButton);
+    navLayout->setAlignment(Qt::AlignCenter);
 
     mainLayout->addWidget(headerLabel);
     mainLayout->addLayout(formLayout);
