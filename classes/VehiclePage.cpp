@@ -35,6 +35,9 @@ void VehiclePage::setupUi() {
     scrollArea->setWidgetResizable(true);
     mainLayout->addWidget(scrollArea);
 
+    // Add the first vehicle entry by default
+    addVehicleEntry();
+
     // Add Vehicle Button
     addVehicleButton = new QPushButton("Add Vehicle", this);
     addVehicleButton->setStyleSheet(BUTTON_STYLE);

@@ -33,6 +33,12 @@ MainController::MainController() {
 
     // Connect the backButton on motorbikePage to go back to vehiclePage
     QObject::connect(motorbikePage.getBackButton(), &QPushButton::clicked, this, &MainController::showVehiclePage);
+
+    // Connect the publicTransportButton on motorbikePage to show PublicTransportPage
+    QObject::connect(motorbikePage.getPublicTransportButton(), &QPushButton::clicked, this, &MainController::showPublicTransportPage);
+
+    // Connect the backButton on publicTransportPage to go back to motorbikePage
+    QObject::connect(publicTransportPage.getBackButton(), &QPushButton::clicked, this, &MainController::showMotorbikePage);
 }
 
 void MainController::showMainPage() {
@@ -42,6 +48,7 @@ void MainController::showMainPage() {
     flightsPage.hide();
     vehiclePage.hide();
     motorbikePage.hide();
+    publicTransportPage.hide();
 }
 
 void MainController::showMethodPage() {
@@ -52,6 +59,7 @@ void MainController::showMethodPage() {
     flightsPage.hide();
     vehiclePage.hide();
     motorbikePage.hide();
+    publicTransportPage.hide();
 }
 
 void MainController::showHouseholdFootprintPage() {
@@ -62,6 +70,7 @@ void MainController::showHouseholdFootprintPage() {
     flightsPage.hide();
     vehiclePage.hide();
     motorbikePage.hide();
+    publicTransportPage.hide();
 }
 
 void MainController::showFlightsPage() {
@@ -72,6 +81,7 @@ void MainController::showFlightsPage() {
     flightsPage.show();
     vehiclePage.hide();
     motorbikePage.hide();
+    publicTransportPage.hide();
 }
 
 void MainController::showVehiclePage() {
@@ -81,6 +91,7 @@ void MainController::showVehiclePage() {
     householdFootprintPage.hide();
     flightsPage.hide();
     motorbikePage.hide();
+    publicTransportPage.hide();
 }
 
 void MainController::showMotorbikePage() {
@@ -90,13 +101,26 @@ void MainController::showMotorbikePage() {
     flightsPage.hide();
     vehiclePage.hide();
     motorbikePage.show();
+    publicTransportPage.hide();
 }
 
-void MainController::backToMainPage() {
-    // Hide the method page and show the main page
+void MainController::showPublicTransportPage() {
+    mainPage.hide();
     methodPage.hide();
     householdFootprintPage.hide();
     flightsPage.hide();
     vehiclePage.hide();
+    motorbikePage.hide();
+    publicTransportPage.show();
+}
+
+void MainController::backToMainPage() {
+    // Hide the method page and show the main page
     mainPage.show();
+    methodPage.hide();
+    householdFootprintPage.hide();
+    flightsPage.hide();
+    vehiclePage.hide();
+    motorbikePage.hide();
+    publicTransportPage.hide();
 }

@@ -8,6 +8,7 @@
 #include "FlightsPage.h" // Include the new FlightsPage header
 #include "VehiclePage.h"
 #include "MotorbikePage.h"
+#include "PublicTransportPage.h"
 
 class MainController : public QObject {
 Q_OBJECT
@@ -19,6 +20,7 @@ public:
     FlightsPage flightsPage; // Page for flights footprint calculation
     VehiclePage vehiclePage;                  // Page for vehicles footprint calculation
     MotorbikePage motorbikePage;              // Page for motorbikes footprint calculation
+    PublicTransportPage publicTransportPage;  // Page for public transport footprint calculation
 
     MainController();
     virtual ~MainController() = default;
@@ -29,6 +31,7 @@ public:
     void showFlightsPage(); // New method to show FlightsPage
     void showVehiclePage();
     void showMotorbikePage();
+    void showPublicTransportPage();
     void backToMainPage();
 
 };

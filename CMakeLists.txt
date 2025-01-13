@@ -56,6 +56,8 @@ add_executable(CarbonFootprintApp
         classes/CommonStyles.h
         classes/MotorbikePage.h
         classes/MotorbikePage.cpp
+        classes/PublicTransportPage.h
+        classes/PublicTransportPage.cpp
 )
 
 # Link Qt libraries

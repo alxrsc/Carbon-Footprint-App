@@ -21,7 +21,7 @@ Q_OBJECT
 public:
     explicit MotorbikePage(QWidget *parent = nullptr);
     QPushButton *getBackButton() const { return backButton; }
-    QPushButton *getNextButton() const { return nextButton; }
+    QPushButton *getPublicTransportButton() const { return publicTransportButton; }
 
 private:
     QVBoxLayout *mainLayout;
@@ -30,7 +30,7 @@ private:
     QPushButton *addMotorbikeButton;
     QList<QWidget *> motorbikeEntries;
     QPushButton *backButton;
-    QPushButton *nextButton;
+    QPushButton *publicTransportButton;
 
     void setupUi();
     void addMotorbikeEntry();
