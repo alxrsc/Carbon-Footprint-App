@@ -49,7 +49,7 @@ void PublicTransportPage::setupUi() {
 
     // Navigation buttons
     backButton = new QPushButton("< Back", this);
-    nextButton = new QPushButton("Public Transport >", this);
+    nextButton = new QPushButton("Next >", this);
 
     backButton->setStyleSheet(BUTTON_STYLE);
     nextButton->setStyleSheet(BUTTON_STYLE);

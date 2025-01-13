@@ -49,7 +49,7 @@ void MotorbikePage::setupUi() {
 
     // Navigation buttons
     backButton = new QPushButton("< Back", this);
-    publicTransportButton = new QPushButton("Next >", this);
+    publicTransportButton = new QPushButton("Public Transport >", this);
 
     backButton->setStyleSheet(BUTTON_STYLE);
     publicTransportButton->setStyleSheet(BUTTON_STYLE);
