@@ -54,6 +54,8 @@ add_executable(CarbonFootprintApp
         Utils/VehicleEntryWidget.cpp
         classes/VehiclePage.cpp
         classes/CommonStyles.h
+        classes/MotorbikePage.h
+        classes/MotorbikePage.cpp
 )
 
 # Link Qt libraries

@@ -27,6 +27,12 @@ MainController::MainController() {
 
     // Connect the backButton on vehiclePage to go back to flightsPage
     QObject::connect(vehiclePage.getBackButton(), &QPushButton::clicked, this, &MainController::showFlightsPage);
+
+    // Connect the motorbikeButton on vehiclePage to show MotorbikePage
+    QObject::connect(vehiclePage.getMotorbikeButton(), &QPushButton::clicked, this, &MainController::showMotorbikePage);
+
+    // Connect the backButton on motorbikePage to go back to vehiclePage
+    QObject::connect(motorbikePage.getBackButton(), &QPushButton::clicked, this, &MainController::showVehiclePage);
 }
 
 void MainController::showMainPage() {
@@ -35,6 +41,7 @@ void MainController::showMainPage() {
     householdFootprintPage.hide();
     flightsPage.hide();
     vehiclePage.hide();
+    motorbikePage.hide();
 }
 
 void MainController::showMethodPage() {
@@ -44,6 +51,7 @@ void MainController::showMethodPage() {
     householdFootprintPage.hide();
     flightsPage.hide();
     vehiclePage.hide();
+    motorbikePage.hide();
 }
 
 void MainController::showHouseholdFootprintPage() {
@@ -53,6 +61,7 @@ void MainController::showHouseholdFootprintPage() {
     householdFootprintPage.show();
     flightsPage.hide();
     vehiclePage.hide();
+    motorbikePage.hide();
 }
 
 void MainController::showFlightsPage() {
@@ -62,6 +71,7 @@ void MainController::showFlightsPage() {
     householdFootprintPage.hide();
     flightsPage.show();
     vehiclePage.hide();
+    motorbikePage.hide();
 }
 
 void MainController::showVehiclePage() {
@@ -70,7 +80,16 @@ void MainController::showVehiclePage() {
     methodPage.hide();
     householdFootprintPage.hide();
     flightsPage.hide();
+    motorbikePage.hide();
+}
 
+void MainController::showMotorbikePage() {
+    mainPage.hide();
+    methodPage.hide();
+    householdFootprintPage.hide();
+    flightsPage.hide();
+    vehiclePage.hide();
+    motorbikePage.show();
 }
 
 void MainController::backToMainPage() {

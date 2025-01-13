@@ -42,9 +42,18 @@ void VehiclePage::setupUi() {
     mainLayout->addWidget(addVehicleButton);
 
     // Back Button
-    backButton = new QPushButton("Back", this);
+    backButton = new QPushButton("< Flights", this);
     backButton->setStyleSheet(BUTTON_STYLE);
-    mainLayout->addWidget(backButton);
+
+    // Motorbike Button
+    motorbikeButton = new QPushButton("Motorbikes >", this);
+    motorbikeButton->setStyleSheet(BUTTON_STYLE);
+
+    QHBoxLayout *navLayout = new QHBoxLayout;
+    navLayout->addWidget(backButton);
+    navLayout->addWidget(motorbikeButton);
+    navLayout->setAlignment(Qt::AlignCenter);
+    mainLayout->addLayout(navLayout);
 
     // Apply global background style and maximize
     setStyleSheet(GLOBAL_BACKGROUND_STYLE);
