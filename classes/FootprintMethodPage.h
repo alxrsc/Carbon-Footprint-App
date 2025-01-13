@@ -1,6 +1,8 @@
 #ifndef FOOTPRINTMETHODPAGE_H
 #define FOOTPRINTMETHODPAGE_H
 
+#include "CommonStyles.h"
+
 #include <QWidget>
 #include <QPushButton>
 #include <QLabel>

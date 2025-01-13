@@ -1,6 +1,9 @@
 #ifndef VEHICLEPAGE_H
 #define VEHICLEPAGE_H
 
+#include "CommonStyles.h"
+#include "../Utils/VehicleEntryWidget.h"
+
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QScrollArea>
@@ -12,7 +15,6 @@
 #include <QFile>
 #include <QTextStream>
 #include <QMessageBox>
-#include "../Utils/VehicleEntryWidget.h"
 
 class VehiclePage : public QWidget {
 Q_OBJECT

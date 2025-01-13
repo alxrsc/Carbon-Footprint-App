@@ -5,6 +5,8 @@
 #ifndef HOUSEHOLDFOOTPRINTPAGE_H
 #define HOUSEHOLDFOOTPRINTPAGE_H
 
+#include "CommonStyles.h"
+
 #include <QWidget>
 #include <QFormLayout>
 #include <QPushButton>

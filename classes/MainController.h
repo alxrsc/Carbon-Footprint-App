@@ -9,6 +9,8 @@
 #include "VehiclePage.h"
 #include "MotorbikePage.h"
 #include "PublicTransportPage.h"
+#include "HotelStayPage.h"
+#include "ExpensesPage.h"
 
 class MainController : public QObject {
 Q_OBJECT
@@ -21,6 +23,8 @@ public:
     VehiclePage vehiclePage;                  // Page for vehicles footprint calculation
     MotorbikePage motorbikePage;              // Page for motorbikes footprint calculation
     PublicTransportPage publicTransportPage;  // Page for public transport footprint calculation
+    HotelStayPage hotelStayPage;              // Page for hotel stay footprint calculation
+    ExpensesPage expensesPage;                // Page for expenses footprint calculation
 
     MainController();
     virtual ~MainController() = default;
@@ -32,6 +36,8 @@ public:
     void showVehiclePage();
     void showMotorbikePage();
     void showPublicTransportPage();
+    void showHotelStayPage();
+    void showExpensesPage();
     void backToMainPage();
 
 };

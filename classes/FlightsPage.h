@@ -1,6 +1,9 @@
 #ifndef FLIGHTSPAGE_H
 #define FLIGHTSPAGE_H
 
+#include "CommonStyles.h"
+#include "../Utils/FlightEntryWidget.h"
+
 #include <QStringList>
 #include <QWidget>
 #include <QVBoxLayout>
@@ -10,7 +13,6 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDebug>
-#include "../Utils/FlightEntryWidget.h"
 
 class FlightsPage : public QWidget {
 Q_OBJECT

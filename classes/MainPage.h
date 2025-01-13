@@ -5,6 +5,8 @@
 #ifndef MAINPAGE_H
 #define MAINPAGE_H
 
+#include "CommonStyles.h"
+
 #include <QApplication>
 #include <QWidget>
 #include <QPushButton>

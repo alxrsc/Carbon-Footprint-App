@@ -5,6 +5,8 @@
 #ifndef MOTORBIKEPAGE_H
 #define MOTORBIKEPAGE_H
 
+#include "CommonStyles.h"
+
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QScrollArea>

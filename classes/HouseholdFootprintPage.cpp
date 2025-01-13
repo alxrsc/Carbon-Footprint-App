@@ -3,7 +3,6 @@
 //
 
 #include "HouseholdFootprintPage.h"
-#include "CommonStyles.h"
 
 HouseholdFootprintPage::HouseholdFootprintPage(QWidget *parent) : QWidget(parent) {
     setupUI();

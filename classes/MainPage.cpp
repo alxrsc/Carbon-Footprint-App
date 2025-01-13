@@ -4,7 +4,6 @@
 
 
 #include "MainPage.h"
-#include "CommonStyles.h"
 
 MainPage::MainPage(QWidget *parent) : QWidget(parent) {
     setupUI();

@@ -5,6 +5,8 @@
 #ifndef PUBLICTRANSPORTPAGE_H
 #define PUBLICTRANSPORTPAGE_H
 
+#include "CommonStyles.h"
+
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QScrollArea>
@@ -21,7 +23,7 @@ Q_OBJECT
 public:
     explicit PublicTransportPage(QWidget *parent = nullptr);
     QPushButton *getBackButton() const { return backButton; }
-    QPushButton *getNextButton() const { return nextButton; }
+    QPushButton *getHotelStayButton() const { return hotelStayButton; }
 
 private:
     QVBoxLayout *mainLayout;
@@ -30,7 +32,7 @@ private:
     QPushButton *addTransportButton;
     QList<QWidget *> transportEntries;
     QPushButton *backButton;
-    QPushButton *nextButton;
+    QPushButton *hotelStayButton;
 
     void setupUi();
     void addTransportEntry();

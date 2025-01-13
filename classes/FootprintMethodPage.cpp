@@ -1,5 +1,4 @@
 #include "FootprintMethodPage.h"
-#include "CommonStyles.h"
 
 FootprintMethodPage::FootprintMethodPage(QWidget *parent) : QWidget(parent) {
     setupUI();

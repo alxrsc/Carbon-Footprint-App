@@ -39,6 +39,18 @@ MainController::MainController() {
 
     // Connect the backButton on publicTransportPage to go back to motorbikePage
     QObject::connect(publicTransportPage.getBackButton(), &QPushButton::clicked, this, &MainController::showMotorbikePage);
+
+    // Connect the hotelStayButton on publicTransportPage to show HotelStayPage
+    QObject::connect(publicTransportPage.getHotelStayButton(), &QPushButton::clicked, this, &MainController::showHotelStayPage);
+
+    // Connect the backButton on hotelStayPage to go back to publicTransportPage
+    QObject::connect(hotelStayPage.getBackButton(), &QPushButton::clicked, this, &MainController::showPublicTransportPage);
+
+    // Connect the expensesPageButton on hotelStayPage to show ExpensesPage
+    QObject::connect(hotelStayPage.getExpensesPageButton(), &QPushButton::clicked, this, &MainController::showExpensesPage);
+
+    // Connect the backButton on expensesPage to go back to hotelStayPage
+    QObject::connect(expensesPage.getBackButton(), &QPushButton::clicked, this, &MainController::showHotelStayPage);
 }
 
 void MainController::showMainPage() {
@@ -49,6 +61,8 @@ void MainController::showMainPage() {
     vehiclePage.hide();
     motorbikePage.hide();
     publicTransportPage.hide();
+    hotelStayPage.hide();
+    expensesPage.hide();
 }
 
 void MainController::showMethodPage() {
@@ -60,6 +74,8 @@ void MainController::showMethodPage() {
     vehiclePage.hide();
     motorbikePage.hide();
     publicTransportPage.hide();
+    hotelStayPage.hide();
+    expensesPage.hide();
 }
 
 void MainController::showHouseholdFootprintPage() {
@@ -71,6 +87,8 @@ void MainController::showHouseholdFootprintPage() {
     vehiclePage.hide();
     motorbikePage.hide();
     publicTransportPage.hide();
+    hotelStayPage.hide();
+    expensesPage.hide();
 }
 
 void MainController::showFlightsPage() {
@@ -82,6 +100,8 @@ void MainController::showFlightsPage() {
     vehiclePage.hide();
     motorbikePage.hide();
     publicTransportPage.hide();
+    hotelStayPage.hide();
+    expensesPage.hide();
 }
 
 void MainController::showVehiclePage() {
@@ -92,6 +112,8 @@ void MainController::showVehiclePage() {
     flightsPage.hide();
     motorbikePage.hide();
     publicTransportPage.hide();
+    hotelStayPage.hide();
+    expensesPage.hide();
 }
 
 void MainController::showMotorbikePage() {
@@ -102,6 +124,8 @@ void MainController::showMotorbikePage() {
     vehiclePage.hide();
     motorbikePage.show();
     publicTransportPage.hide();
+    hotelStayPage.hide();
+    expensesPage.hide();
 }
 
 void MainController::showPublicTransportPage() {
@@ -112,6 +136,32 @@ void MainController::showPublicTransportPage() {
     vehiclePage.hide();
     motorbikePage.hide();
     publicTransportPage.show();
+    hotelStayPage.hide();
+    expensesPage.hide();
+}
+
+void MainController::showHotelStayPage() {
+    mainPage.hide();
+    methodPage.hide();
+    householdFootprintPage.hide();
+    flightsPage.hide();
+    vehiclePage.hide();
+    motorbikePage.hide();
+    publicTransportPage.hide();
+    hotelStayPage.show();
+    expensesPage.hide();
+}
+
+void MainController::showExpensesPage() {
+    mainPage.hide();
+    methodPage.hide();
+    householdFootprintPage.hide();
+    flightsPage.hide();
+    vehiclePage.hide();
+    motorbikePage.hide();
+    publicTransportPage.hide();
+    hotelStayPage.hide();
+    expensesPage.show();
 }
 
 void MainController::backToMainPage() {
