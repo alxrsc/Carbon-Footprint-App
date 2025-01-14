@@ -1,11 +1,20 @@
 #include <QApplication>
 #include "classes/MainController.h"
+#include "APICalls.h"
+#include <iostream>
+
+using namespace std;
 
 int main(int argc, char *argv[]) {
-    QApplication app(argc, argv);
+//    QApplication app(argc, argv);
+//
+//    MainController controller;
+//    controller.showMainPage();
+//
+//
+//    return app.exec();
 
-    MainController controller;
-    controller.showMainPage();
+    cout << get_emissions_by_car_fuel() << endl;
 
-    return app.exec();
+    return 0;
 }

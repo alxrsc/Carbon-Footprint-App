@@ -62,6 +62,7 @@ add_executable(CarbonFootprintApp
         classes/HotelStayPage.cpp
         classes/ExpensesPage.h
         classes/ExpensesPage.cpp
+        APICalls.cpp
 )
 
 # Link Qt libraries

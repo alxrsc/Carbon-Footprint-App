@@ -161,6 +161,14 @@ build CMakeFiles/CarbonFootprintApp.dir/classes/ExpensesPage.cpp.o: CXX_COMPILER
   OBJECT_DIR = CMakeFiles/CarbonFootprintApp.dir
   OBJECT_FILE_DIR = CMakeFiles/CarbonFootprintApp.dir/classes
 
+build CMakeFiles/CarbonFootprintApp.dir/APICalls.cpp.o: CXX_COMPILER__CarbonFootprintApp_unscanned_Debug /Users/alexandrurosca/Desktop/Facultate/Anul$ 2/POO/Carbon_Footprint_App/APICalls.cpp || cmake_object_order_depends_target_CarbonFootprintApp
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/CarbonFootprintApp.dir/APICalls.cpp.o.d
+  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -fcolor-diagnostics
+  INCLUDES = -isystem "/Users/alexandrurosca/Desktop/Facultate/Anul 2/POO/Carbon_Footprint_App/cmake-build-debug/CarbonFootprintApp_autogen/include" -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/lib/QtCore.framework/Headers -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers
+  OBJECT_DIR = CMakeFiles/CarbonFootprintApp.dir
+  OBJECT_FILE_DIR = CMakeFiles/CarbonFootprintApp.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target CarbonFootprintApp
@@ -169,7 +177,7 @@ build CMakeFiles/CarbonFootprintApp.dir/classes/ExpensesPage.cpp.o: CXX_COMPILER
 #############################################
 # Link the executable CarbonFootprintApp
 
-build CarbonFootprintApp: CXX_EXECUTABLE_LINKER__CarbonFootprintApp_Debug CMakeFiles/CarbonFootprintApp.dir/CarbonFootprintApp_autogen/mocs_compilation.cpp.o CMakeFiles/CarbonFootprintApp.dir/main.cpp.o CMakeFiles/CarbonFootprintApp.dir/classes/MainPage.cpp.o CMakeFiles/CarbonFootprintApp.dir/classes/MainController.cpp.o CMakeFiles/CarbonFootprintApp.dir/classes/FootprintMethodPage.cpp.o CMakeFiles/CarbonFootprintApp.dir/classes/HouseholdFootprintPage.cpp.o CMakeFiles/CarbonFootprintApp.dir/classes/FlightsPage.cpp.o CMakeFiles/CarbonFootprintApp.dir/Utils/FlightEntryWidget.cpp.o CMakeFiles/CarbonFootprintApp.dir/Utils/VehicleEntryWidget.cpp.o CMakeFiles/CarbonFootprintApp.dir/classes/VehiclePage.cpp.o CMakeFiles/CarbonFootprintApp.dir/classes/MotorbikePage.cpp.o CMakeFiles/CarbonFootprintApp.dir/classes/PublicTransportPage.cpp.o CMakeFiles/CarbonFootprintApp.dir/classes/HotelStayPage.cpp.o CMakeFiles/CarbonFootprintApp.dir/classes/ExpensesPage.cpp.o | /opt/homebrew/lib/QtWidgets.framework/Versions/A/QtWidgets /opt/homebrew/lib/QtGui.framework/Versions/A/QtGui /opt/homebrew/lib/QtCore.framework/Versions/A/QtCore || CarbonFootprintApp_autogen CarbonFootprintApp_autogen_timestamp_deps
+build CarbonFootprintApp: CXX_EXECUTABLE_LINKER__CarbonFootprintApp_Debug CMakeFiles/CarbonFootprintApp.dir/CarbonFootprintApp_autogen/mocs_compilation.cpp.o CMakeFiles/CarbonFootprintApp.dir/main.cpp.o CMakeFiles/CarbonFootprintApp.dir/classes/MainPage.cpp.o CMakeFiles/CarbonFootprintApp.dir/classes/MainController.cpp.o CMakeFiles/CarbonFootprintApp.dir/classes/FootprintMethodPage.cpp.o CMakeFiles/CarbonFootprintApp.dir/classes/HouseholdFootprintPage.cpp.o CMakeFiles/CarbonFootprintApp.dir/classes/FlightsPage.cpp.o CMakeFiles/CarbonFootprintApp.dir/Utils/FlightEntryWidget.cpp.o CMakeFiles/CarbonFootprintApp.dir/Utils/VehicleEntryWidget.cpp.o CMakeFiles/CarbonFootprintApp.dir/classes/VehiclePage.cpp.o CMakeFiles/CarbonFootprintApp.dir/classes/MotorbikePage.cpp.o CMakeFiles/CarbonFootprintApp.dir/classes/PublicTransportPage.cpp.o CMakeFiles/CarbonFootprintApp.dir/classes/HotelStayPage.cpp.o CMakeFiles/CarbonFootprintApp.dir/classes/ExpensesPage.cpp.o CMakeFiles/CarbonFootprintApp.dir/APICalls.cpp.o | /opt/homebrew/lib/QtWidgets.framework/Versions/A/QtWidgets /opt/homebrew/lib/QtGui.framework/Versions/A/QtGui /opt/homebrew/lib/QtCore.framework/Versions/A/QtCore || CarbonFootprintApp_autogen CarbonFootprintApp_autogen_timestamp_deps
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk
   LINK_LIBRARIES = -Wl,-rpath,/opt/homebrew/lib  /opt/homebrew/lib/QtWidgets.framework/Versions/A/QtWidgets  /opt/homebrew/lib/QtGui.framework/Versions/A/QtGui  /opt/homebrew/lib/QtCore.framework/Versions/A/QtCore  -framework IOKit  -framework DiskArbitration  -framework OpenGL  -framework AGL  -framework AppKit  -framework ImageIO  -framework Metal
   LINK_PATH = -F/opt/homebrew/lib
