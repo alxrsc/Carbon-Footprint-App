@@ -29,9 +29,14 @@ void FlightEntryWidget::setupUi(const QStringList &airportList) {
     formLayout->addRow("Round Trip :", roundTripCheckBox);
 
     // Radiative Forcing Checkbox
-    radiativeForcingCheckBox = new QCheckBox(this);
-    radiativeForcingCheckBox->setText("Radiative Forcing");
-    formLayout->addRow("Radiative Forcing :", radiativeForcingCheckBox);
+    // radiativeForcingCheckBox = new QCheckBox(this);
+    // radiativeForcingCheckBox->setText("Radiative Forcing");
+    // formLayout->addRow("Radiative Forcing :", radiativeForcingCheckBox);
+
+    // Number of Passengers input
+    numberOfPassengersInput = new QLineEdit(this);
+    numberOfPassengersInput->setPlaceholderText("Number of Passengers");
+    formLayout->addRow("Number of Passengers:", numberOfPassengersInput);
 
     // Remove button
     removeButton = new QPushButton("Remove", this);
@@ -49,4 +54,24 @@ void FlightEntryWidget::setupAutoCompleter(QLineEdit *lineEdit, const QStringLis
     completer->setCaseSensitivity(Qt::CaseInsensitive);
     completer->setFilterMode(Qt::MatchContains);
     lineEdit->setCompleter(completer);
+}
+
+QString FlightEntryWidget::getAirportFrom() const {
+    return departureAirportInput->text();
+}
+
+QString FlightEntryWidget::getAirportTo() const {
+    return destinationAirportInput->text();
+}
+
+QString FlightEntryWidget::getFlightClass() const {
+    return classInput->currentText();
+}
+
+bool FlightEntryWidget::isRoundTrip() const {
+    return roundTripCheckBox->isChecked();
+}
+
+QString FlightEntryWidget::getNumberOfPassengers() const {
+    return numberOfPassengersInput->text(); // Corectat pentru a returna valoarea din câmpul de număr de pasageri
 }

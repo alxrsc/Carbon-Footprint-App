@@ -3,6 +3,7 @@
 
 #include "CommonStyles.h"
 #include "../Utils/VehicleEntryWidget.h"
+#include "../APICalls.h"
 
 #include <QWidget>
 #include <QVBoxLayout>
@@ -17,9 +18,9 @@
 #include <QMessageBox>
 
 class VehiclePage : public QWidget {
-Q_OBJECT
+    Q_OBJECT
 
-public:
+    public:
     explicit VehiclePage(QWidget *parent = nullptr);
     QPushButton *getBackButton() const { return backButton; }
     QPushButton *getMotorbikeButton() const { return motorbikeButton; }
@@ -38,6 +39,7 @@ private:
     void setupUi();
     void addVehicleEntry();
     void removeVehicleEntry(VehicleEntryWidget *entry);
+    void calculateEmissions();
     void loadMakesAndModelsFromCsv(const QString &filePath);
 };
 

@@ -10,13 +10,16 @@
 #include <QPushButton>
 
 class VehicleEntryWidget : public QWidget {
-Q_OBJECT
+    Q_OBJECT
 
-public:
+    public:
     explicit VehicleEntryWidget(const QStringList &makeList, const QMap<QString, QStringList> &modelMap, QWidget *parent = nullptr);
+    QString getMake() const;
+    QString getModel() const;
+    QString getMileage() const;
 
-signals:
-    void removeRequested(VehicleEntryWidget *entry);
+    signals:
+        void removeRequested(VehicleEntryWidget *entry);
 
 private:
     QComboBox *makeInput;
