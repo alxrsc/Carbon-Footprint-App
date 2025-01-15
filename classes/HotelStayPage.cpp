@@ -52,7 +52,7 @@ void HotelStayPage::setupUi() {
 
     // Navigation buttons
     backButton = new QPushButton("< Back", this);
-    expensesPageButton = new QPushButton("Other expenses >", this);
+    expensesPageButton = new QPushButton("Results >", this);
 
     backButton->setStyleSheet(BUTTON_STYLE);
     expensesPageButton->setStyleSheet(BUTTON_STYLE);
