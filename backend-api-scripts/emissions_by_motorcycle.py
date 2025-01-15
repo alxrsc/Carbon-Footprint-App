@@ -58,6 +58,8 @@ if __name__ == "__main__":
     # Calcularea amprentei de carbon
     carbon_footprint_kg = calculate_carbon_footprint(vehicle_type, fuel_type, distance_value, distance_unit)
 
+    with open("total.txt", "a") as file:
+        file.write(str(carbon_footprint_kg) + '\n')
     # Returnarea rezultatului
     print(carbon_footprint_kg)
 

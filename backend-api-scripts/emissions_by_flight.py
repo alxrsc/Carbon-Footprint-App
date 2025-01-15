@@ -40,6 +40,9 @@ def calculate_carbon_footprint_flight(iata_airport_from, iata_airport_to, flight
     # Extrage doar cantitatea de carbon în kg
     carbon_footprint_kg = result['data']['co2e_kg']
 
+    with open("total.txt", "a") as file:
+        file.write(str(carbon_footprint_kg) + '\n')
+
     return carbon_footprint_kg
 
 
