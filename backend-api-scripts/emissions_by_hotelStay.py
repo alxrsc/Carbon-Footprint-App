@@ -44,59 +44,31 @@ def calculate_carbon_footprint(country_code, city_name, hotel_rating, number_of_
             carbon_footprint_kg = result['data']['co2e_kg']
             return carbon_footprint_kg
         else:
-            print("Nu există date disponibile pentru această cerere.")
             return None  # Sau poți returna 0 sau altă valoare
 
     except json.JSONDecodeError:
-        print("Eroare la decodarea răspunsului JSON.")
         return None
     except Exception as e:
-        print(f"A apărut o eroare: {e}")
         return None
 
 if __name__ == "__main__":
-    country_code = 'QA'  # sys.argv[1]
-    city_name = 'Doha'  # sys.argv[2]
-    hotel_rating = 5  # sys.argv[3]
-    number_of_nights = 5  # sys.argv[4]
-    number_of_rooms = 1
+    if len(sys.argv) < 6:
+        print(json.dumps({"error": "Insufficient arguments provided."}))
+        sys.exit(1)
+
+    country_code = sys.argv[1]
+    city_name = sys.argv[2]
+    hotel_rating = int(sys.argv[3])
+    number_of_nights = int(sys.argv[4])
+    number_of_rooms = int(sys.argv[5])
 
     # Calcularea amprentei de carbon
-    carbon_footprint_kg = calculate_carbon_footprint(country_code, city_name, hotel_rating, number_of_nights, number_of_rooms)
+    carbon_footprint_kg = calculate_carbon_footprint(
+        country_code, city_name, hotel_rating, number_of_nights, number_of_rooms
+    )
 
     # Returnarea rezultatului
     if carbon_footprint_kg is not None:
-        print(f"Amprenta de carbon: {carbon_footprint_kg} kg CO₂")
+        print(json.dumps({"co2e_kg": carbon_footprint_kg}))
     else:
-        print("Nu s-au putut obține informațiile despre amprenta de carbon.")
-    
-
-'''
-double get_emissions_by_vehicle_type() {
-    string vehicle_type = "Train-National";      // Tipul
-    string fuel_type = "Diesel";    // Carburant
-    string distance = "4500";    // Distanța
-    string unit = "km";         // Unitatea de măsură
-
-    string command = "python3 emissions_by_publicTransport.py " + vehicle_type + " " + fuel_type + " " + distance + " " + unit;
-
-    // Executarea comenzii și obținerea rezultatelor
-    char buffer[128];
-    string result = "";
-
-    FILE* pipe = popen(command.c_str(), "r");
-    if (!pipe) {
-        cerr << "Eroare la executarea scriptului Python!" << endl;
-        return 1;
-    }
-
-    // Citirea rezultatului din stdout
-    while (fgets(buffer, sizeof(buffer), pipe)) {
-        result += buffer;
-    }
-
-    fclose(pipe);
-
-    return result;
-}
-'''
+        print(json.dumps({"error": "Failed to calculate carbon footprint."}))
