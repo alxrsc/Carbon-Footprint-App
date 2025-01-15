@@ -6,10 +6,10 @@ import urllib.parse
 
 
 def calculate_carbon_footprint(vehicle_type, fuel_type, distance_value, distance_unit):
-    # Configurare conexiune HTTPS
+    # Configure HTTPS connection
     conn = http.client.HTTPSConnection("carbonsutra1.p.rapidapi.com")
 
-    # Pregătirea datelor de payload
+    # Prepare payload
     payload = {
         'vehicle_type': vehicle_type,
         'fuel_type': fuel_type,
@@ -17,10 +17,10 @@ def calculate_carbon_footprint(vehicle_type, fuel_type, distance_value, distance
         'distance_unit': distance_unit
     }
 
-    # Codificarea payload-ului
+    # Encode payload
     encoded_payload = urllib.parse.urlencode(payload)
 
-    # Definirea header-urilor
+    # Define headers
     headers = {
         'x-rapidapi-key': "5d10ec62c3mshc305a7605de54b7p1ac4a0jsn6b52cfbed578",
         'x-rapidapi-host': "carbonsutra1.p.rapidapi.com",
@@ -28,38 +28,44 @@ def calculate_carbon_footprint(vehicle_type, fuel_type, distance_value, distance
         'Authorization': "Bearer fQ98oU704xFvsnXcQLVDbpeCJHPglG1DcxiMLKfpeNEMGumlbzVf1lCI6ZBx"
     }
 
-    # Trimiterea cererii POST către API
+    # Send POST request
     conn.request("POST", "/vehicle_estimate_by_type", encoded_payload, headers)
 
-    # Obținerea răspunsului
+    # Get response
     res = conn.getresponse()
     data = res.read()
 
-    # Decodarea răspunsului
+    # Decode and parse response
     result = json.loads(data.decode("utf-8"))
+    print("API Response:", result)  # Debugging
 
-    # Extrage amprenta de carbon din răspuns
-    carbon_footprint_kg = result['data']['co2e_kg']
-
-    return carbon_footprint_kg
+    # Extract carbon footprint
+    if 'data' in result and 'co2e_kg' in result['data']:
+        carbon_footprint_kg = result['data']['co2e_kg']
+        return carbon_footprint_kg
+    else:
+        print("Error in API response:", result)
+        sys.exit(1)
 
 
 if __name__ == "__main__":
-    # Citirea argumentelor din linia de comandă
-    # if len(sys.argv) != 5:
-    #    print("Utilizare: python carbon_sutra.py <make> <model> <dist> <unit>")
-    #    sys.exit(1)
+    # Read command-line arguments
+    if len(sys.argv) != 5:
+        print("Usage: python carbon_sutra.py <vehicle_type> <fuel_type> <distance_value> <distance_unit>")
+        sys.exit(1)
 
-    vehicle_type = 'Train-National'  # sys.argv[1]
-    fuel_type = ''  # sys.argv[2]
-    distance_value = '4500'  # sys.argv[3]
-    distance_unit = 'km'  # sys.argv[4]
+    vehicle_type = sys.argv[1]
+    fuel_type = sys.argv[2]
+    distance_value = sys.argv[3]
+    distance_unit = sys.argv[4]
 
-    # Calcularea amprentei de carbon
-    carbon_footprint_kg = calculate_carbon_footprint(vehicle_type, fuel_type, distance_value, distance_unit)
-
-    # Returnarea rezultatului
-    print(carbon_footprint_kg)
+    # Calculate carbon footprint
+    try:
+        carbon_footprint_kg = calculate_carbon_footprint(vehicle_type, fuel_type, distance_value, distance_unit)
+        print(carbon_footprint_kg)
+    except Exception as e:
+        print("An error occurred:", e)
+        sys.exit(1)
 
 '''
 double get_emissions_by_vehicle_type() {

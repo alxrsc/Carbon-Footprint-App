@@ -6,6 +6,7 @@
 #define PUBLICTRANSPORTPAGE_H
 
 #include "CommonStyles.h"
+#include "../APICalls.h"
 
 #include <QWidget>
 #include <QVBoxLayout>
