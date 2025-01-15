@@ -61,8 +61,45 @@ if __name__ == "__main__":
     # Calcularea amprentei de carbon
     result = calculate_carbon_footprint(vehicle_type, fuel_type, distance_value, distance_unit)
 
+<<<<<<< HEAD
     # Returnarea rezultatului în format JSON
     if isinstance(result, dict) and "error" in result:
         print(json.dumps(result))
     else:
         print(json.dumps({"co2e_kg": result}))
+=======
+    with open("total.txt", "a") as file:
+        file.write(str(carbon_footprint_kg) + '\n')
+    # Returnarea rezultatului
+    print(carbon_footprint_kg)
+
+'''
+double get_emissions_by_vehicle_type() {
+    string vehicle_type = "Motorbike-Size-Medium";      // Tipul
+    string fuel_type = "Petrol";    // Carburant
+    string distance = "1000";    // Distanța
+    string unit = "km";         // Unitatea de măsură
+
+    string command = "python3 emissions_by_motorcycle.py " + vehicle_type + " " + fuel_type + " " + distance + " " + unit;
+
+    // Executarea comenzii și obținerea rezultatelor
+    char buffer[128];
+    string result = "";
+
+    FILE* pipe = popen(command.c_str(), "r");
+    if (!pipe) {
+        cerr << "Eroare la executarea scriptului Python!" << endl;
+        return 1;
+    }
+
+    // Citirea rezultatului din stdout
+    while (fgets(buffer, sizeof(buffer), pipe)) {
+        result += buffer;
+    }
+
+    fclose(pipe);
+
+    return result;
+}
+'''
+>>>>>>> refs/remotes/origin/main

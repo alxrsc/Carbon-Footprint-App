@@ -1,8 +1,5 @@
-//
-// Created by Alexandru Roșca on 12.11.2024.
-//
-
 #include "HouseholdFootprintPage.h"
+#include <QDebug>
 
 HouseholdFootprintPage::HouseholdFootprintPage(QWidget *parent) : QWidget(parent) {
     setupUI();
@@ -11,15 +8,37 @@ HouseholdFootprintPage::HouseholdFootprintPage(QWidget *parent) : QWidget(parent
 void HouseholdFootprintPage::setupUI() {
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
-    QLabel *headerLabel = new QLabel("Household Carbon Footprint Calculator", this);
+    headerLabel = new QLabel("Household Carbon Footprint Calculator", this);
     headerLabel->setStyleSheet(HEADER_STYLE);
 
-    QFormLayout *formLayout = new QFormLayout();
-    for (const QString &field : {"Electricity (kWh):", "Petrol (litres):", "Natural Gas (metric tons):"}) {
-        QLineEdit *input = new QLineEdit(this);
-        input->setStyleSheet(INPUT_STYLE);
-        formLayout->addRow(field, input);
-    }
+    instructionLabel = new QLabel("Enter your household fuel usage details below:", this);
+    instructionLabel->setStyleSheet(INSTRUCTION_STYLE);
+
+    formLayout = new QFormLayout();
+
+    electricityInput = new QLineEdit(this);
+    electricityInput->setPlaceholderText("Enter electricity usage in kWh");
+    electricityInput->setStyleSheet(INPUT_STYLE);
+
+    petrolInput = new QLineEdit(this);
+    petrolInput->setPlaceholderText("Enter petrol usage in litres");
+    petrolInput->setStyleSheet(INPUT_STYLE);
+
+    naturalGasInput = new QLineEdit(this);
+    naturalGasInput->setPlaceholderText("Enter natural gas usage in metric tons");
+    naturalGasInput->setStyleSheet(INPUT_STYLE);
+
+    formLayout->addRow("Electricity (kWh):", electricityInput);
+    formLayout->addRow("Petrol (litres):", petrolInput);
+    formLayout->addRow("Natural Gas (metric tons):", naturalGasInput);
+
+    calculateButton = new QPushButton("Calculate Carbon Footprint", this);
+    calculateButton->setStyleSheet(BUTTON_STYLE);
+    connect(calculateButton, &QPushButton::clicked, this, &HouseholdFootprintPage::calculateCarbonFootprint);
+
+    resultLabel = new QLabel("", this);
+    resultLabel->setAlignment(Qt::AlignCenter);
+    resultLabel->setStyleSheet("font-size: 16px; color: green;");
 
     backButton = new QPushButton("< Method", this);
     flightsButton = new QPushButton("Flights >", this);
@@ -33,7 +52,10 @@ void HouseholdFootprintPage::setupUI() {
     navLayout->setAlignment(Qt::AlignCenter);
 
     mainLayout->addWidget(headerLabel);
+    mainLayout->addWidget(instructionLabel);
     mainLayout->addLayout(formLayout);
+    mainLayout->addWidget(calculateButton);
+    mainLayout->addWidget(resultLabel);
     mainLayout->addLayout(navLayout);
 
     setLayout(mainLayout);
@@ -41,25 +63,16 @@ void HouseholdFootprintPage::setupUI() {
     showMaximized();
 }
 
+void HouseholdFootprintPage::calculateCarbonFootprint() {
+    double electricity = electricityInput->text().toDouble();
+    double petrol = petrolInput->text().toDouble();
+    double naturalGas = naturalGasInput->text().toDouble();
 
-void HouseholdFootprintPage::applyStyles() {
-    // Overall page style
-    setStyleSheet("background-color: lightblue; font-size: 16px;");
+    double totalCarbonFootprint = (electricity * 0.233) + (petrol * 2.31) + (naturalGas * 2.75); // Example factors
 
-    // Header styles
-    headerLabel->setStyleSheet("font-weight: bold; color: darkgreen; font-size: 24px;");
-
-    // Instruction styles
-    instructionLabel->setStyleSheet("color: gray; font-size: 14px;");
-
-    // Form field styles
-    QList<QLineEdit *> lineEdits = findChildren<QLineEdit *>();
-    for (QLineEdit *lineEdit : lineEdits) {
-        lineEdit->setStyleSheet("padding: 5px; border: 1px solid gray; border-radius: 4px;");
+    if (totalCarbonFootprint > 0) {
+        resultLabel->setText(QString("Total Carbon Footprint: %1 kg CO₂").arg(totalCarbonFootprint));
+    } else {
+        resultLabel->setText("Please enter valid numbers for all fields.");
     }
-
-    // Button styles
-    backButton->setStyleSheet("color: green; background-color: lightgray; padding: 10px; border-radius: 5px;");
-    flightsButton->setStyleSheet("color: green; background-color: lightgray; padding: 10px; border-radius: 5px;");
-
 }

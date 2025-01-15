@@ -40,6 +40,9 @@ def calculate_carbon_footprint(vehicle_type, fuel_type, distance_value, distance
     # Extrage amprenta de carbon din răspuns
     carbon_footprint_kg = result['data']['co2e_kg']
 
+    with open("total.txt", "a") as file:
+        file.write(str(carbon_footprint_kg) + '\n')
+
     return carbon_footprint_kg
 
 

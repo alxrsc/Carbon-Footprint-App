@@ -39,6 +39,7 @@ def calculate_carbon_footprint(vehicle_type, fuel_type, distance_value, distance
     result = json.loads(data.decode("utf-8"))
     print("API Response:", result)  # Debugging
 
+<<<<<<< HEAD
     # Extract carbon footprint
     if 'data' in result and 'co2e_kg' in result['data']:
         carbon_footprint_kg = result['data']['co2e_kg']
@@ -46,6 +47,15 @@ def calculate_carbon_footprint(vehicle_type, fuel_type, distance_value, distance
     else:
         print("Error in API response:", result)
         sys.exit(1)
+=======
+    # Extrage amprenta de carbon din răspuns
+    carbon_footprint_kg = result['data']['co2e_kg']
+
+    with open("total.txt", "a") as file:
+        file.write(str(carbon_footprint_kg) + '\n')
+
+    return carbon_footprint_kg
+>>>>>>> refs/remotes/origin/main
 
 
 if __name__ == "__main__":
