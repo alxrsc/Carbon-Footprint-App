@@ -1,6 +1,4 @@
-//
-// Created by Alexandru Roșca on 13.01.2025.
-//
+// MotorbikePage.h
 
 #ifndef MOTORBIKEPAGE_H
 #define MOTORBIKEPAGE_H
@@ -18,7 +16,7 @@
 #include <QDebug>
 
 class MotorbikePage : public QWidget {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     explicit MotorbikePage(QWidget *parent = nullptr);
@@ -30,13 +28,16 @@ private:
     QVBoxLayout *motorbikeListLayout;
     QScrollArea *scrollArea;
     QPushButton *addMotorbikeButton;
+    QPushButton *calculateButton; // Button to trigger carbon footprint calculation
     QList<QWidget *> motorbikeEntries;
     QPushButton *backButton;
     QPushButton *publicTransportButton;
+    QLabel *resultLabel; // For displaying the total carbon footprint
 
     void setupUi();
     void addMotorbikeEntry();
     void removeMotorbikeEntry(QWidget *entry);
+    void calculateCarbonFootprint(); // Method to calculate and display carbon footprint
 };
 
 #endif //MOTORBIKEPAGE_H
