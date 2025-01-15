@@ -42,6 +42,10 @@ def calculate_carbon_footprint(country_code, city_name, hotel_rating, number_of_
         if 'data' in result and 'co2e_kg' in result['data']:
             # Extrage amprenta de carbon din răspuns
             carbon_footprint_kg = result['data']['co2e_kg']
+
+            with open("total.txt", "a") as file:
+                file.write(str(carbon_footprint_kg) + '\n')
+
             return carbon_footprint_kg
         else:
             print("Nu există date disponibile pentru această cerere.")
