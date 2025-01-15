@@ -180,25 +180,52 @@ string get_emissions_by_publicTransport(string vehicle_type, string fuel_type, s
 }
 
 string get_emissions_by_vehicle_model(string make, string model, string distance, string unit) {
+    // Verificăm dacă parametrii sunt valizi
+    // adaugam caracterul de escape pentru spatiu
+    for(int i = 0; i < make.size(); i++) {
+        if(make[i] == ' ') {
+            make.insert(i, "\\");
+            i++;
+        }
+    }
 
+    for(int i = 0; i < model.size(); i++) {
+        if(model[i] == ' ') {
+            model.insert(i, "\\");
+            i++;
+        }
+    }
+
+    cout << make << " " << model << " " << distance << " " << unit << endl;
+
+    // Construim comanda pentru a apela scriptul Python
     string command = "python3 ../backend-api-scripts/emissions_by_vehicle_model.py " + make + " " + model + " " + distance + " " + unit;
 
-    // Executarea comenzii și obținerea rezultatelor
+    // Buffer pentru citirea rezultatului
     char buffer[128];
-    string result = "";
+    string result;
 
-    FILE* pipe = popen(command.c_str(), "r");
+    // Deschidem un pipe pentru executarea comenzii
+    FILE *pipe = popen(command.c_str(), "r");
     if (!pipe) {
         cerr << "Eroare la executarea scriptului Python!" << endl;
         return "Error";
     }
 
-    // Citirea rezultatului din stdout
+    // Citim răspunsul din stdout
     while (fgets(buffer, sizeof(buffer), pipe)) {
         result += buffer;
     }
 
-    fclose(pipe);
+    // Închidem pipe-ul
+    int returnCode = pclose(pipe);
+    if (returnCode != 0) {
+        cerr << "Script Python a returnat un cod de eroare: " << returnCode << endl;
+        return "Error";
+    }
+
+    // Eliminăm spațiile albe suplimentare din răspuns
+    result.erase(result.find_last_not_of(" \n\r\t") + 1);
 
     return result;
 }
