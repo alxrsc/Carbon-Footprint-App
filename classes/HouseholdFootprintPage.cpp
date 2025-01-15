@@ -70,6 +70,8 @@ void HouseholdFootprintPage::calculateCarbonFootprint() {
 
     double totalCarbonFootprint = (electricity * 0.233) + (petrol * 2.31) + (naturalGas * 2.75); // Example factors
 
+    ExpensesPage::householdCost = totalCarbonFootprint;
+
     if (totalCarbonFootprint > 0) {
         resultLabel->setText(QString("Total Carbon Footprint: %1 kg CO₂").arg(totalCarbonFootprint));
     } else {

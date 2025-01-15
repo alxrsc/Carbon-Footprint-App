@@ -182,4 +182,5 @@ void HotelStayPage::calculateCarbonFootprint() {
     }
 
     resultLabel->setText(QString("Total Carbon Footprint: %1 kg CO₂").arg(totalCarbonFootprint));
+    ExpensesPage::hotelStayCost = totalCarbonFootprint;
 }

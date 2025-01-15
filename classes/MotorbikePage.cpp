@@ -176,5 +176,7 @@ void MotorbikePage::calculateCarbonFootprint() {
         }
     }
 
+    ExpensesPage::motorcycleCost = totalCarbonFootprint;
+
     resultLabel->setText(QString("Total Carbon Footprint: %1 kg CO₂").arg(totalCarbonFootprint));
 }

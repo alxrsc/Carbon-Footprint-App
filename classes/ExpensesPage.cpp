@@ -1,10 +1,11 @@
 #include "ExpensesPage.h"
-#include "FlightsPage.h"
-#include "HotelStayPage.h"
-#include "VehiclePage.h"
-#include "PublicTransportPage.h"
-#include "HouseholdFootprintPage.h"
-#include "MotorbikePage.h"
+
+double ExpensesPage::hotelStayCost = 0.0;
+double ExpensesPage::householdCost = 0.0;
+double ExpensesPage::flightsCost = 0.0;
+double ExpensesPage::vehiclesCost = 0.0;
+double ExpensesPage::motorcycleCost = 0.0;
+double ExpensesPage::publicTransportCost = 0.0;
 
 ExpensesPage::ExpensesPage(QWidget *parent) : QWidget(parent) {
     setupUi();
@@ -68,12 +69,12 @@ void ExpensesPage::setupUi() {
     // Signal for updating results
     connect(updateButton, &QPushButton::clicked, this, [=]() {
         // Mock calculation logic (replace with your actual logic)
-        double householdCost = 340.3;  // Replace with script output
-        double flightsCost = 220.0;   // Replace with script output
-        double vehiclesCost = 150.7; // Replace with script output
-        double motorcycleCost = 45.8; // Replace with script output
-        double publicTransportCost = 30.4; // Replace with script output
-        double hotelCost = 120.5;    // Replace with script output
+        double householdCost = ExpensesPage::householdCost;  // Replace with script output
+        double flightsCost = ExpensesPage::flightsCost;   // Replace with script output
+        double vehiclesCost = ExpensesPage::vehiclesCost; // Replace with script output
+        double motorcycleCost = ExpensesPage::motorcycleCost; // Replace with script output
+        double publicTransportCost = ExpensesPage::publicTransportCost; // Replace with script output
+        double hotelCost = ExpensesPage::hotelStayCost;    // Replace with script output
         double totalCarbonFootprint = householdCost + flightsCost + vehiclesCost +
                                       motorcycleCost + publicTransportCost + hotelCost;
 

@@ -176,5 +176,7 @@ void PublicTransportPage::calculateCarbonFootprint() {
         }
     }
 
+    ExpensesPage::publicTransportCost = totalCarbonFootprint;
+
     resultLabel->setText(QString("Total Carbon Footprint: %1 kg CO₂").arg(totalCarbonFootprint));
 }
