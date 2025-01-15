@@ -101,6 +101,8 @@ void VehiclePage::calculateEmissions() {
             continue;
         }
 
+        ExpensesPage::vehicleCost += stod(emissions);
+
         // Afișăm rezultatul
         QString message = QString("Emisiile pentru %1 %2 pe %3 %4 sunt: %5 kg CO2")
                 .arg(make, model, distance, unit, QString::fromStdString(emissions));

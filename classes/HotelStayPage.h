@@ -4,6 +4,7 @@
 #define HOTELSTAYPAGE_H
 
 #include "CommonStyles.h"
+#include "ExpensesPage.h"
 
 #include <QWidget>
 #include <QVBoxLayout>

@@ -119,6 +119,7 @@ QStringList FlightsPage::loadAirportsFromCsv(const QString &filePath) {
 void FlightsPage::calculateFlightEmissions() {
     // Clear previous emissions results if necessary
     QStringList results;
+    double totalEmissions = 0.0;
 
     for (FlightEntryWidget *entry : flightEntries) {
         QString airportFrom = entry->getAirportFrom();
@@ -148,11 +149,15 @@ void FlightsPage::calculateFlightEmissions() {
             continue; // Skip this entry
         }
 
+        totalEmissions += stod(emissions);
+
         // Collect results
         QString message = QString("Emisiile pentru zborul de la %1 la %2 sunt: %3 kg CO2")
                 .arg(airportFrom, airportTo, QString::fromStdString(emissions));
         results.append(message);
     }
+
+    ExpensesPage::flightsCost = totalEmissions;
 
     // Display all results at once
     if (!results.isEmpty()) {

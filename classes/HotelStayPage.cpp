@@ -91,7 +91,7 @@ void HotelStayPage::addHotelStayEntry() {
 
     // Dropdown for hotel rating (optional)
     QComboBox *ratingComboBox = new QComboBox(entryWidget);
-    ratingComboBox->addItem("Select Rating (optional)");
+    ratingComboBox->addItem("Select Rating");
     for (int i = 2; i <= 5; ++i) {
         ratingComboBox->addItem(QString::number(i) + " Stars");
     }
@@ -182,4 +182,5 @@ void HotelStayPage::calculateCarbonFootprint() {
     }
 
     resultLabel->setText(QString("Total Carbon Footprint: %1 kg CO₂").arg(totalCarbonFootprint));
+    ExpensesPage::hotelStayCost = totalCarbonFootprint;
 }

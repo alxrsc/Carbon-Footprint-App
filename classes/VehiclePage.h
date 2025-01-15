@@ -4,6 +4,7 @@
 #include "CommonStyles.h"
 #include "../Utils/VehicleEntryWidget.h"
 #include "../APICalls.h"
+#include "ExpensesPage.h"
 
 #include <QWidget>
 #include <QVBoxLayout>

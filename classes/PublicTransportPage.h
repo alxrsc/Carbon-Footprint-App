@@ -5,6 +5,7 @@
 
 #include "CommonStyles.h"
 #include "../APICalls.h"
+#include "ExpensesPage.h"
 
 #include <QWidget>
 #include <QVBoxLayout>

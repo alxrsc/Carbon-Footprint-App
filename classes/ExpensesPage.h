@@ -6,6 +6,12 @@
 #define EXPENSESPAGE_H
 
 #include "CommonStyles.h"
+#include "FlightsPage.h"
+#include "HotelStayPage.h"
+#include "VehiclePage.h"
+#include "PublicTransportPage.h"
+#include "HouseholdFootprintPage.h"
+#include "MotorbikePage.h"
 
 #include <QWidget>
 #include <QVBoxLayout>
@@ -21,6 +27,12 @@ class ExpensesPage : public QWidget {
 Q_OBJECT
 
 public:
+    static double householdCost;
+    static double flightsCost;
+    static double vehiclesCost;
+    static double motorcycleCost;
+    static double publicTransportCost;
+    static double hotelStayCost;
     explicit ExpensesPage(QWidget *parent = nullptr);
     QPushButton *getBackButton() const { return backButton; }
     QPushButton *getNextButton() const { return nextButton; }

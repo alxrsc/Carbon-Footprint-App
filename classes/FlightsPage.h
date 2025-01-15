@@ -4,6 +4,7 @@
 #include "CommonStyles.h"
 #include "../Utils/FlightEntryWidget.h"
 #include "../APICalls.h"
+#include "ExpensesPage.h"
 
 #include <QStringList>
 #include <QWidget>
