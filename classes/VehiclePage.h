@@ -3,6 +3,7 @@
 
 #include "CommonStyles.h"
 #include "../Utils/VehicleEntryWidget.h"
+#include "../APICalls.h"
 
 #include <QWidget>
 #include <QVBoxLayout>
@@ -38,6 +39,7 @@ private:
     void setupUi();
     void addVehicleEntry();
     void removeVehicleEntry(VehicleEntryWidget *entry);
+    void calculateEmissions();
     void loadMakesAndModelsFromCsv(const QString &filePath);
 };
 

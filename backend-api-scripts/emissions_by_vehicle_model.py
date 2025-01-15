@@ -45,13 +45,13 @@ def calculate_carbon_footprint(vehicle_make, vehicle_model, distance_value, dist
 
 if __name__ == "__main__":
     # Citirea argumentelor din linia de comandă
-    #if len(sys.argv) != 5:
-    #    print("Utilizare: python carbon_sutra.py <make> <model> <dist> <unit>")
-    #    sys.exit(1)
+    if len(sys.argv) != 5:
+       print("Utilizare: python carbon_sutra.py <make> <model> <dist> <unit>")
+       sys.exit(1)
 
-    vehicle_make = 'Lexus' #sys.argv[1]
-    vehicle_model = 'RX 300' #sys.argv[2]
-    distance_value = '421' #sys.argv[3]
+    vehicle_make = sys.argv[1]
+    vehicle_model = sys.argv[2]
+    distance_value = sys.argv[3]
     distance_unit = 'km' #sys.argv[4]
 
     # Calcularea amprentei de carbon

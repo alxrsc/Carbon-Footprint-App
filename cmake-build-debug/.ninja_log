@@ -27,3 +27,36 @@
 100	657	1736887069406201162	CMakeFiles/CarbonFootprintApp.dir/APICalls.cpp.o	c7140e4303a9230d
 100	1138	1736887069406039703	CMakeFiles/CarbonFootprintApp.dir/main.cpp.o	a5ff3e2e82367176
 1139	1296	1736887070444691629	CarbonFootprintApp	73b4b7d0a59e8272
+32	706	1736941462291741000	CarbonFootprintApp_autogen/timestamp	a148654b9548f94c
+32	706	1736941462291741000	CarbonFootprintApp_autogen/mocs_compilation.cpp	a148654b9548f94c
+32	706	1736941462291741000	/Users/alexandrurosca/Desktop/Facultate/Anul 2/POO/Carbon_Footprint_App/cmake-build-debug/CarbonFootprintApp_autogen/timestamp	a148654b9548f94c
+32	706	1736941462291741000	/Users/alexandrurosca/Desktop/Facultate/Anul 2/POO/Carbon_Footprint_App/cmake-build-debug/CarbonFootprintApp_autogen/mocs_compilation.cpp	a148654b9548f94c
+707	1257	1736941462304597210	CMakeFiles/CarbonFootprintApp.dir/APICalls.cpp.o	c7140e4303a9230d
+706	1822	1736941462303795493	CMakeFiles/CarbonFootprintApp.dir/main.cpp.o	a5ff3e2e82367176
+707	1857	1736941462304041121	CMakeFiles/CarbonFootprintApp.dir/Utils/VehicleEntryWidget.cpp.o	d889934feea9cd43
+707	1934	1736941462303922245	CMakeFiles/CarbonFootprintApp.dir/classes/MainController.cpp.o	346a824369816969
+707	1953	1736941462304172205	CMakeFiles/CarbonFootprintApp.dir/classes/VehiclePage.cpp.o	3cfd9db422742669
+706	1960	1736941462303611241	CMakeFiles/CarbonFootprintApp.dir/CarbonFootprintApp_autogen/mocs_compilation.cpp.o	d7aa240450cb88b1
+1960	2131	1736941463557679079	CarbonFootprintApp	73b4b7d0a59e8272
+14	101	1736941627384540336	CarbonFootprintApp_autogen/timestamp	a148654b9548f94c
+14	101	1736941627384540336	CarbonFootprintApp_autogen/mocs_compilation.cpp	a148654b9548f94c
+14	101	1736941627384540336	/Users/alexandrurosca/Desktop/Facultate/Anul 2/POO/Carbon_Footprint_App/cmake-build-debug/CarbonFootprintApp_autogen/timestamp	a148654b9548f94c
+14	101	1736941627384540336	/Users/alexandrurosca/Desktop/Facultate/Anul 2/POO/Carbon_Footprint_App/cmake-build-debug/CarbonFootprintApp_autogen/mocs_compilation.cpp	a148654b9548f94c
+102	1214	1736941627471617508	CMakeFiles/CarbonFootprintApp.dir/main.cpp.o	a5ff3e2e82367176
+1215	1334	1736941628584663420	CarbonFootprintApp	73b4b7d0a59e8272
+12	648	1736941904762565000	CarbonFootprintApp_autogen/timestamp	a148654b9548f94c
+12	648	1736941904762565000	CarbonFootprintApp_autogen/mocs_compilation.cpp	a148654b9548f94c
+12	648	1736941904762565000	/Users/alexandrurosca/Desktop/Facultate/Anul 2/POO/Carbon_Footprint_App/cmake-build-debug/CarbonFootprintApp_autogen/timestamp	a148654b9548f94c
+12	648	1736941904762565000	/Users/alexandrurosca/Desktop/Facultate/Anul 2/POO/Carbon_Footprint_App/cmake-build-debug/CarbonFootprintApp_autogen/mocs_compilation.cpp	a148654b9548f94c
+649	1713	1736941904775426770	CMakeFiles/CarbonFootprintApp.dir/Utils/VehicleEntryWidget.cpp.o	d889934feea9cd43
+648	1770	1736941904775082933	CMakeFiles/CarbonFootprintApp.dir/main.cpp.o	a5ff3e2e82367176
+648	1797	1736941904775238185	CMakeFiles/CarbonFootprintApp.dir/classes/MainController.cpp.o	346a824369816969
+648	1835	1736941904774891265	CMakeFiles/CarbonFootprintApp.dir/CarbonFootprintApp_autogen/mocs_compilation.cpp.o	d7aa240450cb88b1
+649	1879	1736941904775793774	CMakeFiles/CarbonFootprintApp.dir/classes/VehiclePage.cpp.o	3cfd9db422742669
+1879	1986	1736941906005767200	CarbonFootprintApp	73b4b7d0a59e8272
+9	96	1736941943717735348	CarbonFootprintApp_autogen/timestamp	a148654b9548f94c
+9	96	1736941943717735348	CarbonFootprintApp_autogen/mocs_compilation.cpp	a148654b9548f94c
+9	96	1736941943717735348	/Users/alexandrurosca/Desktop/Facultate/Anul 2/POO/Carbon_Footprint_App/cmake-build-debug/CarbonFootprintApp_autogen/timestamp	a148654b9548f94c
+9	96	1736941943717735348	/Users/alexandrurosca/Desktop/Facultate/Anul 2/POO/Carbon_Footprint_App/cmake-build-debug/CarbonFootprintApp_autogen/mocs_compilation.cpp	a148654b9548f94c
+96	1106	1736941943804381598	CMakeFiles/CarbonFootprintApp.dir/classes/VehiclePage.cpp.o	3cfd9db422742669
+1106	1200	1736941944814272094	CarbonFootprintApp	73b4b7d0a59e8272
