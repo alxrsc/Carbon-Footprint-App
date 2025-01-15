@@ -9,11 +9,10 @@ void FootprintMethodPage::setupUI() {
     QVBoxLayout *layout = new QVBoxLayout(this);
 
     // Buttons
-    peopleButton = new QPushButton("Calculate for a Specific Number of People", this);
     householdButton = new QPushButton("Calculate for an Entire Household", this);
     backButton = new QPushButton("Back", this);
 
-    for (QPushButton *button : {peopleButton, householdButton, backButton}) {
+    for (QPushButton *button : {householdButton, backButton}) {
         button->setStyleSheet(BUTTON_STYLE);
         layout->addWidget(button);
     }
@@ -53,41 +52,7 @@ void FootprintMethodPage::setupUI() {
 }
 
 void FootprintMethodPage::connectUI() {
-    connect(peopleButton, &QPushButton::clicked, this, &FootprintMethodPage::showPeopleInputForm);
-    connect(submitButton, &QPushButton::clicked, this, &FootprintMethodPage::submitPeopleCount);
     connect(householdButton, &QPushButton::clicked, this, &FootprintMethodPage::onHouseholdButtonClicked);
-}
-
-void FootprintMethodPage::showPeopleInputForm() {
-    // Hide main buttons
-    peopleButton->hide();
-    householdButton->hide();
-    backButton->hide();
-
-    // Show input form
-    promptLabel->show();
-    inputField->show();
-    submitButton->show();
-}
-
-void FootprintMethodPage::submitPeopleCount() {
-    bool ok;
-    int count = inputField->text().toInt(&ok);
-
-    if (ok && count > 0) {
-        // Emit signal with valid count
-        emit peopleCountEntered(count);
-        inputField->clear();
-
-        // Show form layout for additional inputs
-        promptLabel->hide();
-        inputField->hide();
-        submitButton->hide();
-
-    } else {
-        inputField->clear();
-        inputField->setPlaceholderText("Please enter a valid number");
-    }
 }
 
 void FootprintMethodPage::onHouseholdButtonClicked() {
