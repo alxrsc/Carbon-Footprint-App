@@ -159,6 +159,8 @@ string get_emissions_by_publicTransport(string vehicle_type, string fuel_type, s
 
     string command = "python3 ../backend-api-scripts/emissions_by_publicTransport.py " + vehicle_type + " " + fuel_type + " " + distance + " " + unit;
 
+//    cout << command << endl;
+
     // Executarea comenzii și obținerea rezultatelor
     char buffer[128];
     string result = "";
