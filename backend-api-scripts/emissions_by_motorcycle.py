@@ -1,9 +1,7 @@
-
 import sys
 import json
 import http.client
 import urllib.parse
-
 
 def calculate_carbon_footprint(vehicle_type, fuel_type, distance_value, distance_unit):
     # Configurare conexiune HTTPS
@@ -28,65 +26,43 @@ def calculate_carbon_footprint(vehicle_type, fuel_type, distance_value, distance
         'Authorization': "Bearer fQ98oU704xFvsnXcQLVDbpeCJHPglG1DcxiMLKfpeNEMGumlbzVf1lCI6ZBx"
     }
 
-    # Trimiterea cererii POST către API
-    conn.request("POST", "/vehicle_estimate_by_type", encoded_payload, headers)
+    try:
+        # Trimiterea cererii POST către API
+        conn.request("POST", "/vehicle_estimate_by_type", encoded_payload, headers)
 
-    # Obținerea răspunsului
-    res = conn.getresponse()
-    data = res.read()
+        # Obținerea răspunsului
+        res = conn.getresponse()
+        data = res.read()
 
-    # Decodarea răspunsului
-    result = json.loads(data.decode("utf-8"))
+        # Decodarea răspunsului
+        result = json.loads(data.decode("utf-8"))
 
-    # Extrage amprenta de carbon din răspuns
-    carbon_footprint_kg = result['data']['co2e_kg']
+        # Verificare și extragere amprenta de carbon
+        if 'data' in result and 'co2e_kg' in result['data']:
+            carbon_footprint_kg = result['data']['co2e_kg']
+            return carbon_footprint_kg
+        else:
+            raise ValueError("Răspuns invalid de la API")
 
-    return carbon_footprint_kg
-
+    except Exception as e:
+        return {"error": str(e)}
 
 if __name__ == "__main__":
-    # Citirea argumentelor din linia de comandă
-    # if len(sys.argv) != 5:
-    #    print("Utilizare: python carbon_sutra.py <make> <model> <dist> <unit>")
-    #    sys.exit(1)
+    if len(sys.argv) != 5:
+        print(json.dumps({"error": "Utilizare: python emissions_by_motorcycle.py <vehicle_type> <fuel_type> <distance_value> <distance_unit>"}))
+        sys.exit(1)
 
-    vehicle_type = 'Motorbike-Size-Medium'  # sys.argv[1]
-    fuel_type = 'Petrol'  # sys.argv[2]
-    distance_value = '1000'  # sys.argv[3]
-    distance_unit = 'km'  # sys.argv[4]
+    # Citirea argumentelor din linia de comandă
+    vehicle_type = sys.argv[1]
+    fuel_type = sys.argv[2]
+    distance_value = sys.argv[3]
+    distance_unit = sys.argv[4]
 
     # Calcularea amprentei de carbon
-    carbon_footprint_kg = calculate_carbon_footprint(vehicle_type, fuel_type, distance_value, distance_unit)
+    result = calculate_carbon_footprint(vehicle_type, fuel_type, distance_value, distance_unit)
 
-    # Returnarea rezultatului
-    print(carbon_footprint_kg)
-
-'''
-double get_emissions_by_vehicle_type() {
-    string vehicle_type = "Motorbike-Size-Medium";      // Tipul
-    string fuel_type = "Petrol";    // Carburant
-    string distance = "1000";    // Distanța
-    string unit = "km";         // Unitatea de măsură
-
-    string command = "python3 emissions_by_motorcycle.py " + vehicle_type + " " + fuel_type + " " + distance + " " + unit;
-
-    // Executarea comenzii și obținerea rezultatelor
-    char buffer[128];
-    string result = "";
-
-    FILE* pipe = popen(command.c_str(), "r");
-    if (!pipe) {
-        cerr << "Eroare la executarea scriptului Python!" << endl;
-        return 1;
-    }
-
-    // Citirea rezultatului din stdout
-    while (fgets(buffer, sizeof(buffer), pipe)) {
-        result += buffer;
-    }
-
-    fclose(pipe);
-
-    return result;
-}
-'''
+    # Returnarea rezultatului în format JSON
+    if isinstance(result, dict) and "error" in result:
+        print(json.dumps(result))
+    else:
+        print(json.dumps({"co2e_kg": result}))
