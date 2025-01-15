@@ -18,9 +18,9 @@
 #include <QMessageBox>
 
 class VehiclePage : public QWidget {
-Q_OBJECT
+    Q_OBJECT
 
-public:
+    public:
     explicit VehiclePage(QWidget *parent = nullptr);
     QPushButton *getBackButton() const { return backButton; }
     QPushButton *getMotorbikeButton() const { return motorbikeButton; }

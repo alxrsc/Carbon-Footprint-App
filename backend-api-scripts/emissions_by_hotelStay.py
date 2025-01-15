@@ -2,32 +2,36 @@ import sys
 import json
 import http.client
 import urllib.parse
+import io
+
+# Configurează consola pentru UTF-8
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 def calculate_carbon_footprint(country_code, city_name, hotel_rating, number_of_nights, number_of_rooms):
-    # Configurare conexiune HTTPS
-    conn = http.client.HTTPSConnection("carbonsutra1.p.rapidapi.com")
-
-    # Pregătirea datelor de payload
-    payload = {
-        'country_code': country_code,
-        'city_name': city_name,
-        'hotel_rating': hotel_rating,
-        'number_of_nights': number_of_nights,
-        'number_of_rooms': number_of_rooms
-    }
-
-    # Codificarea payload-ului
-    encoded_payload = urllib.parse.urlencode(payload)
-
-    # Definirea header-urilor
-    headers = {
-        'x-rapidapi-key': "5d10ec62c3mshc305a7605de54b7p1ac4a0jsn6b52cfbed578",
-        'x-rapidapi-host': "carbonsutra1.p.rapidapi.com",
-        'Content-Type': "application/x-www-form-urlencoded",
-        'Authorization': "Bearer fQ98oU704xFvsnXcQLVDbpeNEMGumlbzVf1lCI6ZBx"
-    }
-
     try:
+        # Configurare conexiune HTTPS
+        conn = http.client.HTTPSConnection("carbonsutra1.p.rapidapi.com")
+
+        # Pregătirea datelor de payload
+        payload = {
+            'country_code': country_code,
+            'city_name': city_name,
+            'hotel_rating': hotel_rating,
+            'number_of_nights': number_of_nights,
+            'number_of_rooms': number_of_rooms
+        }
+
+        # Codificarea payload-ului
+        encoded_payload = urllib.parse.urlencode(payload)
+
+        # Definirea header-urilor
+        headers = {
+            'x-rapidapi-key': "5d10ec62c3mshc305a7605de54b7p1ac4a0jsn6b52cfbed578",
+            'x-rapidapi-host': "carbonsutra1.p.rapidapi.com",
+            'Content-Type': "application/x-www-form-urlencoded",
+            'Authorization': "Bearer fQ98oU704xFvsnXcQLVDbpeNEMGumlbzVf1lCI6ZBx"
+        }
+
         # Trimiterea cererii POST către API
         conn.request("POST", "/hotel_estimate", encoded_payload, headers)
 
@@ -43,36 +47,36 @@ def calculate_carbon_footprint(country_code, city_name, hotel_rating, number_of_
             # Extrage amprenta de carbon din răspuns
             carbon_footprint_kg = result['data']['co2e_kg']
 
-            with open("total.txt", "a") as file:
+            # Salvează rezultatul într-un fișier
+            with open("total.txt", "a", encoding="utf-8") as file:
                 file.write(str(carbon_footprint_kg) + '\n')
 
             return carbon_footprint_kg
         else:
-            return None  # Sau poți returna 0 sau altă valoare
+            return {"error": "Invalid response structure or no data available."}
 
-    except json.JSONDecodeError:
-        return None
     except Exception as e:
-        return None
+        return {"error": str(e)}
+
 
 if __name__ == "__main__":
-    if len(sys.argv) < 6:
-        print(json.dumps({"error": "Insufficient arguments provided."}))
+    # Verificarea numărului de argumente
+    if len(sys.argv) != 6:
+        print(json.dumps({"error": "Usage: python emissions_by_hotelStay.py <country_code> <city_name> <hotel_rating> <number_of_nights> <number_of_rooms>"}))
         sys.exit(1)
 
+    # Citirea argumentelor din linia de comandă
     country_code = sys.argv[1]
     city_name = sys.argv[2]
-    hotel_rating = int(sys.argv[3])
-    number_of_nights = int(sys.argv[4])
-    number_of_rooms = int(sys.argv[5])
+    hotel_rating = sys.argv[3]
+    number_of_nights = sys.argv[4]
+    number_of_rooms = sys.argv[5]
 
     # Calcularea amprentei de carbon
-    carbon_footprint_kg = calculate_carbon_footprint(
-        country_code, city_name, hotel_rating, number_of_nights, number_of_rooms
-    )
+    result = calculate_carbon_footprint(country_code, city_name, hotel_rating, number_of_nights, number_of_rooms)
 
     # Returnarea rezultatului
-    if carbon_footprint_kg is not None:
-        print(json.dumps({"co2e_kg": carbon_footprint_kg}))
+    if isinstance(result, dict) and "error" in result:
+        print(json.dumps(result))
     else:
-        print(json.dumps({"error": "Failed to calculate carbon footprint."}))
+        print(json.dumps({"co2e_kg": result}))

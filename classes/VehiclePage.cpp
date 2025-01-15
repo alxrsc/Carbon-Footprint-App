@@ -124,9 +124,9 @@ void VehiclePage::loadMakesAndModelsFromCsv(const QString &filePath) {
         QStringList parts = line.split(",");
 
         // Validate and parse line
-        if (parts.size() < 4) continue;
-        QString make = parts.at(1).trimmed().remove("\"");  // Remove surrounding quotes
-        QString model = parts.at(3).trimmed().remove("\""); // Remove surrounding quotes
+        if (parts.size() < 2) continue;
+        QString make = parts.at(0).trimmed().remove("\"");  // Remove surrounding quotes
+        QString model = parts.at(1).trimmed().remove("\""); // Remove surrounding quotes
 
         // Add make to list if not already present
         if (!makeList.contains(make)) {

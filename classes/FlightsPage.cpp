@@ -38,6 +38,12 @@ void FlightsPage::setupUi() {
     addFlightButton->setStyleSheet(BUTTON_STYLE);
     connect(addFlightButton, &QPushButton::clicked, this, &FlightsPage::addFlightEntry);
 
+    // Calculate Emissions Button
+    QPushButton *calculateEmissionsButton = new QPushButton("Calculate Emissions", this);
+    calculateEmissionsButton->setStyleSheet(BUTTON_STYLE);
+    connect(calculateEmissionsButton, &QPushButton::clicked, this, &FlightsPage::calculateFlightEmissions);
+    //mainLayout->addWidget(calculateEmissionsButton);
+
     // Navigation buttons
     backButton = new QPushButton("< Household", this);
     vehicleButton = new QPushButton("Vehicles >", this);
@@ -55,6 +61,7 @@ void FlightsPage::setupUi() {
     mainLayout->addWidget(instructionLabel);
     mainLayout->addWidget(scrollArea);
     mainLayout->addWidget(addFlightButton);
+    mainLayout->addWidget(calculateEmissionsButton);
     mainLayout->addLayout(navLayout);
 
     // Apply a global background color
@@ -108,3 +115,48 @@ QStringList FlightsPage::loadAirportsFromCsv(const QString &filePath) {
     file.close();
     return airportList;
 }
+
+void FlightsPage::calculateFlightEmissions() {
+    // Clear previous emissions results if necessary
+    QStringList results;
+
+    for (FlightEntryWidget *entry : flightEntries) {
+        QString airportFrom = entry->getAirportFrom();
+        QString airportTo = entry->getAirportTo();
+        QString flightClass = entry->getFlightClass();
+        QString roundTrip = entry->isRoundTrip() ? "yes" : "no";
+        QString numberOfPassengers = entry->getNumberOfPassengers();
+
+        // Validate input fields
+        if (airportFrom.isEmpty() || airportTo.isEmpty() || flightClass.isEmpty() || numberOfPassengers.isEmpty()) {
+            QMessageBox::warning(this, "Date lipsă", "Completează toate câmpurile pentru fiecare zbor.");
+            continue; // Skip this entry
+        }
+
+        // Call the function to get emissions
+        string emissions = get_carbon_footprint_flight(
+            airportFrom.toStdString(),
+            airportTo.toStdString(),
+            flightClass.toStdString(),
+            roundTrip.toStdString(),
+            numberOfPassengers.toStdString()
+        );
+
+        // Validate the emissions response
+        if (emissions == "Error") {
+            QMessageBox::warning(this, "Eroare", "Nu s-au putut calcula emisiile pentru zborul de la " + airportFrom + " la " + airportTo + ".");
+            continue; // Skip this entry
+        }
+
+        // Collect results
+        QString message = QString("Emisiile pentru zborul de la %1 la %2 sunt: %3 kg CO2")
+                .arg(airportFrom, airportTo, QString::fromStdString(emissions));
+        results.append(message);
+    }
+
+    // Display all results at once
+    if (!results.isEmpty()) {
+        QMessageBox::information(this, "Emisii calculate", results.join("\n"));
+    }
+}
+

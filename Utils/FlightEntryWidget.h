@@ -12,10 +12,11 @@
 #include <QCompleter>
 #include <QStringList>
 
-class FlightEntryWidget : public QWidget {
-Q_OBJECT
 
-public:
+class FlightEntryWidget : public QWidget {
+    Q_OBJECT
+
+    public:
     explicit FlightEntryWidget(const QStringList &airportList, QWidget *parent = nullptr);
 
     // Public fields for accessing inputs
@@ -23,10 +24,17 @@ public:
     QLineEdit *destinationAirportInput;
     QComboBox *classInput;
     QCheckBox *roundTripCheckBox;
-    QCheckBox *radiativeForcingCheckBox;
+    //QCheckBox *radiativeForcingCheckBox;
+    QLineEdit *numberOfPassengersInput;
 
-signals:
-    void removeRequested(FlightEntryWidget *entry);
+    QString getAirportFrom() const;
+    QString getAirportTo() const;
+    QString getFlightClass() const;
+    bool isRoundTrip() const;
+    QString getNumberOfPassengers() const;
+
+    signals:
+        void removeRequested(FlightEntryWidget *entry);
 
 private:
     QPushButton *removeButton;
