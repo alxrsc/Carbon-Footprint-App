@@ -1,7 +1,9 @@
-//
-// Created by Alexandru Roșca on 13.01.2025.
-//
+// Updated HotelStayPage.cpp
 #include "HotelStayPage.h"
+#include <QProcess>
+#include <QDebug>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 HotelStayPage::HotelStayPage(QWidget *parent) : QWidget(parent) {
     setupUi();
@@ -38,6 +40,16 @@ void HotelStayPage::setupUi() {
     addHotelStayButton->setStyleSheet(BUTTON_STYLE);
     connect(addHotelStayButton, &QPushButton::clicked, this, &HotelStayPage::addHotelStayEntry);
 
+    // Calculate button
+    calculateButton = new QPushButton("Calculate Carbon Footprint", this);
+    calculateButton->setStyleSheet(BUTTON_STYLE);
+    connect(calculateButton, &QPushButton::clicked, this, &HotelStayPage::calculateCarbonFootprint);
+
+    // Result display
+    resultLabel = new QLabel("", this);
+    resultLabel->setAlignment(Qt::AlignCenter);
+    resultLabel->setStyleSheet("font-size: 16px; color: green;");
+
     // Navigation buttons
     backButton = new QPushButton("< Back", this);
     expensesPageButton = new QPushButton("Other expenses >", this);
@@ -55,6 +67,8 @@ void HotelStayPage::setupUi() {
     mainLayout->addWidget(instructionLabel);
     mainLayout->addWidget(scrollArea);
     mainLayout->addWidget(addHotelStayButton);
+    mainLayout->addWidget(calculateButton);
+    mainLayout->addWidget(resultLabel);
     mainLayout->addLayout(navLayout);
 
     // Apply a global background color
@@ -94,7 +108,7 @@ void HotelStayPage::addHotelStayEntry() {
     QPushButton *removeButton = new QPushButton("Remove", entryWidget);
     removeButton->setStyleSheet(BUTTON_STYLE);
 
-    connect(removeButton, &QPushButton::clicked, [=]() {
+    connect(removeButton, &QPushButton::clicked, [this, entryWidget]() {
         removeHotelStayEntry(entryWidget);
     });
 
@@ -112,10 +126,60 @@ void HotelStayPage::addHotelStayEntry() {
 
     hotelStayListLayout->addWidget(entryWidget);
     hotelStayEntries.append(entryWidget);
+
+    // Store references to input fields for data collection
+    HotelStayEntry entry;
+    entry.countryCodeInput = countryCodeInput;
+    entry.cityInput = cityInput;
+    entry.ratingComboBox = ratingComboBox;
+    entry.nightsInput = nightsInput;
+    entry.roomsInput = roomsInput;
+    hotelStayInputs.append(entry);
 }
 
 void HotelStayPage::removeHotelStayEntry(QWidget *entry) {
     hotelStayListLayout->removeWidget(entry);
     hotelStayEntries.removeOne(entry);
     entry->deleteLater();
+}
+
+void HotelStayPage::calculateCarbonFootprint() {
+    double totalCarbonFootprint = 0.0;
+    for (const HotelStayEntry &entry : hotelStayInputs) {
+        QString command = "python3";
+        QStringList arguments;
+        arguments << "../backend-api-scripts/emissions_by_hotelStay.py"
+                  << entry.countryCodeInput->text()
+                  << entry.cityInput->text()
+                  << entry.ratingComboBox->currentText().split(" ").first()
+                  << entry.nightsInput->text()
+                  << entry.roomsInput->text();
+
+        QProcess process;
+        process.start(command, arguments);
+        process.waitForFinished();
+
+        QByteArray output = process.readAllStandardOutput();
+        QByteArray error = process.readAllStandardError();
+
+        if (!error.isEmpty()) {
+            qDebug() << "Error:" << error;
+            continue;
+        }
+
+        if (output.isEmpty()) {
+            qDebug() << "No output received from the script.";
+            continue;
+        }
+
+        QJsonDocument jsonResponse = QJsonDocument::fromJson(output);
+        if (jsonResponse.isObject()) {
+            QJsonObject responseObject = jsonResponse.object();
+            if (responseObject.contains("co2e_kg")) {
+                totalCarbonFootprint += responseObject["co2e_kg"].toDouble();
+            }
+        }
+    }
+
+    resultLabel->setText(QString("Total Carbon Footprint: %1 kg CO₂").arg(totalCarbonFootprint));
 }

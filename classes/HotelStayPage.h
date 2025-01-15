@@ -1,6 +1,4 @@
-//
-// Created by Alexandru Roșca on 13.01.2025.
-//
+// HotelStayPage.h
 
 #ifndef HOTELSTAYPAGE_H
 #define HOTELSTAYPAGE_H
@@ -16,9 +14,18 @@
 #include <QLineEdit>
 #include <QHBoxLayout>
 #include <QDebug>
+#include <QList>
+
+struct HotelStayEntry {
+    QLineEdit *countryCodeInput;
+    QLineEdit *cityInput;
+    QComboBox *ratingComboBox;
+    QLineEdit *nightsInput;
+    QLineEdit *roomsInput;
+};
 
 class HotelStayPage : public QWidget {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     explicit HotelStayPage(QWidget *parent = nullptr);
@@ -31,13 +38,16 @@ private:
     QScrollArea *scrollArea;
     QPushButton *addHotelStayButton;
     QList<QWidget *> hotelStayEntries;
+    QList<HotelStayEntry> hotelStayInputs;
     QPushButton *backButton;
     QPushButton *expensesPageButton;
+    QPushButton *calculateButton;
+    QLabel *resultLabel; // For displaying the total carbon footprint
 
     void setupUi();
     void addHotelStayEntry();
     void removeHotelStayEntry(QWidget *entry);
+    void calculateCarbonFootprint();
 };
 
 #endif // HOTELSTAYPAGE_H
-

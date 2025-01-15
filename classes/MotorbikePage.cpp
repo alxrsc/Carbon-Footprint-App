@@ -1,8 +1,8 @@
-//
-// Created by Alexandru Roșca on 13.01.2025.
-//
-
+// MotorbikePage.cpp
 #include "MotorbikePage.h"
+#include <QProcess>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 MotorbikePage::MotorbikePage(QWidget *parent) : QWidget(parent) {
     setupUi();
@@ -39,6 +39,16 @@ void MotorbikePage::setupUi() {
     addMotorbikeButton->setStyleSheet(BUTTON_STYLE);
     connect(addMotorbikeButton, &QPushButton::clicked, this, &MotorbikePage::addMotorbikeEntry);
 
+    // Calculate button
+    calculateButton = new QPushButton("Calculate Carbon Footprint", this);
+    calculateButton->setStyleSheet(BUTTON_STYLE);
+    connect(calculateButton, &QPushButton::clicked, this, &MotorbikePage::calculateCarbonFootprint);
+
+    // Result display
+    resultLabel = new QLabel("", this);
+    resultLabel->setAlignment(Qt::AlignCenter);
+    resultLabel->setStyleSheet("font-size: 16px; color: green;");
+
     // Navigation buttons
     backButton = new QPushButton("< Back", this);
     publicTransportButton = new QPushButton("Public Transport >", this);
@@ -56,6 +66,8 @@ void MotorbikePage::setupUi() {
     mainLayout->addWidget(instructionLabel);
     mainLayout->addWidget(scrollArea);
     mainLayout->addWidget(addMotorbikeButton);
+    mainLayout->addWidget(calculateButton);
+    mainLayout->addWidget(resultLabel);
     mainLayout->addLayout(navLayout);
 
     // Apply a global background color
@@ -71,20 +83,23 @@ void MotorbikePage::addMotorbikeEntry() {
     // Dropdown for motorbike size
     QComboBox *sizeComboBox = new QComboBox(entryWidget);
     sizeComboBox->addItems({"Motorbike-Size-Small", "Motorbike-Size-Medium", "Motorbike-Size-Large", "Motorbike-Size-Average"});
+    sizeComboBox->setObjectName("SizeComboBox");
 
     // Dropdown for fuel type
     QComboBox *fuelComboBox = new QComboBox(entryWidget);
     fuelComboBox->addItems({"Petrol", "Diesel"});
+    fuelComboBox->setObjectName("FuelComboBox");
 
     // Input for kilometers
     QLineEdit *kilometersInput = new QLineEdit(entryWidget);
     kilometersInput->setPlaceholderText("Enter distance in kilometers (e.g. 100)");
+    kilometersInput->setObjectName("DistanceInput");
 
     // Remove button
     QPushButton *removeButton = new QPushButton("Remove", entryWidget);
     removeButton->setStyleSheet(BUTTON_STYLE);
 
-    connect(removeButton, &QPushButton::clicked, [=]() {
+    connect(removeButton, &QPushButton::clicked, [this, entryWidget]() {
         removeMotorbikeEntry(entryWidget);
     });
 
@@ -104,4 +119,62 @@ void MotorbikePage::removeMotorbikeEntry(QWidget *entry) {
     motorbikeListLayout->removeWidget(entry);
     motorbikeEntries.removeOne(entry);
     entry->deleteLater();
+}
+
+void MotorbikePage::calculateCarbonFootprint() {
+    double totalCarbonFootprint = 0.0;
+
+    for (QWidget *entry : motorbikeEntries) {
+        QComboBox *sizeComboBox = entry->findChild<QComboBox *>("SizeComboBox");
+        QComboBox *fuelComboBox = entry->findChild<QComboBox *>("FuelComboBox");
+        QLineEdit *kilometersInput = entry->findChild<QLineEdit *>("DistanceInput");
+
+        if (!sizeComboBox || !fuelComboBox || !kilometersInput) {
+            qDebug() << "One or more inputs are missing.";
+            continue;
+        }
+
+        QString command = "python3";
+        QStringList arguments;
+        arguments << "../backend-api-scripts/emissions_by_motorcycle.py"
+                  << sizeComboBox->currentText()
+                  << fuelComboBox->currentText()
+                  << kilometersInput->text()
+                  << "km";
+
+        qDebug() << "Command:" << command << arguments;
+
+        QProcess process;
+        process.start(command, arguments);
+        process.waitForFinished();
+
+        QByteArray output = process.readAllStandardOutput();
+        QByteArray error = process.readAllStandardError();
+
+        if (!error.isEmpty()) {
+            qDebug() << "Error:" << error;
+            continue;
+        }
+
+        if (output.isEmpty()) {
+            qDebug() << "No output received from the script.";
+            continue;
+        }
+
+        qDebug() << "Output from script:" << output;
+
+        QJsonDocument jsonResponse = QJsonDocument::fromJson(output);
+        if (jsonResponse.isObject()) {
+            QJsonObject responseObject = jsonResponse.object();
+            if (responseObject.contains("co2e_kg")) {
+                totalCarbonFootprint += responseObject["co2e_kg"].toDouble();
+            } else {
+                qDebug() << "Key 'co2e_kg' not found in JSON response.";
+            }
+        } else {
+            qDebug() << "Invalid JSON response:" << output;
+        }
+    }
+
+    resultLabel->setText(QString("Total Carbon Footprint: %1 kg CO₂").arg(totalCarbonFootprint));
 }

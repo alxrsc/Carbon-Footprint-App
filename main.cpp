@@ -16,5 +16,5 @@ int main(int argc, char *argv[]) {
 
 //    cout << get_emissions_by_vehicle_model("Toyoya", "Prius", "24000", "km") << endl;
 
-    return 0;
+//    return 0;
 }
