@@ -35,6 +35,12 @@ void VehiclePage::setupUi() {
     connect(addVehicleButton, &QPushButton::clicked, this, &VehiclePage::addVehicleEntry);
     mainLayout->addWidget(addVehicleButton);
 
+    // Emissions Button
+    QPushButton *calculateEmissionsButton = new QPushButton("Calculate Emissions", this);
+    calculateEmissionsButton->setStyleSheet(BUTTON_STYLE);
+    connect(calculateEmissionsButton, &QPushButton::clicked, this, &VehiclePage::calculateEmissions);
+    mainLayout->addWidget(calculateEmissionsButton);
+
     // Back Button
     backButton = new QPushButton("< Flights", this);
     backButton->setStyleSheet(BUTTON_STYLE);
@@ -73,6 +79,35 @@ void VehiclePage::removeVehicleEntry(VehicleEntryWidget *entry) {
     vehicleListLayout->removeWidget(entry);
     entry->deleteLater();
 }
+
+void VehiclePage::calculateEmissions() {
+    for (VehicleEntryWidget *entry : vehicleEntries) {
+        QString make = entry->getMake();
+        QString model = entry->getModel();
+        QString distance = entry->getMileage();
+        QString unit = "km"; // Presupunem că distanța este în kilometri
+
+        if (make.isEmpty() || model.isEmpty() || distance.isEmpty()) {
+            QMessageBox::warning(this, "Date lipsă", "Completează toate câmpurile pentru fiecare vehicul.");
+            continue;
+        }
+
+        // Apelăm funcția C++ care apelează scriptul Python
+        string emissions = get_emissions_by_vehicle_model(make.toStdString(), model.toStdString(), distance.toStdString(), unit.toStdString());
+
+        // Verificăm dacă răspunsul este valid
+        if (emissions == "Error") {
+            QMessageBox::warning(this, "Eroare", "Nu s-au putut calcula emisiile pentru vehiculul selectat.");
+            continue;
+        }
+
+        // Afișăm rezultatul
+        QString message = QString("Emisiile pentru %1 %2 pe %3 %4 sunt: %5 kg CO2")
+                .arg(make, model, distance, unit, QString::fromStdString(emissions));
+        QMessageBox::information(this, "Emisii calculate", message);
+    }
+}
+
 
 void VehiclePage::loadMakesAndModelsFromCsv(const QString &filePath) {
     QFile file(filePath);

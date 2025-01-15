@@ -14,6 +14,9 @@ Q_OBJECT
 
 public:
     explicit VehicleEntryWidget(const QStringList &makeList, const QMap<QString, QStringList> &modelMap, QWidget *parent = nullptr);
+    QString getMake() const;
+    QString getModel() const;
+    QString getMileage() const;
 
 signals:
     void removeRequested(VehicleEntryWidget *entry);

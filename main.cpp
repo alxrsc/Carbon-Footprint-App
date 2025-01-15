@@ -6,15 +6,15 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-//    QApplication app(argc, argv);
-//
-//    MainController controller;
-//    controller.showMainPage();
-//
-//
-//    return app.exec();
+    QApplication app(argc, argv);
 
-    cout << get_emissions_by_vehicle_model("Toyoya", "Prius", "24000", "km") << endl;
+    MainController controller;
+    controller.showMainPage();
+
+
+    return app.exec();
+
+//    cout << get_emissions_by_vehicle_model("Toyoya", "Prius", "24000", "km") << endl;
 
     return 0;
 }

@@ -40,3 +40,15 @@ void VehicleEntryWidget::setupUi(const QStringList &makeList, const QMap<QString
 
     setLayout(formLayout);
 }
+
+QString VehicleEntryWidget::getMake() const {
+    return makeInput->currentText();
+}
+
+QString VehicleEntryWidget::getModel() const {
+    return modelInput->currentText();
+}
+
+QString VehicleEntryWidget::getMileage() const {
+    return mileageInput->text();
+}
