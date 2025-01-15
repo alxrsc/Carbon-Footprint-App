@@ -49,9 +49,9 @@ if __name__ == "__main__":
     #    print("Utilizare: python carbon_sutra.py <make> <model> <dist> <unit>")
     #    sys.exit(1)
 
-    vehicle_make = 'Lexus' #sys.argv[1]
-    vehicle_model = 'RX 300' #sys.argv[2]
-    distance_value = '421' #sys.argv[3]
+    vehicle_make = sys.argv[1]
+    vehicle_model = sys.argv[2]
+    distance_value = sys.argv[3]
     distance_unit = 'km' #sys.argv[4]
 
     # Calcularea amprentei de carbon

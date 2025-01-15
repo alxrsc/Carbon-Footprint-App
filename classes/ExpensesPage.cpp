@@ -1,10 +1,10 @@
 #include "ExpensesPage.h"
-#include "FlightsPage.cpp"
-#include "HotelStayPage.cpp"
-#include "VehiclePage.cpp"
-#include "PublicTransportPage.cpp"
-#include "HouseholdFootprintPage.cpp"
-#include "MotorbikePage.cpp"
+#include "FlightsPage.h"
+#include "HotelStayPage.h"
+#include "VehiclePage.h"
+#include "PublicTransportPage.h"
+#include "HouseholdFootprintPage.h"
+#include "MotorbikePage.h"
 
 ExpensesPage::ExpensesPage(QWidget *parent) : QWidget(parent) {
     setupUi();
