@@ -21,7 +21,7 @@ def calculate_carbon_footprint_flight(iata_airport_from, iata_airport_to, flight
 
     # Definirea header-urilor
     headers = {
-        'x-rapidapi-key': "5d10ec62c3mshc305a7605de54b7p1ac4a0jsn6b52cfbed578",
+        'x-rapidapi-key': "b4475b47cemsh84ab8e10c393e19p129f25jsnfd1d45741f35",
         'x-rapidapi-host': "carbonsutra1.p.rapidapi.com",
         'Content-Type': "application/x-www-form-urlencoded",
         'Authorization': "Bearer fQ98oU704xFvsnXcQLVDbpeCJHPglG1DcxiMLKfpeNEMGumlbzVf1lCI6ZBx"
@@ -45,17 +45,16 @@ def calculate_carbon_footprint_flight(iata_airport_from, iata_airport_to, flight
 
 if __name__ == "__main__":
     # Citirea argumentelor din linia de comandă
-    # if len(sys.argv) != 6:
-    #    print("Utilizare: python carbon_sutra.py <IATA_from> <IATA_to> <flight_class> <round_trip(Y/N)> <number_of_pass>")
-    #    sys.exit(1)
+    if len(sys.argv) != 6:
+       print("Utilizare: python carbon_sutra.py <IATA_from> <IATA_to> <flight_class> <round_trip(Y/N)> <number_of_pass>")
+       sys.exit(1)
 
     # Parametrii de intrare
     iata_airport_from = sys.argv[1]     # Aeroportul de plecare (ex. București)
     iata_airport_to = sys.argv[2]       # Aeroportul de sosire (ex. Malta)
-    flight_class = sys.argv[3]      # Clasa de zbor
+    flight_class = sys.argv[3]       # Clasa de zbor
     round_trip = sys.argv[4]          # Dus-întors
     number_of_passengers = sys.argv[5]    # Numărul de pasageri
-
 
     # Calcularea amprentei de carbon
     carbon_footprint_kg = calculate_carbon_footprint_flight(iata_airport_from, iata_airport_to, flight_class, round_trip, number_of_passengers)

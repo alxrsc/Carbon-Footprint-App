@@ -21,7 +21,7 @@ def calculate_carbon_footprint(vehicle_make, vehicle_model, distance_value, dist
 
     # Definirea header-urilor
     headers = {
-        'x-rapidapi-key': "5d10ec62c3mshc305a7605de54b7p1ac4a0jsn6b52cfbed578",
+        'x-rapidapi-key': "b4475b47cemsh84ab8e10c393e19p129f25jsnfd1d45741f35",
         'x-rapidapi-host': "carbonsutra1.p.rapidapi.com",
         'Content-Type': "application/x-www-form-urlencoded",
         'Authorization': "Bearer fQ98oU704xFvsnXcQLVDbpeCJHPglG1DcxiMLKfpeNEMGumlbzVf1lCI6ZBx"

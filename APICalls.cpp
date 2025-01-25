@@ -76,6 +76,7 @@ string get_carbon_footprint_flight(string iata_airport_from, string iata_airport
 
     // Citirea rezultatului din stdout
     while (fgets(buffer, sizeof(buffer), pipe)) {
+        cout << "Buffer " << buffer << endl;
         result += buffer;
     }
 

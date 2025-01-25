@@ -134,6 +134,8 @@ void FlightsPage::calculateFlightEmissions() {
             continue; // Skip this entry
         }
 
+        cout << airportFrom.toStdString() << " " << airportTo.toStdString() << " " << flightClass.toStdString() << " " << roundTrip.toStdString() << " " << numberOfPassengers.toStdString() << endl;
+
         // Call the function to get emissions
         string emissions = get_carbon_footprint_flight(
             airportFrom.toStdString(),
@@ -149,7 +151,13 @@ void FlightsPage::calculateFlightEmissions() {
             continue; // Skip this entry
         }
 
+        cout << "before stod" << endl;
+
+        cout << "emissions " << emissions << endl;
+
         totalEmissions += stod(emissions);
+
+        cout << "after stod";
 
         // Collect results
         QString message = QString("Emisiile pentru zborul de la %1 la %2 sunt: %3 kg CO2")
