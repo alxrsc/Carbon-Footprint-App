@@ -12,6 +12,7 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QLabel>
 
 class MainPage : public QWidget {
 Q_OBJECT
@@ -20,6 +21,9 @@ Q_OBJECT
 
 public:
     QPushButton *helloButton;
+    QLabel *projectInfoLabel;
+    QLabel *projectCredits;
+
 
     MainPage(QWidget *parent = nullptr);
     virtual ~MainPage() = default;  // Virtual destructor
