@@ -128,41 +128,37 @@ void FlightsPage::calculateFlightEmissions() {
         QString roundTrip = entry->isRoundTrip() ? "yes" : "no";
         QString numberOfPassengers = entry->getNumberOfPassengers();
 
-        // Validate input fields
         if (airportFrom.isEmpty() || airportTo.isEmpty() || flightClass.isEmpty() || numberOfPassengers.isEmpty()) {
             QMessageBox::warning(this, "Date lipsă", "Completează toate câmpurile pentru fiecare zbor.");
-            continue; // Skip this entry
+            continue;
         }
 
-        cout << airportFrom.toStdString() << " " << airportTo.toStdString() << " " << flightClass.toStdString() << " " << roundTrip.toStdString() << " " << numberOfPassengers.toStdString() << endl;
-
-        // Call the function to get emissions
+        // Apelează funcția și obține emisiile
         string emissions = get_carbon_footprint_flight(
-            airportFrom.toStdString(),
-            airportTo.toStdString(),
-            flightClass.toStdString(),
-            roundTrip.toStdString(),
-            numberOfPassengers.toStdString()
+                airportFrom.toStdString(),
+                airportTo.toStdString(),
+                flightClass.toStdString(),
+                roundTrip.toStdString(),
+                numberOfPassengers.toStdString()
         );
 
-        // Validate the emissions response
-        if (emissions == "Error") {
-            QMessageBox::warning(this, "Eroare", "Nu s-au putut calcula emisiile pentru zborul de la " + airportFrom + " la " + airportTo + ".");
-            continue; // Skip this entry
+        if (emissions == "Error" || emissions.empty()) {
+            QMessageBox::warning(this, "Eroare", "Nu s-au putut calcula emisiile pentru zborul de la "
+                                                 + airportFrom + " la " + airportTo + ".");
+            continue;
         }
 
-        cout << "before stod" << endl;
+        try {
+            double emissionValue = std::stod(emissions);
+            totalEmissions += emissionValue;
 
-        cout << "emissions " << emissions << endl;
-
-        totalEmissions += stod(emissions);
-
-        cout << "after stod";
-
-        // Collect results
-        QString message = QString("Emisiile pentru zborul de la %1 la %2 sunt: %3 kg CO2")
-                .arg(airportFrom, airportTo, QString::fromStdString(emissions));
-        results.append(message);
+            QString message = QString("Emisiile pentru zborul de la %1 la %2 sunt: %3 kg CO2")
+                    .arg(airportFrom, airportTo, QString::number(emissionValue));
+            results.append(message);
+        } catch (const std::invalid_argument &e) {
+            QMessageBox::warning(this, "Eroare", "Format invalid pentru emisiile calculate: "
+                                                 + QString::fromStdString(emissions));
+        }
     }
 
     ExpensesPage::flightsCost = totalEmissions;

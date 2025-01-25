@@ -55,7 +55,46 @@ string get_emissions_by_electricity(string country_name, string electricity_valu
     return result;
 }
 
+//string get_carbon_footprint_flight(string iata_airport_from, string iata_airport_to, string flight_class, string round_trip, string number_of_passengers) {
+//    // Crearea comenzii pentru a executa scriptul Python
+//    string command = "python3 ../backend-api-scripts/emissions_by_flight.py "
+//                     + iata_airport_from + " "  // Aeroportul de plecare
+//                     + iata_airport_to + " "    // Aeroportul de sosire
+//                     + flight_class + " "       // Clasa de zbor
+//                     + round_trip + " "         // Tipul de zbor
+//                     + number_of_passengers;    // Numărul de pasageri
+//
+//    // Executarea comenzii și obținerea rezultatelor
+//    char buffer[128];
+//    string result = "";
+//
+//    FILE* pipe = popen(command.c_str(), "r");
+//    if (!pipe) {
+//        cerr << "Eroare la executarea scriptului Python!" << endl;
+//        return "Error";
+//    }
+//
+//    // Citirea rezultatului din stdout
+//    while (fgets(buffer, sizeof(buffer), pipe)) {
+//        cout << "Buffer " << buffer << endl;
+//        result += buffer;
+//    }
+//
+//    fclose(pipe);
+//
+//    return result;
+//}
+
 string get_carbon_footprint_flight(string iata_airport_from, string iata_airport_to, string flight_class, string round_trip, string number_of_passengers) {
+
+    // Adăugarea caracterului de escape pentru spațiu
+    for(int i = 0; i < flight_class.size(); i++) {
+        if(flight_class[i] == ' ') {
+            flight_class.insert(i, "\\");
+            i++;
+        }
+    }
+
     // Crearea comenzii pentru a executa scriptul Python
     string command = "python3 ../backend-api-scripts/emissions_by_flight.py "
                      + iata_airport_from + " "  // Aeroportul de plecare
@@ -76,11 +115,25 @@ string get_carbon_footprint_flight(string iata_airport_from, string iata_airport
 
     // Citirea rezultatului din stdout
     while (fgets(buffer, sizeof(buffer), pipe)) {
-        cout << "Buffer " << buffer << endl;
+        cout << "Buffer: " << buffer << endl;  // Debugging
         result += buffer;
     }
 
-    fclose(pipe);
+    int returnCode = pclose(pipe);
+    if (returnCode != 0) {
+        cerr << "Scriptul Python s-a terminat cu eroare! Cod: " << returnCode << endl;
+        return "Error";
+    }
+
+    if (result.empty()) {
+        cerr << "Scriptul Python a returnat un răspuns gol!" << endl;
+        return "Error";
+    }
+
+    // Elimină caracterele de linie nouă sau spații extra
+    result = result.erase(result.find_last_not_of(" \n\r\t") + 1);
+
+    cout << "Rezultat script Python: " << result << endl;  // Debugging final
 
     return result;
 }
