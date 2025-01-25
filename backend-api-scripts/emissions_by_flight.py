@@ -11,8 +11,8 @@ def calculate_carbon_footprint_flight(iata_airport_from, iata_airport_to, flight
     payload = {
         'iata_airport_from': iata_airport_from,
         'iata_airport_to': iata_airport_to,
-        'flight_class': flight_class,  # Clasa de zbor
-        'round_trip': round_trip,  # Dus-întors
+        'flight_class': flight_class,
+        'round_trip': round_trip,
         'number_of_passengers': number_of_passengers
     }
 
@@ -27,20 +27,25 @@ def calculate_carbon_footprint_flight(iata_airport_from, iata_airport_to, flight
         'Authorization': "Bearer fQ98oU704xFvsnXcQLVDbpeCJHPglG1DcxiMLKfpeNEMGumlbzVf1lCI6ZBx"
     }
 
-    # Trimiterea cererii POST către API
-    conn.request("POST", "/flight_estimate", encoded_payload, headers)
+    try:
+        # Trimiterea cererii POST către API
+        conn.request("POST", "/flight_estimate", encoded_payload, headers)
 
-    # Obținerea răspunsului
-    res = conn.getresponse()
-    data = res.read()
+        # Obținerea răspunsului
+        res = conn.getresponse()
+        data = res.read()
 
-    # Decodarea răspunsului
-    result = json.loads(data.decode("utf-8"))
+        # Decodarea răspunsului
+        result = json.loads(data.decode("utf-8"))
 
-    # Extrage doar cantitatea de carbon în kg
-    carbon_footprint_kg = result['data']['co2e_kg']
+        if res.status != 200 or 'data' not in result or 'co2e_kg' not in result['data']:
+            print(f"Eroare API: {data.decode('utf-8')}")
+            return None
 
-    return carbon_footprint_kg
+        return result['data']['co2e_kg']
+    except Exception as e:
+        print(f"Eroare la calcularea emisiilor: {str(e)}")
+        return None
 
 
 if __name__ == "__main__":
