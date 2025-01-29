@@ -119,7 +119,7 @@ QStringList FlightsPage::loadAirportsFromCsv(const QString &filePath) {
 void FlightsPage::calculateFlightEmissions() {
     // Clear previous emissions results if necessary
     QStringList results;
-    double totalEmissions = 0.0;
+    double totalEmissions = 0;
 
     for (FlightEntryWidget *entry : flightEntries) {
         QString airportFrom = entry->getAirportFrom();
