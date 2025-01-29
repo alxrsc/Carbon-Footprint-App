@@ -42,8 +42,6 @@ add_executable(CarbonFootprintApp
         classes/MainPage.h
         classes/MainController.cpp
         classes/MainController.h
-        classes/FootprintMethodPage.cpp
-        classes/FootprintMethodPage.h
         classes/HouseholdFootprintPage.cpp
         classes/HouseholdFootprintPage.h
         classes/FlightsPage.cpp
