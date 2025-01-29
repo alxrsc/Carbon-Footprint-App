@@ -105,7 +105,7 @@ void VehiclePage::calculateEmissions() {
 
         // Verificăm dacă răspunsul este valid
         if (emissions == "Error") {
-            QMessageBox::warning(this, "Error", "Emisssions couldn't be calculated for "
+            QMessageBox::warning(this, "Error", "Emisssions could not be calculated for "
                                                                     + make + " " + model + "!");
             continue;
         }
