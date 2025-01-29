@@ -81,6 +81,9 @@ void VehiclePage::removeVehicleEntry(VehicleEntryWidget *entry) {
 }
 
 void VehiclePage::calculateEmissions() {
+
+
+
     for (VehicleEntryWidget *entry : vehicleEntries) {
         QString make = entry->getMake();
         QString model = entry->getModel();
