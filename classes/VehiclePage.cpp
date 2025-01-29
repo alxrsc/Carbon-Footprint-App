@@ -92,7 +92,7 @@ void VehiclePage::calculateEmissions() {
         QString unit = "km"; // Presupunem că distanța este în kilometri
 
         if (make.isEmpty() || model.isEmpty() || distance.isEmpty()) {
-            QMessageBox::warning(this, "Date lipsă", "Completează toate câmpurile pentru fiecare vehicul.");
+            QMessageBox::warning(this, "Missing data", "Complete every field for each vehicle!");
             continue;
         }
 
@@ -105,7 +105,7 @@ void VehiclePage::calculateEmissions() {
 
         // Verificăm dacă răspunsul este valid
         if (emissions == "Error") {
-            QMessageBox::warning(this, "Eroare", "Nu s-au putut calcula emisiile pentru "
+            QMessageBox::warning(this, "Error", "Emisssions couldn't be calculated for "
                                                                     + make + " " + model + "!");
             continue;
         }
@@ -113,11 +113,11 @@ void VehiclePage::calculateEmissions() {
         try {
             total += stod(emissions);
 
-            QString message = QString("Emisiile pentru %1 %2 pe %3 %4 sunt: %5 kg CO2")
+            QString message = QString("Emissions for %1 %2 pe %3 %4 sunt: %5 kg CO2")
                     .arg(make, model, distance, unit, QString::fromStdString(emissions));
             results.append(message);
         } catch (const std::invalid_argument &e) {
-            QMessageBox::warning(this, "Eroare", "Format invalid pentru emisiile calculate"
+            QMessageBox::warning(this, "Error", "Invalid format for the calculated emissions"
                                                     + QString::fromStdString(emissions));
         }
     }
@@ -126,7 +126,7 @@ void VehiclePage::calculateEmissions() {
 
     // Display all results at once
     if (!results.isEmpty()) {
-        QMessageBox::information(this, "Emisii calculate", results.join("\n"));
+        QMessageBox::information(this, "Calculated emissions", results.join("\n"));
     }
 }
 
