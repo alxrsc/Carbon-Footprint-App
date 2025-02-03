@@ -4,7 +4,9 @@
 #define MOTORBIKEPAGE_H
 
 #include "CommonStyles.h"
-
+#include "ExpensesPage.h"
+#include "../Utils/MotorbikeEntryWidget.h"
+#include "../APICalls.h"
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QScrollArea>
@@ -29,7 +31,7 @@ private:
     QScrollArea *scrollArea;
     QPushButton *addMotorbikeButton;
     QPushButton *calculateButton; // Button to trigger carbon footprint calculation
-    QList<QWidget *> motorbikeEntries;
+    QList<MotorbikeEntryWidget *> motorbikeEntries;
     QPushButton *backButton;
     QPushButton *publicTransportButton;
     QLabel *resultLabel; // For displaying the total carbon footprint

@@ -20,7 +20,7 @@ def calculate_carbon_footprint(country_name, electricity_value, electricity_unit
 
     # Definirea header-urilor
     headers = {
-        'x-rapidapi-key': "5d10ec62c3mshc305a7605de54b7p1ac4a0jsn6b52cfbed578",
+        'x-rapidapi-key': "b4475b47cemsh84ab8e10c393e19p129f25jsnfd1d45741f35",
         'x-rapidapi-host': "carbonsutra1.p.rapidapi.com",
         'Content-Type': "application/x-www-form-urlencoded",
         'Authorization': "Bearer fQ98oU704xFvsnXcQLVDbpeCJHPglG1DcxiMLKfpeNEMGumlbzVf1lCI6ZBx"
@@ -51,9 +51,9 @@ if __name__ == "__main__":
     #    print("Utilizare: python carbon_sutra.py <country> <elec_value> <unit>")
     #    sys.exit(1)
 
-    country_name = 'Romania'  # sys.argv[1]
-    electricity_value = '3455'  # sys.argv[2]
-    electricity_unit = 'kWh'  # sys.argv[3]
+    country_name = sys.argv[1]
+    electricity_value = sys.argv[2]
+    electricity_unit = sys.argv[3]
 
     # Calcularea amprentei de carbon
     carbon_footprint_kg = calculate_carbon_footprint(country_name, electricity_value, electricity_unit)
@@ -61,38 +61,3 @@ if __name__ == "__main__":
     # Returnarea rezultatului
     print(carbon_footprint_kg)
 
-'''
-double carbon_footprint_electricity.py() {
-    // Parametrii de intrare pentru scriptul Python
-    string country_name = "Romania";    // Țara
-    string electricity_value = "3455";  // Valoarea consumului de electricitate
-    string electricity_unit = "kWh";   // Unitatea de măsură
-
-    // Crearea comenzii pentru a executa scriptul Python
-    string command = "python3 carbon_footprint_electricity.py " 
-                     + country_name + " "          // Țara
-                     + electricity_value + " "    // Valoarea consumului
-                     + electricity_unit;         // Unitatea de măsură
-
-    // Executarea comenzii și obținerea rezultatelor
-    char buffer[128];
-    string result = "";
-
-    FILE* pipe = popen(command.c_str(), "r");
-    if (!pipe) {
-        cerr << "Eroare la executarea scriptului Python!" << endl;
-        return 1;
-    }
-
-    // Citirea rezultatului din stdout
-    while (fgets(buffer, sizeof(buffer), pipe)) {
-        result += buffer;
-    }
-
-    fclose(pipe);
-
-    return result;
-
-    return 0;
-}
-'''

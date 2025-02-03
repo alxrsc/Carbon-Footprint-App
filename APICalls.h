@@ -17,6 +17,6 @@ string get_emissions_by_house_fuel(string fuel_usage, string fuel_type, string f
 string get_emissions_by_motorcycle(string vehicle_type, string fuel_type, string distance, string unit);
 string get_emissions_by_publicTransport(string vehicle_type, string fuel_type, string distance, string unit);
 string get_emissions_by_vehicle_model(string make, string model, string distance, string unit);
-
+string get_emissions_by_hotelStay(string country_code, string city_name, string hotel_rating, string number_of_nights, string number_of_rooms);
 
 #endif //CARBONFOOTPRINTAPP_APICALLS_H

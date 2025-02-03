@@ -11,6 +11,7 @@
 #include <QCheckBox>
 #include <QCompleter>
 #include <QStringList>
+#include "../Utils/HotelStayEntryWidget.h"
 
 
 class FlightEntryWidget : public QWidget {

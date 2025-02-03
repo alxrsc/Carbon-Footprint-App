@@ -1,8 +1,11 @@
 // MotorbikePage.cpp
 #include "MotorbikePage.h"
+#include "../Utils/MotorbikeEntryWidget.h"
+
 #include <QProcess>
 #include <QJsonDocument>
 #include <QJsonObject>
+
 
 MotorbikePage::MotorbikePage(QWidget *parent) : QWidget(parent) {
     setupUi();
@@ -67,7 +70,6 @@ void MotorbikePage::setupUi() {
     mainLayout->addWidget(scrollArea);
     mainLayout->addWidget(addMotorbikeButton);
     mainLayout->addWidget(calculateButton);
-    mainLayout->addWidget(resultLabel);
     mainLayout->addLayout(navLayout);
 
     // Apply a global background color
@@ -77,42 +79,44 @@ void MotorbikePage::setupUi() {
 }
 
 void MotorbikePage::addMotorbikeEntry() {
-    QWidget *entryWidget = new QWidget(this);
-    QHBoxLayout *entryLayout = new QHBoxLayout(entryWidget);
+    MotorbikeEntryWidget *motorbikeEntry = new MotorbikeEntryWidget(this);
+    motorbikeListLayout->addWidget(motorbikeEntry);
+    motorbikeEntries.append(motorbikeEntry);
+    connect(motorbikeEntry, &MotorbikeEntryWidget::removeRequested, this, &MotorbikePage::removeMotorbikeEntry);
 
-    // Dropdown for motorbike size
-    QComboBox *sizeComboBox = new QComboBox(entryWidget);
-    sizeComboBox->addItems({"Motorbike-Size-Small", "Motorbike-Size-Medium", "Motorbike-Size-Large", "Motorbike-Size-Average"});
-    sizeComboBox->setObjectName("SizeComboBox");
 
-    // Dropdown for fuel type
-    QComboBox *fuelComboBox = new QComboBox(entryWidget);
-    fuelComboBox->addItems({"Petrol", "Diesel"});
-    fuelComboBox->setObjectName("FuelComboBox");
+    // // Dropdown for motorbike size
+    // QComboBox *sizeComboBox = new QComboBox(entryWidget);
+    // sizeComboBox->addItems({"Motorbike-Size-Small", "Motorbike-Size-Medium", "Motorbike-Size-Large", "Motorbike-Size-Average"});
+    // sizeComboBox->setObjectName("SizeComboBox");
+    //
+    // // Dropdown for fuel type
+    // QComboBox *fuelComboBox = new QComboBox(entryWidget);
+    // fuelComboBox->addItems({"Petrol", "Diesel"});
+    // fuelComboBox->setObjectName("FuelComboBox");
+    //
+    // // Input for kilometers
+    // QLineEdit *kilometersInput = new QLineEdit(entryWidget);
+    // kilometersInput->setPlaceholderText("Enter distance in kilometers (e.g. 100)");
+    // kilometersInput->setObjectName("DistanceInput");
 
-    // Input for kilometers
-    QLineEdit *kilometersInput = new QLineEdit(entryWidget);
-    kilometersInput->setPlaceholderText("Enter distance in kilometers (e.g. 100)");
-    kilometersInput->setObjectName("DistanceInput");
+    // // Remove button
+    // QPushButton *removeButton = new QPushButton("Remove", entryWidget);
+    // removeButton->setStyleSheet(BUTTON_STYLE);
+    //
+    // connect(removeButton, &QPushButton::clicked, [this, entryWidget]() {
+    //     removeMotorbikeEntry(entryWidget);
+    // });
 
-    // Remove button
-    QPushButton *removeButton = new QPushButton("Remove", entryWidget);
-    removeButton->setStyleSheet(BUTTON_STYLE);
+    // entryLayout->addWidget(new QLabel("Size:"));
+    // entryLayout->addWidget(sizeComboBox);
+    // entryLayout->addWidget(new QLabel("Fuel:"));
+    // entryLayout->addWidget(fuelComboBox);
+    // entryLayout->addWidget(new QLabel("Distance:"));
+    // entryLayout->addWidget(kilometersInput);
+    // // entryLayout->addWidget(removeButton);
 
-    connect(removeButton, &QPushButton::clicked, [this, entryWidget]() {
-        removeMotorbikeEntry(entryWidget);
-    });
 
-    entryLayout->addWidget(new QLabel("Size:"));
-    entryLayout->addWidget(sizeComboBox);
-    entryLayout->addWidget(new QLabel("Fuel:"));
-    entryLayout->addWidget(fuelComboBox);
-    entryLayout->addWidget(new QLabel("Distance:"));
-    entryLayout->addWidget(kilometersInput);
-    entryLayout->addWidget(removeButton);
-
-    motorbikeListLayout->addWidget(entryWidget);
-    motorbikeEntries.append(entryWidget);
 }
 
 void MotorbikePage::removeMotorbikeEntry(QWidget *entry) {
@@ -121,60 +125,56 @@ void MotorbikePage::removeMotorbikeEntry(QWidget *entry) {
     entry->deleteLater();
 }
 
+
 void MotorbikePage::calculateCarbonFootprint() {
-    double totalCarbonFootprint = 0.0;
+    QStringList results;
+    double total = 0.0;
 
-    for (QWidget *entry : motorbikeEntries) {
-        QComboBox *sizeComboBox = entry->findChild<QComboBox *>("SizeComboBox");
-        QComboBox *fuelComboBox = entry->findChild<QComboBox *>("FuelComboBox");
-        QLineEdit *kilometersInput = entry->findChild<QLineEdit *>("DistanceInput");
-
-        if (!sizeComboBox || !fuelComboBox || !kilometersInput) {
-            qDebug() << "One or more inputs are missing.";
-            continue;
+    try {
+        if (motorbikeEntries.isEmpty()) {
+            throw std::invalid_argument("Adaugă cel puțin o motocicletă pentru a calcula amprenta de carbon!");
         }
 
-        QString command = "python3";
-        QStringList arguments;
-        arguments << "../backend-api-scripts/emissions_by_motorcycle.py"
-                  << sizeComboBox->currentText()
-                  << fuelComboBox->currentText()
-                  << kilometersInput->text()
-                  << "km";
+        for (MotorbikeEntryWidget *entry : motorbikeEntries) {
+            QString size = entry->getSize();
+            QString fuel = entry->getFuelType();
+            QString distance = entry->getDistance();
 
-        qDebug() << "Command:" << command << arguments;
-
-        QProcess process;
-        process.start(command, arguments);
-        process.waitForFinished();
-
-        QByteArray output = process.readAllStandardOutput();
-        QByteArray error = process.readAllStandardError();
-
-        if (!error.isEmpty()) {
-            qDebug() << "Error:" << error;
-            continue;
-        }
-
-        if (output.isEmpty()) {
-            qDebug() << "No output received from the script.";
-            continue;
-        }
-
-        qDebug() << "Output from script:" << output;
-
-        QJsonDocument jsonResponse = QJsonDocument::fromJson(output);
-        if (jsonResponse.isObject()) {
-            QJsonObject responseObject = jsonResponse.object();
-            if (responseObject.contains("co2e_kg")) {
-                totalCarbonFootprint += responseObject["co2e_kg"].toDouble();
-            } else {
-                qDebug() << "Key 'co2e_kg' not found in JSON response.";
+            if (size.isEmpty() || fuel.isEmpty() || distance.isEmpty()) {
+                throw std::invalid_argument("Completează toate câmpurile pentru fiecare motocicletă.");
             }
-        } else {
-            qDebug() << "Invalid JSON response:" << output;
-        }
-    }
 
-    resultLabel->setText(QString("Total Carbon Footprint: %1 kg CO₂").arg(totalCarbonFootprint));
+            bool ok;
+            double distanceValue = distance.toDouble(&ok);
+            if (!ok || distanceValue <= 0) {
+                throw std::invalid_argument("Distanța introdusă nu este validă.");
+            }
+
+            // Apelează funcția și obține emisiile
+            std::string emissions = get_emissions_by_motorcycle(size.toStdString(), fuel.toStdString(), std::to_string(distanceValue), "km");
+            cout << "Emissions: " << emissions << endl;
+
+            if (emissions == "Error" || emissions.empty()) {
+                throw std::runtime_error("Nu s-au putut calcula emisiile pentru motocicleta " + size.toStdString() + " cu combustibil " + fuel.toStdString() + ".");
+            }
+
+            double emissionValue = std::stod(emissions);
+            total += emissionValue;
+
+            results.append(QString("Emisiile pentru motocicleta %1 (%2) sunt: %3 kg CO2")
+                           .arg(size, fuel, QString::number(emissionValue)));
+        }
+
+        QString message = QString("Total Carbon Footprint: %1 kg CO₂").arg(total);
+        results.append(message);
+        ExpensesPage::motorcycleCost = total;
+
+        QMessageBox::information(this, "Emisii calculate", results.join("\n"));
+    } catch (const std::invalid_argument &e) {
+        QMessageBox::warning(this, "Eroare", QString::fromStdString(e.what()));
+    } catch (const std::exception &e) {
+        QMessageBox::critical(this, "Eroare", QString::fromStdString(e.what()));
+    } catch (...) {
+        QMessageBox::critical(this, "Eroare", "A apărut o eroare neașteptată la calcularea emisiilor.");
+    }
 }

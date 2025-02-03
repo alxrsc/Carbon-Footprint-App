@@ -26,7 +26,7 @@ def calculate_carbon_footprint(country_code, city_name, hotel_rating, number_of_
 
         # Definirea header-urilor
         headers = {
-            'x-rapidapi-key': "5d10ec62c3mshc305a7605de54b7p1ac4a0jsn6b52cfbed578",
+            'x-rapidapi-key': "b4475b47cemsh84ab8e10c393e19p129f25jsnfd1d45741f35",
             'x-rapidapi-host': "carbonsutra1.p.rapidapi.com",
             'Content-Type': "application/x-www-form-urlencoded",
             'Authorization': "Bearer fQ98oU704xFvsnXcQLVDbpeNEMGumlbzVf1lCI6ZBx"
@@ -47,10 +47,6 @@ def calculate_carbon_footprint(country_code, city_name, hotel_rating, number_of_
             # Extrage amprenta de carbon din răspuns
             carbon_footprint_kg = result['data']['co2e_kg']
 
-            # Salvează rezultatul într-un fișier
-            with open("total.txt", "a", encoding="utf-8") as file:
-                file.write(str(carbon_footprint_kg) + '\n')
-
             return carbon_footprint_kg
         else:
             return {"error": "Invalid response structure or no data available."}
@@ -62,7 +58,7 @@ def calculate_carbon_footprint(country_code, city_name, hotel_rating, number_of_
 if __name__ == "__main__":
     # Verificarea numărului de argumente
     if len(sys.argv) != 6:
-        print(json.dumps({"error": "Usage: python emissions_by_hotelStay.py <country_code> <city_name> <hotel_rating> <number_of_nights> <number_of_rooms>"}))
+        print(json.dumps({"error": "Usage: python3 emissions_by_hotelStay.py <country_code> <city_name> <hotel_rating> <number_of_nights> <number_of_rooms>"}))
         sys.exit(1)
 
     # Citirea argumentelor din linia de comandă
@@ -75,8 +71,4 @@ if __name__ == "__main__":
     # Calcularea amprentei de carbon
     result = calculate_carbon_footprint(country_code, city_name, hotel_rating, number_of_nights, number_of_rooms)
 
-    # Returnarea rezultatului
-    if isinstance(result, dict) and "error" in result:
-        print(json.dumps(result))
-    else:
-        print(json.dumps({"co2e_kg": result}))
+    print(result)

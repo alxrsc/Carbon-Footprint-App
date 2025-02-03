@@ -4,6 +4,9 @@
 #define HOTELSTAYPAGE_H
 
 #include "CommonStyles.h"
+#include "ExpensesPage.h"
+#include "../APICalls.h"
+#include "../Utils/HotelStayEntryWidget.h"
 
 #include <QWidget>
 #include <QVBoxLayout>
@@ -37,7 +40,7 @@ private:
     QVBoxLayout *hotelStayListLayout;
     QScrollArea *scrollArea;
     QPushButton *addHotelStayButton;
-    QList<QWidget *> hotelStayEntries;
+    QList<HotelStayEntryWidget *> hotelStayEntries;
     QList<HotelStayEntry> hotelStayInputs;
     QPushButton *backButton;
     QPushButton *expensesPageButton;
@@ -46,7 +49,7 @@ private:
 
     void setupUi();
     void addHotelStayEntry();
-    void removeHotelStayEntry(QWidget *entry);
+    void removeHotelStayEntry(HotelStayEntryWidget *entry);
     void calculateCarbonFootprint();
 };
 

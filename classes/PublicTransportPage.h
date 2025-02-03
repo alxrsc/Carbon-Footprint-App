@@ -4,6 +4,8 @@
 #define PUBLICTRANSPORTPAGE_H
 
 #include "CommonStyles.h"
+#include "../APICalls.h"
+#include "ExpensesPage.h"
 
 #include <QWidget>
 #include <QVBoxLayout>
@@ -14,6 +16,7 @@
 #include <QLineEdit>
 #include <QHBoxLayout>
 #include <QDebug>
+#include "../Utils/PublicTransportWidget.h"
 
 class PublicTransportPage : public QWidget {
     Q_OBJECT
@@ -30,13 +33,13 @@ private:
     QPushButton *addTransportButton;
     QPushButton *calculateButton; // Button to trigger carbon footprint calculation
     QLabel *resultLabel;         // Label to display the total carbon footprint
-    QList<QWidget *> transportEntries;
+    QList<PublicTransportEntryWidget *> transportEntries;
     QPushButton *backButton;
     QPushButton *hotelStayButton;
 
     void setupUi();
     void addTransportEntry();
-    void removeTransportEntry(QWidget *entry);
+    void removeTransportEntry(PublicTransportEntryWidget *entry);
     void calculateCarbonFootprint(); // Method to calculate carbon footprint
 };
 

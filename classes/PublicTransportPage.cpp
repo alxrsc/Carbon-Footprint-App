@@ -19,7 +19,6 @@ void PublicTransportPage::setupUi() {
     headerLabel->setAlignment(Qt::AlignCenter);
     instructionLabel->setAlignment(Qt::AlignCenter);
 
-    // Apply styling for the header and instructions
     headerLabel->setStyleSheet(HEADER_STYLE);
     instructionLabel->setStyleSheet(INSTRUCTION_STYLE);
 
@@ -29,11 +28,9 @@ void PublicTransportPage::setupUi() {
 
     QWidget *scrollWidget = new QWidget(this);
     transportListLayout = new QVBoxLayout(scrollWidget);
-
     scrollWidget->setLayout(transportListLayout);
     scrollArea->setWidget(scrollWidget);
 
-    // Add the first transport entry by default
     addTransportEntry();
 
     // Add Transport button
@@ -54,7 +51,6 @@ void PublicTransportPage::setupUi() {
     // Navigation buttons
     backButton = new QPushButton("< Back", this);
     hotelStayButton = new QPushButton("Hotel Stays >", this);
-
     backButton->setStyleSheet(BUTTON_STYLE);
     hotelStayButton->setStyleSheet(BUTTON_STYLE);
 
@@ -69,112 +65,63 @@ void PublicTransportPage::setupUi() {
     mainLayout->addWidget(scrollArea);
     mainLayout->addWidget(addTransportButton);
     mainLayout->addWidget(calculateButton);
-    mainLayout->addWidget(resultLabel);
     mainLayout->addLayout(navLayout);
 
-    // Apply a global background color
     setStyleSheet(GLOBAL_BACKGROUND_STYLE);
     setLayout(mainLayout);
     showMaximized();
 }
 
 void PublicTransportPage::addTransportEntry() {
-    QWidget *entryWidget = new QWidget(this);
+    PublicTransportEntryWidget *entryWidget = new PublicTransportEntryWidget(this);
     QHBoxLayout *entryLayout = new QHBoxLayout(entryWidget);
-
-    // Dropdown for transport type
-    QComboBox *transportTypeComboBox = new QComboBox(entryWidget);
-    transportTypeComboBox->addItems({
-                                            "Bus-LocalAverage",
-                                            "Bus-Coach",
-                                            "Taxi-Local",
-                                            "Train-National",
-                                            "Train-Local",
-                                            "Train-Tram"
-                                    });
-    transportTypeComboBox->setObjectName("TransportTypeComboBox");
-
-    // Input for kilometers
-    QLineEdit *kilometersInput = new QLineEdit(entryWidget);
-    kilometersInput->setPlaceholderText("Enter distance in kilometers (e.g., 100)");
-    kilometersInput->setObjectName("DistanceInput");
-
-    // Remove button
-    QPushButton *removeButton = new QPushButton("Remove", entryWidget);
-    removeButton->setStyleSheet(BUTTON_STYLE);
-
-    connect(removeButton, &QPushButton::clicked, [this, entryWidget]() {
-        removeTransportEntry(entryWidget);
-    });
-
-    entryLayout->addWidget(new QLabel("Transport Type:"));
-    entryLayout->addWidget(transportTypeComboBox);
-    entryLayout->addWidget(new QLabel("Distance:"));
-    entryLayout->addWidget(kilometersInput);
-    entryLayout->addWidget(removeButton);
 
     transportListLayout->addWidget(entryWidget);
     transportEntries.append(entryWidget);
 }
 
-void PublicTransportPage::removeTransportEntry(QWidget *entry) {
+void PublicTransportPage::removeTransportEntry(PublicTransportEntryWidget *entry) {
     transportListLayout->removeWidget(entry);
     transportEntries.removeOne(entry);
     entry->deleteLater();
 }
 
 void PublicTransportPage::calculateCarbonFootprint() {
+    QStringList results;
     double totalCarbonFootprint = 0.0;
 
-    for (QWidget *entry : transportEntries) {
-        QComboBox *transportTypeComboBox = entry->findChild<QComboBox *>("TransportTypeComboBox");
-        QLineEdit *kilometersInput = entry->findChild<QLineEdit *>("DistanceInput");
+    for (PublicTransportEntryWidget *entry : transportEntries) {
+        QString transportType = entry->getTransportType();
+        QString distance = entry->getDistance();
 
-        if (!transportTypeComboBox || !kilometersInput) {
-            qDebug() << "One or more inputs are missing.";
+        if (transportType.isEmpty() || distance.isEmpty()) {
+            QMessageBox::warning(this, "Date lipsă", "Completează toate câmpurile pentru fiecare transport public.");
             continue;
         }
 
-        QString command = "python3";
-        QStringList arguments;
-        arguments << "../backend-api-scripts/emissions_by_publicTransport.py"
-                  << transportTypeComboBox->currentText()
-                  << kilometersInput->text()
-                  << "km";
+        string emissions = get_emissions_by_publicTransport(transportType.toStdString(), "Diesel", distance.toStdString(), "km");
 
-        qDebug() << "Command:" << command << arguments;
-
-        QProcess process;
-        process.start(command, arguments);
-        process.waitForFinished();
-
-        QByteArray output = process.readAllStandardOutput();
-        QByteArray error = process.readAllStandardError();
-
-        if (!error.isEmpty()) {
-            qDebug() << "Error:" << error;
+        if (emissions == "Error" || emissions.empty()) {
+            QMessageBox::warning(this, "Eroare", "Nu s-au putut calcula emisiile pentru transportul " + transportType + ".");
             continue;
         }
 
-        if (output.isEmpty()) {
-            qDebug() << "No output received from the script.";
-            continue;
-        }
+        try {
+            double emissionValue = std::stod(emissions);
+            totalCarbonFootprint += emissionValue;
 
-        qDebug() << "Output from script:" << output;
-
-        QJsonDocument jsonResponse = QJsonDocument::fromJson(output);
-        if (jsonResponse.isObject()) {
-            QJsonObject responseObject = jsonResponse.object();
-            if (responseObject.contains("co2e_kg")) {
-                totalCarbonFootprint += responseObject["co2e_kg"].toDouble();
-            } else {
-                qDebug() << "Key 'co2e_kg' not found in JSON response.";
-            }
-        } else {
-            qDebug() << "Invalid JSON response:" << output;
+            QString message = QString("Emisiile pentru %1 sunt: %2 kg CO2")
+                    .arg(transportType, QString::number(emissionValue));
+            results.append(message);
+        } catch (const std::invalid_argument &e) {
+            QMessageBox::warning(this, "Eroare", "Format invalid pentru emisiile calculate: "
+                                                 + QString::fromStdString(emissions));
         }
     }
 
-    resultLabel->setText(QString("Total Carbon Footprint: %1 kg CO₂").arg(totalCarbonFootprint));
+    ExpensesPage::publicTransportCost = totalCarbonFootprint;
+
+    if (!results.isEmpty()) {
+        QMessageBox::information(this, "Emisii calculate", results.join("\n"));
+    }
 }

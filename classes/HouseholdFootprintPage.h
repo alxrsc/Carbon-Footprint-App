@@ -2,6 +2,8 @@
 #define HOUSEHOLDFOOTPRINTPAGE_H
 
 #include "CommonStyles.h"
+#include "ExpensesPage.h"
+#include "../APICalls.h"
 
 #include <QWidget>
 #include <QFormLayout>
@@ -17,6 +19,8 @@ class HouseholdFootprintPage : public QWidget {
 public:
     explicit HouseholdFootprintPage(QWidget *parent = nullptr);
 
+    QVBoxLayout *mainLayout;
+    QScrollArea *scrollArea;
     QPushButton* getBackButton() const { return backButton; }
     QPushButton* getFlightsButton() const { return flightsButton; }
 

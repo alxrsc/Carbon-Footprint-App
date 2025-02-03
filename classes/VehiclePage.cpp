@@ -81,6 +81,10 @@ void VehiclePage::removeVehicleEntry(VehicleEntryWidget *entry) {
 }
 
 void VehiclePage::calculateEmissions() {
+
+    QStringList results;
+    double total = 0;
+
     for (VehicleEntryWidget *entry : vehicleEntries) {
         QString make = entry->getMake();
         QString model = entry->getModel();
@@ -88,23 +92,41 @@ void VehiclePage::calculateEmissions() {
         QString unit = "km"; // Presupunem că distanța este în kilometri
 
         if (make.isEmpty() || model.isEmpty() || distance.isEmpty()) {
-            QMessageBox::warning(this, "Date lipsă", "Completează toate câmpurile pentru fiecare vehicul.");
+            QMessageBox::warning(this, "Missing data", "Complete every field for each vehicle!");
             continue;
         }
 
         // Apelăm funcția C++ care apelează scriptul Python
-        string emissions = get_emissions_by_vehicle_model(make.toStdString(), model.toStdString(), distance.toStdString(), unit.toStdString());
+        string emissions = get_emissions_by_vehicle_model(make.toStdString(),
+                                                          model.toStdString(),
+                                                          distance.toStdString(),
+                                                          unit.toStdString()
+        );
 
         // Verificăm dacă răspunsul este valid
         if (emissions == "Error") {
-            QMessageBox::warning(this, "Eroare", "Nu s-au putut calcula emisiile pentru vehiculul selectat.");
+            QMessageBox::warning(this, "Error", "Emisssions could not be calculated for "
+                                                                    + make + " " + model + "!");
             continue;
         }
 
-        // Afișăm rezultatul
-        QString message = QString("Emisiile pentru %1 %2 pe %3 %4 sunt: %5 kg CO2")
-                .arg(make, model, distance, unit, QString::fromStdString(emissions));
-        QMessageBox::information(this, "Emisii calculate", message);
+        try {
+            total += stod(emissions);
+
+            QString message = QString("Emissions for %1 %2 pe %3 %4 sunt: %5 kg CO2")
+                    .arg(make, model, distance, unit, QString::fromStdString(emissions));
+            results.append(message);
+        } catch (const std::invalid_argument &e) {
+            QMessageBox::warning(this, "Error", "Invalid format for the calculated emissions"
+                                                    + QString::fromStdString(emissions));
+        }
+    }
+
+    ExpensesPage::vehiclesCost = total;
+
+    // Display all results at once
+    if (!results.isEmpty()) {
+        QMessageBox::information(this, "Calculated emissions", results.join("\n"));
     }
 }
 

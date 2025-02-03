@@ -20,7 +20,7 @@ def calculate_carbon_footprint(vehicle_type, distance_value, distance_unit):
 
         # Definirea header-urilor
         headers = {
-            'x-rapidapi-key': "5d10ec62c3mshc305a7605de54b7p1ac4a0jsn6b52cfbed578",
+            'x-rapidapi-key': "b4475b47cemsh84ab8e10c393e19p129f25jsnfd1d45741f35",
             'x-rapidapi-host': "carbonsutra1.p.rapidapi.com",
             'Content-Type': "application/x-www-form-urlencoded",
             'Authorization': "Bearer fQ98oU704xFvsnXcQLVDbpeCJHPglG1DcxiMLKfpeNEMGumlbzVf1lCI6ZBx"
@@ -65,8 +65,9 @@ if __name__ == "__main__":
     # Calcularea amprentei de carbon
     carbon_footprint_kg = calculate_carbon_footprint(vehicle_type, distance_value, distance_unit)
 
+
     # Returnarea rezultatului
     if carbon_footprint_kg is not None:
-        print(json.dumps({"co2e_kg": carbon_footprint_kg}))
+        print(carbon_footprint_kg)
     else:
         print(json.dumps({"error": "Nu s-au putut obține informațiile despre amprenta de carbon."}))

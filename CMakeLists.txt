@@ -42,8 +42,6 @@ add_executable(CarbonFootprintApp
         classes/MainPage.h
         classes/MainController.cpp
         classes/MainController.h
-        classes/FootprintMethodPage.cpp
-        classes/FootprintMethodPage.h
         classes/HouseholdFootprintPage.cpp
         classes/HouseholdFootprintPage.h
         classes/FlightsPage.cpp
@@ -63,6 +61,13 @@ add_executable(CarbonFootprintApp
         classes/ExpensesPage.h
         classes/ExpensesPage.cpp
         APICalls.cpp
+        Utils/HotelStayEntryWidget.h
+        Utils/HotelStayEntryWidget.cpp
+        Utils/MotorbikeEntryWidget.cpp
+        Utils/MotorbikeEntryWidget.cpp
+        Utils/MotorbikeEntryWidget.h
+        Utils/PublicTransportWidget.h
+        Utils/PublicTransportWidget.cpp
 )
 
 # Link Qt libraries

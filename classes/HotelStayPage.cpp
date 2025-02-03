@@ -40,19 +40,14 @@ void HotelStayPage::setupUi() {
     addHotelStayButton->setStyleSheet(BUTTON_STYLE);
     connect(addHotelStayButton, &QPushButton::clicked, this, &HotelStayPage::addHotelStayEntry);
 
-    // Calculate button
-    calculateButton = new QPushButton("Calculate Carbon Footprint", this);
-    calculateButton->setStyleSheet(BUTTON_STYLE);
-    connect(calculateButton, &QPushButton::clicked, this, &HotelStayPage::calculateCarbonFootprint);
-
-    // Result display
-    resultLabel = new QLabel("", this);
-    resultLabel->setAlignment(Qt::AlignCenter);
-    resultLabel->setStyleSheet("font-size: 16px; color: green;");
+    // Calculate Emissions Button
+    QPushButton *calculateEmissionsButton = new QPushButton("Calculate Emissions", this);
+    calculateEmissionsButton->setStyleSheet(BUTTON_STYLE);
+    connect(calculateEmissionsButton, &QPushButton::clicked, this, &HotelStayPage::calculateCarbonFootprint);
 
     // Navigation buttons
     backButton = new QPushButton("< Back", this);
-    expensesPageButton = new QPushButton("Other expenses >", this);
+    expensesPageButton = new QPushButton("Results >", this);
 
     backButton->setStyleSheet(BUTTON_STYLE);
     expensesPageButton->setStyleSheet(BUTTON_STYLE);
@@ -67,8 +62,7 @@ void HotelStayPage::setupUi() {
     mainLayout->addWidget(instructionLabel);
     mainLayout->addWidget(scrollArea);
     mainLayout->addWidget(addHotelStayButton);
-    mainLayout->addWidget(calculateButton);
-    mainLayout->addWidget(resultLabel);
+    mainLayout->addWidget(calculateEmissionsButton);
     mainLayout->addLayout(navLayout);
 
     // Apply a global background color
@@ -78,108 +72,67 @@ void HotelStayPage::setupUi() {
 }
 
 void HotelStayPage::addHotelStayEntry() {
-    QWidget *entryWidget = new QWidget(this);
-    QHBoxLayout *entryLayout = new QHBoxLayout(entryWidget);
+    HotelStayEntryWidget *hotelEntry = new HotelStayEntryWidget(this);
+    hotelStayListLayout->addWidget(hotelEntry);
+    hotelStayEntries.append(hotelEntry);
 
-    // Input for country code
-    QLineEdit *countryCodeInput = new QLineEdit(entryWidget);
-    countryCodeInput->setPlaceholderText("Enter country code (e.g., US, UK)");
-
-    // Input for city name (optional)
-    QLineEdit *cityInput = new QLineEdit(entryWidget);
-    cityInput->setPlaceholderText("Enter city name (optional)");
-
-    // Dropdown for hotel rating (optional)
-    QComboBox *ratingComboBox = new QComboBox(entryWidget);
-    ratingComboBox->addItem("Select Rating (optional)");
-    for (int i = 2; i <= 5; ++i) {
-        ratingComboBox->addItem(QString::number(i) + " Stars");
-    }
-
-    // Input for number of nights
-    QLineEdit *nightsInput = new QLineEdit(entryWidget);
-    nightsInput->setPlaceholderText("Enter number of nights");
-
-    // Input for number of rooms
-    QLineEdit *roomsInput = new QLineEdit(entryWidget);
-    roomsInput->setPlaceholderText("Enter number of rooms");
-
-    // Remove button
-    QPushButton *removeButton = new QPushButton("Remove", entryWidget);
-    removeButton->setStyleSheet(BUTTON_STYLE);
-
-    connect(removeButton, &QPushButton::clicked, [this, entryWidget]() {
-        removeHotelStayEntry(entryWidget);
-    });
-
-    entryLayout->addWidget(new QLabel("Country Code:"));
-    entryLayout->addWidget(countryCodeInput);
-    entryLayout->addWidget(new QLabel("City (Optional):"));
-    entryLayout->addWidget(cityInput);
-    entryLayout->addWidget(new QLabel("Rating:"));
-    entryLayout->addWidget(ratingComboBox);
-    entryLayout->addWidget(new QLabel("Nights:"));
-    entryLayout->addWidget(nightsInput);
-    entryLayout->addWidget(new QLabel("Rooms:"));
-    entryLayout->addWidget(roomsInput);
-    entryLayout->addWidget(removeButton);
-
-    hotelStayListLayout->addWidget(entryWidget);
-    hotelStayEntries.append(entryWidget);
-
-    // Store references to input fields for data collection
-    HotelStayEntry entry;
-    entry.countryCodeInput = countryCodeInput;
-    entry.cityInput = cityInput;
-    entry.ratingComboBox = ratingComboBox;
-    entry.nightsInput = nightsInput;
-    entry.roomsInput = roomsInput;
-    hotelStayInputs.append(entry);
+    // Connect remove signal
+    connect(hotelEntry, &HotelStayEntryWidget::removeRequested, this, &HotelStayPage::removeHotelStayEntry);
 }
 
-void HotelStayPage::removeHotelStayEntry(QWidget *entry) {
+void HotelStayPage::removeHotelStayEntry(HotelStayEntryWidget *entry) {
     hotelStayListLayout->removeWidget(entry);
     hotelStayEntries.removeOne(entry);
     entry->deleteLater();
 }
-
 void HotelStayPage::calculateCarbonFootprint() {
+    // Curățare rezultate anterioare
+    QStringList results;
     double totalCarbonFootprint = 0.0;
-    for (const HotelStayEntry &entry : hotelStayInputs) {
-        QString command = "python3";
-        QStringList arguments;
-        arguments << "../backend-api-scripts/emissions_by_hotelStay.py"
-                  << entry.countryCodeInput->text()
-                  << entry.cityInput->text()
-                  << entry.ratingComboBox->currentText().split(" ").first()
-                  << entry.nightsInput->text()
-                  << entry.roomsInput->text();
 
-        QProcess process;
-        process.start(command, arguments);
-        process.waitForFinished();
+    for (HotelStayEntryWidget *entry : hotelStayEntries) {
+        QString countryCode = entry->countryCodeInput->text();
+        QString city = entry->cityInput->text();
+        QString rating = entry->ratingComboBox->currentText().split(" ").first();
+        QString nights = entry->nightsInput->text();
+        QString rooms = entry->roomsInput->text();
 
-        QByteArray output = process.readAllStandardOutput();
-        QByteArray error = process.readAllStandardError();
-
-        if (!error.isEmpty()) {
-            qDebug() << "Error:" << error;
+        if (countryCode.isEmpty() || city.isEmpty() || rating.isEmpty() || nights.isEmpty() || rooms.isEmpty()) {
+            QMessageBox::warning(this, "Date lipsă", "Completează toate câmpurile pentru fiecare rezervare.");
+            continue;
+        }
+        // Apelează funcția și obține emisiile
+        string emissions = get_emissions_by_hotelStay(
+                countryCode.toStdString(),
+                city.toStdString(),
+                rating.toStdString(),
+                nights.toStdString(),
+                rooms.toStdString()
+        );
+        if (emissions == "Error" || emissions.empty()) {
+            QMessageBox::warning(this, "Eroare", "Nu s-au putut calcula emisiile pentru șederea în "
+                                                 + city + " (" + countryCode + ").");
             continue;
         }
 
-        if (output.isEmpty()) {
-            qDebug() << "No output received from the script.";
-            continue;
-        }
+        try {
+            double emissionValue = std::stod(emissions);
+            totalCarbonFootprint += emissionValue;
 
-        QJsonDocument jsonResponse = QJsonDocument::fromJson(output);
-        if (jsonResponse.isObject()) {
-            QJsonObject responseObject = jsonResponse.object();
-            if (responseObject.contains("co2e_kg")) {
-                totalCarbonFootprint += responseObject["co2e_kg"].toDouble();
-            }
+            QString message = QString("Emisiile pentru șederea în %1 (%2) sunt: %3 kg CO2")
+                    .arg(city, countryCode, QString::number(emissionValue));
+            results.append(message);
+        } catch (const std::invalid_argument &e) {
+            QMessageBox::warning(this, "Eroare", "Format invalid pentru emisiile calculate: "
+                                                 + QString::fromStdString(emissions));
         }
     }
 
-    resultLabel->setText(QString("Total Carbon Footprint: %1 kg CO₂").arg(totalCarbonFootprint));
+    ExpensesPage::hotelStayCost = totalCarbonFootprint;
+
+    // Afișare rezultate
+    if (!results.isEmpty()) {
+        QMessageBox::information(this, "Emisii calculate", results.join("\n"));
+    }
 }
+
