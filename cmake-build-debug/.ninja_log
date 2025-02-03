@@ -11,12 +11,11 @@
 6334	8682	1738163116675327437	CMakeFiles/CarbonFootprintApp.dir/classes/ExpensesPage.cpp.o	dc1b557d86f94734
 899	3311	1738163410021559231	CMakeFiles/CarbonFootprintApp.dir/main.cpp.o	a5ff3e2e82367176
 3226	6446	1738163113567257503	CMakeFiles/CarbonFootprintApp.dir/Utils/VehicleEntryWidget.cpp.o	d889934feea9cd43
-4	336	1738163594241163874	build.ninja	b84bdc02c75c479b
+4	336	1738612343378990047	build.ninja	b84bdc02c75c479b
 14	147	1738163441597815018	CarbonFootprintApp_autogen/timestamp	a148654b9548f94c
 148	1559	1738163441731698947	CMakeFiles/CarbonFootprintApp.dir/classes/MainController.cpp.o	346a824369816969
-143	3226	1738163110483750850	CMakeFiles/CarbonFootprintApp.dir/classes/HouseholdFootprintPage.cpp.o	3221d6ce8b1cf647
 2711	6334	1738163113051742221	CMakeFiles/CarbonFootprintApp.dir/classes/FlightsPage.cpp.o	dcf44109fad0fb1a
 6446	7737	1738163116787329098	CMakeFiles/CarbonFootprintApp.dir/APICalls.cpp.o	c7140e4303a9230d
-155	1858	1738163388556899773	CMakeFiles/CarbonFootprintApp.dir/classes/FootprintMethodPage.cpp.o	b68947e3c4f674e
+143	3226	1738163110483750850	CMakeFiles/CarbonFootprintApp.dir/classes/HouseholdFootprintPage.cpp.o	3221d6ce8b1cf647
 14	147	1738163441597815018	CarbonFootprintApp_autogen/mocs_compilation.cpp	a148654b9548f94c
 3353	7051	1738163113694026241	CMakeFiles/CarbonFootprintApp.dir/classes/VehiclePage.cpp.o	3cfd9db422742669
