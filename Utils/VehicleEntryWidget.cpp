@@ -20,10 +20,6 @@ void VehicleEntryWidget::setupUi(const QStringList &makeList, const QMap<QString
         modelInput->addItems(modelMap.value(make));
     });
 
-    customCarTypeInput = new QLineEdit(this);
-    customCarTypeInput->setPlaceholderText("Enter custom car type if not listed...");
-    formLayout->addRow("Custom Car Type:", customCarTypeInput);
-
     fuelTypeInput = new QComboBox(this);
     fuelTypeInput->addItems({"Diesel", "Petrol", "Electric", "Hybrid"});
     formLayout->addRow("Fuel Type:", fuelTypeInput);

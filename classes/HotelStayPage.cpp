@@ -46,7 +46,7 @@ void HotelStayPage::setupUi() {
     connect(calculateEmissionsButton, &QPushButton::clicked, this, &HotelStayPage::calculateCarbonFootprint);
 
     // Navigation buttons
-    backButton = new QPushButton("< Back", this);
+    backButton = new QPushButton("< Public Transport", this);
     expensesPageButton = new QPushButton("Results >", this);
 
     backButton->setStyleSheet(BUTTON_STYLE);
@@ -92,26 +92,25 @@ void HotelStayPage::calculateCarbonFootprint() {
 
     for (HotelStayEntryWidget *entry : hotelStayEntries) {
         QString countryCode = entry->countryCodeInput->text();
-        QString city = entry->cityInput->text();
+        // QString city = entry->cityInput->text();
         QString rating = entry->ratingComboBox->currentText().split(" ").first();
         QString nights = entry->nightsInput->text();
         QString rooms = entry->roomsInput->text();
 
-        if (countryCode.isEmpty() || city.isEmpty() || rating.isEmpty() || nights.isEmpty() || rooms.isEmpty()) {
+        if (countryCode.isEmpty() || rating.isEmpty() || nights.isEmpty() || rooms.isEmpty()) {
             QMessageBox::warning(this, "Date lipsă", "Completează toate câmpurile pentru fiecare rezervare.");
             continue;
         }
         // Apelează funcția și obține emisiile
         string emissions = get_emissions_by_hotelStay(
                 countryCode.toStdString(),
-                city.toStdString(),
+                "",
                 rating.toStdString(),
                 nights.toStdString(),
                 rooms.toStdString()
         );
         if (emissions == "Error" || emissions.empty()) {
-            QMessageBox::warning(this, "Eroare", "Nu s-au putut calcula emisiile pentru șederea în "
-                                                 + city + " (" + countryCode + ").");
+            QMessageBox::warning(this, "Eroare", "Nu s-au putut calcula emisiile pentru șederea în (" + countryCode + ").");
             continue;
         }
 
@@ -120,7 +119,7 @@ void HotelStayPage::calculateCarbonFootprint() {
             totalCarbonFootprint += emissionValue;
 
             QString message = QString("Emisiile pentru șederea în %1 (%2) sunt: %3 kg CO2")
-                    .arg(city, countryCode, QString::number(emissionValue));
+                    .arg("", countryCode, QString::number(emissionValue));
             results.append(message);
         } catch (const std::invalid_argument &e) {
             QMessageBox::warning(this, "Eroare", "Format invalid pentru emisiile calculate: "

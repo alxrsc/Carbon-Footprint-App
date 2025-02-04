@@ -49,7 +49,7 @@ void PublicTransportPage::setupUi() {
     resultLabel->setStyleSheet("font-size: 16px; color: green;");
 
     // Navigation buttons
-    backButton = new QPushButton("< Back", this);
+    backButton = new QPushButton("< Motorbikes", this);
     hotelStayButton = new QPushButton("Hotel Stays >", this);
     backButton->setStyleSheet(BUTTON_STYLE);
     hotelStayButton->setStyleSheet(BUTTON_STYLE);

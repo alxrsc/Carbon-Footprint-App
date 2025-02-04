@@ -87,19 +87,12 @@ string get_emissions_by_electricity(string country_name, string electricity_valu
 
 string get_carbon_footprint_flight(string iata_airport_from, string iata_airport_to, string flight_class, string round_trip, string number_of_passengers) {
 
-    // Adăugarea caracterului de escape pentru spațiu
-    for(int i = 0; i < flight_class.size(); i++) {
-        if(flight_class[i] == ' ') {
-            flight_class.insert(i, "\\");
-            i++;
-        }
-    }
 
     // Crearea comenzii pentru a executa scriptul Python
     string command = "python3 ../backend-api-scripts/emissions_by_flight.py "
                      + iata_airport_from + " "  // Aeroportul de plecare
-                     + iata_airport_to + " "    // Aeroportul de sosire
-                     + flight_class + " "       // Clasa de zbor
+                     + iata_airport_to + " \""    // Aeroportul de sosire
+                     + flight_class + "\" "       // Clasa de zbor
                      + round_trip + " "         // Tipul de zbor
                      + number_of_passengers;    // Numărul de pasageri
 
@@ -238,27 +231,10 @@ string get_emissions_by_publicTransport(string vehicle_type, string fuel_type, s
 }
 
 string get_emissions_by_vehicle_model(string make, string model, string distance, string unit) {
-    // Verificăm dacă parametrii sunt valizi
-    // adaugam caracterul de escape pentru spatiu
-    for(int i = 0; i < make.size(); i++) {
-        if(make[i] == ' ') {
-            make.insert(i, "\\");
-            i++;
-        }
-    }
-
-    for(int i = 0; i < model.size(); i++) {
-        if(model[i] == ' ') {
-            model.insert(i, "\\");
-            i++;
-        }
-    }
-
-    cout << make << " " << model << " " << distance << " " << unit << endl;
-
     // Construim comanda pentru a apela scriptul Python
-    string command = "python3 ../backend-api-scripts/emissions_by_vehicle_model.py " + make + " " + model + " " + distance + " " + unit;
+    string command = "python3 ../backend-api-scripts/emissions_by_vehicle_model.py \"" + make + "\" \"" + model + "\" " + distance + " " + unit;
 
+    cout << command << endl;
     // Buffer pentru citirea rezultatului
     char buffer[128];
     string result;

@@ -125,7 +125,7 @@ void FlightsPage::calculateFlightEmissions() {
         QString airportFrom = entry->getAirportFrom();
         QString airportTo = entry->getAirportTo();
         QString flightClass = entry->getFlightClass();
-        QString roundTrip = entry->isRoundTrip() ? "yes" : "no";
+        QString roundTrip = entry->isRoundTrip() ? "Y" : "N";
         QString numberOfPassengers = entry->getNumberOfPassengers();
 
         if (airportFrom.isEmpty() || airportTo.isEmpty() || flightClass.isEmpty() || numberOfPassengers.isEmpty()) {

@@ -1,5 +1,5 @@
-/Users/alexandrurosca/Desktop/Facultate/Anul 2/POO/Carbon_Footprint_App/cmake-build-debug/CMakeFiles/CarbonFootprintApp.dir
-/Users/alexandrurosca/Desktop/Facultate/Anul 2/POO/Carbon_Footprint_App/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/alexandrurosca/Desktop/Facultate/Anul 2/POO/Carbon_Footprint_App/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/alexandrurosca/Desktop/Facultate/Anul 2/POO/Carbon_Footprint_App/cmake-build-debug/CMakeFiles/CarbonFootprintApp_autogen_timestamp_deps.dir
-/Users/alexandrurosca/Desktop/Facultate/Anul 2/POO/Carbon_Footprint_App/cmake-build-debug/CMakeFiles/CarbonFootprintApp_autogen.dir
+C:/Users/surug/CLionProjects/Carbon-Footprint-App/cmake-build-debug/CMakeFiles/CarbonFootprintApp.dir
+C:/Users/surug/CLionProjects/Carbon-Footprint-App/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/surug/CLionProjects/Carbon-Footprint-App/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/surug/CLionProjects/Carbon-Footprint-App/cmake-build-debug/CMakeFiles/CarbonFootprintApp_autogen_timestamp_deps.dir
+C:/Users/surug/CLionProjects/Carbon-Footprint-App/cmake-build-debug/CMakeFiles/CarbonFootprintApp_autogen.dir

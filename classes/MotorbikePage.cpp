@@ -53,7 +53,7 @@ void MotorbikePage::setupUi() {
     resultLabel->setStyleSheet("font-size: 16px; color: green;");
 
     // Navigation buttons
-    backButton = new QPushButton("< Back", this);
+    backButton = new QPushButton("< Vehicles", this);
     publicTransportButton = new QPushButton("Public Transport >", this);
 
     backButton->setStyleSheet(BUTTON_STYLE);
