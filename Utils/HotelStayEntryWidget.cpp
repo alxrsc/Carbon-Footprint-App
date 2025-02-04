@@ -10,13 +10,8 @@ void HotelStayEntryWidget::setupUi() {
 
     // Country Code Input
     countryCodeInput = new QLineEdit(this);
-    countryCodeInput->setPlaceholderText("Enter country code (e.g., US, UK)");
+    countryCodeInput->setPlaceholderText("Enter country code (e.g., US, DE)");
     formLayout->addRow("Country Code:", countryCodeInput);
-
-    // // City Input
-    // cityInput = new QLineEdit(this);
-    // cityInput->setPlaceholderText("Enter city name (optional)");
-    // formLayout->addRow("City (Optional):", cityInput);
 
     // Hotel Rating Dropdown
     ratingComboBox = new QComboBox(this);
@@ -50,7 +45,6 @@ void HotelStayEntryWidget::setupUi() {
 QString HotelStayEntryWidget::getCountryCode() const {
     return countryCodeInput->text();
 }
-
 
 QString HotelStayEntryWidget::getHotelRating() const {
     return ratingComboBox->currentText();

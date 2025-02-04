@@ -128,6 +128,16 @@ void FlightsPage::calculateFlightEmissions() {
         QString roundTrip = entry->isRoundTrip() ? "Y" : "N";
         QString numberOfPassengers = entry->getNumberOfPassengers();
 
+        if(numberOfPassengers == "0") {
+            totalEmissions += 0;
+
+            QString message = QString("Emissions for the flight from %1 to %2 are: %3 kg CO2")
+                    .arg(airportFrom, airportTo, QString::number(0));
+            results.append(message);
+
+            continue;
+        }
+
         if (airportFrom.isEmpty() || airportTo.isEmpty() || flightClass.isEmpty() || numberOfPassengers.isEmpty()) {
             QMessageBox::warning(this, "Missing data", "Complete every field for each flight!");
             continue;
