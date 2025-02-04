@@ -25,7 +25,6 @@ class FlightEntryWidget : public QWidget {
     QLineEdit *destinationAirportInput;
     QComboBox *classInput;
     QCheckBox *roundTripCheckBox;
-    //QCheckBox *radiativeForcingCheckBox;
     QLineEdit *numberOfPassengersInput;
 
     QString getAirportFrom() const;

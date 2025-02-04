@@ -16,7 +16,6 @@ class HotelStayEntryWidget : public QWidget {
 public:
     explicit HotelStayEntryWidget(QWidget *parent = nullptr);
     QString getCountryCode() const;
-    // QString getCity() const;
     QString getHotelRating() const;
     QString getNights() const;
     QString getRooms() const;
@@ -26,7 +25,6 @@ public:
 
 public:
     QLineEdit *countryCodeInput;
-    // QLineEdit *cityInput;
     QComboBox *ratingComboBox;
     QLineEdit *nightsInput;
     QLineEdit *roomsInput;

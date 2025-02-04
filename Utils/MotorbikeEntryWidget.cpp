@@ -11,7 +11,6 @@
 
 #endif //CARBONFOOTPRINTAPP_MOTORBIKEENTRYWIDGET_H
 
-#include "MotorbikeEntryWidget.h"
 
 MotorbikeEntryWidget::MotorbikeEntryWidget(QWidget *parent) : QWidget(parent) {
     setupUi();

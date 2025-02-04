@@ -129,7 +129,7 @@ void FlightsPage::calculateFlightEmissions() {
         QString numberOfPassengers = entry->getNumberOfPassengers();
 
         if (airportFrom.isEmpty() || airportTo.isEmpty() || flightClass.isEmpty() || numberOfPassengers.isEmpty()) {
-            QMessageBox::warning(this, "Date lipsă", "Completează toate câmpurile pentru fiecare zbor.");
+            QMessageBox::warning(this, "Missing data", "Complete every field for each flight!");
             continue;
         }
 
@@ -143,8 +143,8 @@ void FlightsPage::calculateFlightEmissions() {
         );
 
         if (emissions == "Error" || emissions.empty()) {
-            QMessageBox::warning(this, "Eroare", "Nu s-au putut calcula emisiile pentru zborul de la "
-                                                 + airportFrom + " la " + airportTo + ".");
+            QMessageBox::warning(this, "Error", "We could not calculate the emissions for the flight from "
+                                                 + airportFrom + " to " + airportTo + ".");
             continue;
         }
 
@@ -152,11 +152,11 @@ void FlightsPage::calculateFlightEmissions() {
             double emissionValue = std::stod(emissions);
             totalEmissions += emissionValue;
 
-            QString message = QString("Emisiile pentru zborul de la %1 la %2 sunt: %3 kg CO2")
+            QString message = QString("Emissions for the flight from %1 to %2 are: %3 kg CO2")
                     .arg(airportFrom, airportTo, QString::number(emissionValue));
             results.append(message);
         } catch (const std::invalid_argument &e) {
-            QMessageBox::warning(this, "Eroare", "Format invalid pentru emisiile calculate: "
+            QMessageBox::warning(this, "Error", "Invalid format for calculated emissions:"
                                                  + QString::fromStdString(emissions));
         }
     }
@@ -165,7 +165,7 @@ void FlightsPage::calculateFlightEmissions() {
 
     // Display all results at once
     if (!results.isEmpty()) {
-        QMessageBox::information(this, "Emisii calculate", results.join("\n"));
+        QMessageBox::information(this, "Calculated emissions", results.join("\n"));
     }
 }
 

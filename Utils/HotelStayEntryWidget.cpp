@@ -51,9 +51,6 @@ QString HotelStayEntryWidget::getCountryCode() const {
     return countryCodeInput->text();
 }
 
-// QString HotelStayEntryWidget::getCity() const {
-//     return cityInput->text();
-// }
 
 QString HotelStayEntryWidget::getHotelRating() const {
     return ratingComboBox->currentText();

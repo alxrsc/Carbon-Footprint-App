@@ -95,14 +95,14 @@ void PublicTransportPage::calculateCarbonFootprint() {
         QString distance = entry->getDistance();
 
         if (transportType.isEmpty() || distance.isEmpty()) {
-            QMessageBox::warning(this, "Date lipsă", "Completează toate câmpurile pentru fiecare transport public.");
+            QMessageBox::warning(this, "Missing data", "Complete every field for each public transport.");
             continue;
         }
 
         string emissions = get_emissions_by_publicTransport(transportType.toStdString(), "Diesel", distance.toStdString(), "km");
 
         if (emissions == "Error" || emissions.empty()) {
-            QMessageBox::warning(this, "Eroare", "Nu s-au putut calcula emisiile pentru transportul " + transportType + ".");
+            QMessageBox::warning(this, "Error", "We could not calculate the emissions for the transport: " + transportType + ".");
             continue;
         }
 
@@ -110,11 +110,11 @@ void PublicTransportPage::calculateCarbonFootprint() {
             double emissionValue = std::stod(emissions);
             totalCarbonFootprint += emissionValue;
 
-            QString message = QString("Emisiile pentru %1 sunt: %2 kg CO2")
+            QString message = QString("Emissions for the %1 are: %2 kg CO2")
                     .arg(transportType, QString::number(emissionValue));
             results.append(message);
         } catch (const std::invalid_argument &e) {
-            QMessageBox::warning(this, "Eroare", "Format invalid pentru emisiile calculate: "
+            QMessageBox::warning(this, "Error", "Invalid format for the calculated emissions: "
                                                  + QString::fromStdString(emissions));
         }
     }
@@ -122,6 +122,6 @@ void PublicTransportPage::calculateCarbonFootprint() {
     ExpensesPage::publicTransportCost = totalCarbonFootprint;
 
     if (!results.isEmpty()) {
-        QMessageBox::information(this, "Emisii calculate", results.join("\n"));
+        QMessageBox::information(this, "Calculated emissions", results.join("\n"));
     }
 }

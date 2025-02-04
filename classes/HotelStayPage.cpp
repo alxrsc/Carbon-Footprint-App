@@ -98,7 +98,7 @@ void HotelStayPage::calculateCarbonFootprint() {
         QString rooms = entry->roomsInput->text();
 
         if (countryCode.isEmpty() || rating.isEmpty() || nights.isEmpty() || rooms.isEmpty()) {
-            QMessageBox::warning(this, "Date lipsă", "Completează toate câmpurile pentru fiecare rezervare.");
+            QMessageBox::warning(this, "Missing data", "Complete every field for every booking.");
             continue;
         }
         // Apelează funcția și obține emisiile
@@ -110,7 +110,7 @@ void HotelStayPage::calculateCarbonFootprint() {
                 rooms.toStdString()
         );
         if (emissions == "Error" || emissions.empty()) {
-            QMessageBox::warning(this, "Eroare", "Nu s-au putut calcula emisiile pentru șederea în (" + countryCode + ").");
+            QMessageBox::warning(this, "Error", "We could not calculate the emissions for the booking in (" + countryCode + ").");
             continue;
         }
 
@@ -118,11 +118,11 @@ void HotelStayPage::calculateCarbonFootprint() {
             double emissionValue = std::stod(emissions);
             totalCarbonFootprint += emissionValue;
 
-            QString message = QString("Emisiile pentru șederea în %1 (%2) sunt: %3 kg CO2")
-                    .arg("", countryCode, QString::number(emissionValue));
+            QString message = QString("Calculated emissions for the stay in (%1) sunt: %2 kg CO2")
+                    .arg(countryCode, QString::number(emissionValue));
             results.append(message);
         } catch (const std::invalid_argument &e) {
-            QMessageBox::warning(this, "Eroare", "Format invalid pentru emisiile calculate: "
+            QMessageBox::warning(this, "Error", "Invalid format for the calculated emissions: "
                                                  + QString::fromStdString(emissions));
         }
     }
